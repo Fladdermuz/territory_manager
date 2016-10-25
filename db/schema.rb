@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20110104170822) do
+ActiveRecord::Schema.define(version: 20160417045926) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "neighborhood",    limit: 255
@@ -66,6 +66,21 @@ ActiveRecord::Schema.define(version: 20110104170822) do
     t.integer  "congregation_id", limit: 4
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "map_layers", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "layer_url",  limit: 255
+    t.string   "provider",   limit: 255
+    t.text     "api_key",    limit: 65535
+    t.integer  "max_zoom",   limit: 4
+    t.integer  "min_zoom",   limit: 4
+    t.boolean  "is_mapbox",                default: false
+    t.string   "map_type",   limit: 255
+    t.string   "file_ext",   limit: 255
+    t.string   "subdomains", limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "territories", force: :cascade do |t|

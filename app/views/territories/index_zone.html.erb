@@ -63,7 +63,7 @@
 
 <% if territory.is_dynamic? %>
  <%if territory.coordinates.nil?%>
-<img src="http://maps.google.com/maps/api/staticmap?center=<%=territory.center_coordinate%>path=color:<%=territory.color%>|weight:5|fillcolor:<%=territory.color%>&size=512x512&zoom=<%=territory.zoom%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+<img src="http://maps.google.com/maps/api/staticmap?center=<%=territory.center_coordinate%>path=color:<%=territory.color%>|weight:5|fillcolor:<%=territory.color%>&size=512x512&zoom=<%=territory.zoom%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
 </img>
 <%end%>
 
@@ -76,7 +76,7 @@
   <%=cord.coordinate%>
   <%= "|" unless cord == territory.coordinates.last %>
      <%end%>
-&size=620x512&maptype=<%=territory.maptype%>&zoom=<%=territory.zoom%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+&size=620x512&maptype=<%=territory.maptype%>&zoom=<%=territory.zoom%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
 </img>
 
 

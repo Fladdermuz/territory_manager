@@ -24,7 +24,7 @@
 
             <% if @territory.coordinates.length == 1%>
              <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.coordinates[0].coordinate%>
-              &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+              &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
              <%end%>
 
               <% if @territory.coordinates.length > 1%>
@@ -33,13 +33,13 @@
                    <%=cord.coordinate%>
                    <%="|" unless cord == @territory.coordinates.last %>
                  <%end%>
-                   &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+                   &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
               <%end%>
 
 
                 <%if !@territory.center_coordinate.blank? && !@territory.coordinates.any? %>
                     <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.center_coordinate%>
-                    &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+                    &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
                 <%end%>
 
           <%end%>
