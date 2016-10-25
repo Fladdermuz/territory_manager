@@ -1,0 +1,72 @@
+<div class="card">
+  <div class="card-header">
+    <h1><%=t :territories %></h1>
+  </div>
+  <div class="card-block">
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th><%=t :terr_que%></th>
+  </tr>
+  </thead>
+  <%if @territories.count < 1%>
+  <tr>
+    <td>  <%=t :none_in_queue%> </td>
+  </tr>
+  <%end%>
+</table>
+
+<% @territories.each do |territory| %>
+ <table class="table table-bordered table-striped">
+  <tr>
+    <th class="territory_number"><%=t :territory_number %></th>
+     <th class="territory_status"><%=t :territory_status %></th>
+    <th class="territory_descript"><%=t :description %> </th>
+    <th class="territory_last_worked"><%= t :last_worked  %> </th>
+     <th class="territory_zone"><%= t :zone  %> </th>
+     <th class="territory_zone"><%=t :remove_from_que%></th>
+
+
+  </tr>
+  <tr>
+    <td><b><%=h territory.territory_no  %></b>
+
+ 
+    </td>
+     <td>
+     <%if territory.is_checked_in == true     %>
+
+         <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),:action=>"check_out",:territory_id =>territory.id %>
+     <%end%>
+
+  <%if territory.is_checked_in == false     %>
+
+         <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),:action=>"check_in",:territory_id =>territory.id %>
+     <%end%>
+
+     </td>
+    <td><%=h territory.descrip %></td>
+    <td><%=h territory.last_worked %></td>
+    <td>
+      <%=link_to("#{territory.zone.zone_no}",:controller=>"zones",:action=> 'show',id: territory.zone.id)%>
+    </td>
+    <td><%= link_to image_tag("remove.gif",:class=>"button",:size=>"36x36",:title=>"#{t :remove_from_que}"),:controller=>"territories",action: 'remove_from_que', :terr => territory.id%></td>
+     </tr>
+
+  <% @territory = territory %>
+   <tr>
+     <td colspan="6">  <%= render :partial => "territories/dynamic_maps", :locals => { :territory => @territory } %>  </td>
+   </tr>
+   <tr>
+     <td colspan="6"><%=t :printed_by%><%=  territory.reserved_by%>  </td>
+   </tr>
+
+ </table>
+
+
+
+
+<% end %>
+</div>
+    </div>

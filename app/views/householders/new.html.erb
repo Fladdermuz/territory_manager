@@ -1,0 +1,60 @@
+
+
+
+<div class="card">
+  <div class="card-header">
+    <h1><%=t :new_householder %></h1>
+  </div>
+  <div class="card-block">
+
+
+  <%= form_for(@householder) do |f| %>
+
+   <table class="table table-striped">
+     <tr>
+       <td><%=t :first_name %></td>
+       <td><%= f.text_field :fname, class: 'txt-field' %></td>
+     </tr>
+     <tr>
+       <td><%=t :last_name %></td>
+       <td><%= f.text_field :lname, class: 'txt-field' %></td>
+     </tr>
+     <tr>
+       <td><%=t :notes %></td>
+       <td><%= f.text_area :notes, class: 'txt-field' %></td>
+     </tr>
+     <tr>
+       <td><%=t :phone %></td>
+       <td><%= f.text_field :phone, class: 'txt-field' %></td>
+     </tr>
+     <tr>
+         <% if !@addressID.nil? %>
+           <%= f.hidden_field :address_id, :value => @addressID %>
+         <%end%>
+      <td><%=t :call_date %> </td>
+       <td> <%= f.text_field :call_date, class: 'datepicker txt-field' %></td>
+     </tr>
+     <tr>
+       <td>
+         <%= f.hidden_field :congregation_id, :value => session[:congid] %>
+         <%= f.submit "#{t :create}", class: 'btn btn-primary' %>
+       </td>
+       <td>
+       </td>
+       </tr>
+       </table>
+
+
+<% end %>
+ </div>
+    </div>
+
+
+<script type="text/javascript" language="javascript">
+    document.getElementById("householder_fname").focus();
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            language: "<%=session[:locale]%>"
+        });
+    });
+</script>

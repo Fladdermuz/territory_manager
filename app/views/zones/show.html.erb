@@ -1,0 +1,32 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1> <%= t :zone %> </h1>
+  </div>
+  <div class="card-block">
+
+    <table class="table table-striped">
+      <tr>
+        <td> <b><%=t :zone%> #</b></td>
+        <td> <%= @zone.zone_no %><%= link_to image_tag('edit.png'), edit_zone_path(@zone), class: 'btn-right' %></td>
+      </tr>
+      <tr>
+        <td><b><%=t :description%></b></td>
+        <td><%= @zone.descrip %></td>
+        </tr>
+      <tr>
+        <td colspan="2">
+          <%if @zone.img_url.size > 0 %>
+           <%= image_tag("/images/#{session[:congid]}/#{@zone.img_url}")  %>
+          <%else%>
+          <%end%>
+        </td>
+        </tr>
+
+ </table>
+
+
+</div>
+</div>

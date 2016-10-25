@@ -1,0 +1,29 @@
+<br>
+<div class="card">
+ <div class="card-header checkout">
+   <%=t :check_out %>
+ </div>
+
+<div class="card-block">
+
+ <%= form_tag '/territories/check_out_post' do -%>
+      <table class="table table-striped">
+        <tr>
+          <td><%=t :checked_out_by %></td>
+          <td><%= text_field nil, 'cob',class: 'txt-field',placeholder: "#{t :publisher}" %></td>
+        </tr>
+        <%= hidden_field_tag "territory_id", @t %>
+        <tr>
+          <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
+        </tr>
+      </table>
+
+
+ <% end -%>
+
+ </div>
+  </div>
+  
+
+
+</div>

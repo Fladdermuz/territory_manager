@@ -1,0 +1,72 @@
+<%= stylesheet_link_tag 'users'  %>
+
+<h1><%=t :newuser%></h1>
+
+<div class="show">
+<% form_for(@user) do |f| %>
+  <center> </center>
+
+  <p>
+    <%=t :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%=t :passwordmsg %><br />
+    <%= f.text_field :password %>
+  </p>
+  <p>
+  
+    <% if session[:role] == "admin" %>
+      <%=t :congregation %><br />
+   <%= f.select(:congregation_id, Congregation.find(:all).collect {|c| [ c.congname , c.id ] }) %>
+   <%else%>
+
+          <%= f.hidden_field :congregation_id, :value => session[:congid] %>
+  <% end %>
+
+    
+
+  </p>
+  <p>
+    <%=t :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%=t :first_name %><br />
+    <%= f.text_field :fname %>
+  </p>
+  <p>
+    <%=t :last_name %><br />
+    <%= f.text_field :lname %>
+  </p>
+
+    <% if session[:role] == "admin" %>
+  <p>
+    <%=t :isadmin %><br />
+    <%= f.check_box :isadmin %>
+  </p>
+  <%end%>
+  
+    <p>
+     <%=t :iscongadmin %><br />
+    <%= f.check_box :iscongadmin %>
+  </p>
+ 
+  <p>
+     <%=t :mappref %><br />
+    <%= f.select(:mappref,[['satellite'], ['roadmap'],['hybrid'],['terrain']])%>
+  </p>
+
+   <p>
+     <%=t :lang %><br />
+    <%= f.select(:sitelang,[['en'], ['es']])%>
+  </p>
+
+
+  <p>
+    <%= f.submit "#{t :create}" %>
+  </p>
+<% end %>
+
+<%= link_to "#{t :back}", users_path %>
+</div>

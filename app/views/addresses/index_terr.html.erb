@@ -1,0 +1,78 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1> <%= t :address_list %> </h1>
+  </div>
+
+  <div class="card-block">
+
+
+
+
+<table class="table table-striped">
+  <tr>
+   <th><%=t :house_number %></th>
+    <th><%=t :street %></th>
+    <th><%=t :apartment_number %></th>
+    <th><%=t :city %></th>
+    <th><%=t :call_date %></th>
+    <th><%=t :territory_number %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+
+  </tr>
+
+
+ <% @addresses.each do |address| %>
+
+  <tr>
+    <td>
+ <% if !address.coordinate.nil? && Congregation.find(session[:congid]).is_coordinate_only == true%>
+ <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
+  <%else%>
+    <%=h address.house_no %>
+   <%end%>
+
+    </td>
+    <td>
+
+      <%= link_to address.street, {:controller => 'addresses',:action => 'index_street',:street => address.street}, {:style=>'color:black;', :class => "streetlink"} %>
+</td>
+    <td><%=h address.apt_no %></td>
+    <td><%=h address.city %></td>
+    <td><%=h address.call_date %></td>
+    <td><%=h address.territory.territory_no %>
+    <%= link_to("#{t :view}",:controller => 'territories',:action => 'show' ,id:  address.territory_id) %>
+    </td>
+   
+
+    <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
+    <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_address_path(address) %></td>
+    <td><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), address, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+    <td><%= link_to image_tag("householderadd.png",:class=>"button",:size=>"36x36",:title=>"#{t :add}"),:controller=>"householders",:action=>"new",:addressID => address.id  %></td>
+  </tr>
+
+
+  <%  address.householders.each do |hh| %>
+    <tr>
+      <td colspan="8">
+       <%=link_to image_tag("householder2.png",:size =>"38x38",:onmouseover => "this.src='/images/householder3.png'",:onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show',id: hh.id %>
+       <%=link_to hh.fname,:controller =>'householders',:action => 'show', id: hh.id %>
+      </td>
+      <td colspan="2">
+        <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
+     </td>
+      </tr>
+  <% end %>
+
+
+<% end %>
+</table>
+ </div>
+    </div>
+
+

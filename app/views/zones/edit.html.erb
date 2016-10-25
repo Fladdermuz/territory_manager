@@ -1,0 +1,43 @@
+
+<div class="card">
+  <div class="card-header">
+
+    <h1> <%= t :edit_zone %>
+
+     </h1>
+  </div>
+  <div class="card-block">
+
+
+
+<%= form_for(@zone) do |f| %>
+  <table class="table table-striped">
+    <tr>
+      <td> <b><%=t :zone%> </b> </td>
+      <td> <%= f.text_field :zone_no %>
+        <%= link_to image_tag('view.png'), @zone, class: 'btn-right' %>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td> <b><%=t :description%></b> </td>
+      <td> <%= f.text_area :descrip %> </td>
+    </tr>
+
+    <tr>
+      <td> <b><%=t :imgurl%></b> </td>
+      <td>  <%= f.text_field :img_url %> </td>
+      </tr>
+
+    <tr>
+      <td colspan="2"><%= f.submit "#{t :update}", class: 'btn btn-primary' %> </td>
+  </tr>
+    </table>
+
+<% end %>
+
+
+
+</div>
+</div>

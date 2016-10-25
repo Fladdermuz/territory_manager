@@ -1,0 +1,228 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es:
+  new: "Nuevo"
+  home: "Inicio"
+  notes: "Notas"
+  search: "Búsqueda"
+  description: "Descripcion"
+  view: "Ver"
+  edit: "Editar"
+  back: "Atras"
+  show: "Mostrar"
+  zone: "Zona"
+  image: "Imagen"
+  next: "Siguiente >>"
+  previous: "<< Anterior"
+  delete: "Borrar"
+  add: "Añadir"
+  create: "Crear"
+  call_date:  "Fecha de Visita"
+  update: "Actualizar"
+  are_you_sure: "¿Borrar? ¿Seguro?"
+  check_in_sure: "¿Regresar? ¿Seguro?"
+  delete_householder_confirm: "Eso va borrar el amo de casa,?esta seguro?"
+  logoff: "Cerrar la Sesión"
+  done: "Hecho"
+  help: "Ayuda"
+  date: "Fecha"
+  publisher: "Nombre de Publicadora"
+  no_street: "No pusiste la calle!"
+
+  #For Main Index Page
+ 
+
+  address_button: "Admin Direcciones"
+  householder_button: "Amos de Casa"
+  territory_button:  "Territorios"
+  zone_button: "Zonas"
+  # end main index
+
+
+
+  # For Territories page
+
+  territories: "Territorios"
+  terr_needing_work: "Territorios que Necesitan la Predicación"
+  new_territory: "Territorios Nuevo"
+  territory_number: "# de Territorio"
+  terr_no: "Terr #"
+  last_worked: "Última vez trabajado"
+  no_addresses_available_in_ter: "Perdón, no hay direcciones para este territorio"
+  territory_status: "Estado"
+  check_out: "Asignar"
+  check_in: "Regresar"
+  checked_in: "Disponible"
+  checked_out: "En Uso"
+  checked_out_by: "Sacado por"
+  report: "Informe"
+  history: "Historia"
+  manage_histories: "Administrar Historias"
+  available: "Disponible"
+  unavailable: "Actualmente en uso"
+  checked_out_success: "Territorio Asignado"
+  checked_in_success: "Territorio Regresó"
+  go_to_terr: "Ir a Territorio #"
+  go: "Ir"
+  show_all: "Mostrar Todos"
+  address_count: "Cantidad de Direcciones"
+  count: "Contar"
+  zoom: "Enfocar"
+  print_addresses: "Imprimir Direcciones"
+  print_phone: "Imprimir Territorio Teléfono"
+  imgurl: "URL de la Imagen"
+  overdue: "Atrasado"
+  terrnotfound: "Territorio no se encuentra en el sistema"
+  territory_reminder: "Por favor, no dé a su territorio a otros."
+  edit_territory: "Editar Territorio"
+  ischeckedin: "¿Está Disponible?"
+  isreserved_warning: "¡Atención! este territorio fue impreso por:"
+  isreserved_warning2: "y está a la espera de asignación."
+  remove_from_que: "Borrar de la Cola "
+  terr_que: "Territorios en Espera de Asignación"
+  none_in_queue: "Cola vacía"
+  printed_by: "Impresa por: "
+  getbackup: "Obtener una Copia de Seguridad"
+  new_static_territory: "Nueva estática Territorio"
+  new_dynamic_territory: "Nueva Bordeado Territorio"
+  new_dynamic_territory_circle: "Nueva Centrado Territorio"
+  center_coordinate: "Centro de Coordinación"
+  coordinate: "Coordinar"
+  clear_coordinates: "Borrar todas las coordenadas"
+  clear_last_coordinate: "Borrar Última Coordinar"
+  new_coordinate: "Nuevas Coordenadas"
+  new_coordinate: "Nuevas/Editar Coordenadas"
+  close_loop: "Cerrar el Ciclo"
+  fill_color: "Color de relleno"
+  border_color: "Color del borde"
+  maptype: "Tipo de Mapa"
+  no_map_available: "Ningún mapa disponible"
+  notes: "Notas"
+  never_used: "Nunca Utilizado"
+
+
+  #territory Histories
+  territory_histories: "Territorio Historias"
+  check_out_date: "Fecha de Conseguir"
+  check_in_date: "Fecha de Regreso"
+  territory: "Territorio"
+  new_history: "Nuevo Territorio Historia"
+  report_for: "Informe para:"
+  edit_history: "Editar Historia"
+
+
+
+
+  # Address Pages
+  addresses: "Direcciones"
+  address: "Direccion"
+  address_created: "La dirección se ha creado correctamente."
+  address_list: "Direcciones"
+  add_new_to_to_territory: "Añadir Nueva Dirección a Territorio"
+  newaddress_button: "Nueva Dirección"
+  neighborhood: "Barrio o Sub Division"
+  newaddress: "Nueva Dirección"
+  edit_address: "Editar Dirección"
+  search_by_street_button: "Calle Búsqueda"
+  search_by_house_number_button: "Número de Casa"
+  search_by_house_number: "Búsqueda por número de casa"
+  terr_search_button: "Territorio Búsqueda"
+  search_all_houses_button: "Todas Direcciones"
+  street_search:  "Calle Búsqueda"
+  house_number: "Casa #"
+  street: "Calle"
+  apartment_number: "Apartamento #"
+  apt_no: "Apt #"
+  city: "Ciudad"
+  state: "Estado"
+  symbol: "Symbol"
+  zip: "Código Postal"
+  add_householder_to_address: "Añadir nuevo contacto" #Tool Tip
+  first_name_only: "Primer Nombre Solamente (Creación Rápida)"
+  select_terr: "Territorio Seleccione"
+  google_alt: "Añadir dirección alternativa para Google Maps"
+  google_alt_remove: "Borrar la dirección alternativa de Google Maps"
+  removed_alt_address: "Eliminada Dirección Atlternate"
+  althouse: "Número de Casa Alternativa"
+  altstreet: "Calle Alternativa"
+  altcity: "Ciudad Alternativa"
+  address_not_found: "Dirección no encontrada"
+  correct_territory?: "Por favor, compruebe que este es el terriotrio correcto."
+  dont_be_daft: "Debe seleccionar un territorio!"
+  hide_map: "No imprima mapa de google"
+  what_territory: "Cuál territorio?"
+  territory_has_no_cords: "Este territorio no tiene coordenadas"
+
+  #Householders
+  householders: "Amos de Casa"
+  new_householder_button: "Nuevo A.D.C."
+  new_householder_at: "Amos de Casa Nuevo en:"
+  new_householder: "Nuevo Amos de Casa"
+  find_householder_button: "A.D.C. Búsqueda"
+  search_householder: "Nombre de Amos de Casa "
+  first_name: "Nombre"
+  last_name: "Apellido"
+  creation_success:  "¡El contacto se ha creado correctamente!"
+  phone: "Teléfono"
+  edit_householder: "Editar Amos de Casa"
+  assign_new_address: "Asignar a la Dirección Actual"
+  search_for_address: "Introducir la Nueva Dirección"
+  address: "Dirección"
+  has_no_address: "No hay dirección de esta persona"
+  all_householders: "Mostrar Todos"
+  #zones
+  zones: "Zonas"
+  zone: "Zona"
+  new_zone: "Nueva Zona"
+  edit_zone: "Editar Zona"
+  terrs_in_zone: "Territorios en la Zona"
+#USERS
+
+  user_button: "Usuarios"
+  username: "Nombre de Usuario"
+  name: "Nombre"
+  newuser: "Nuevo Usario"
+  isadmin: "¿Es Administrador?"
+  iscongadmin: "¿Es el Administrador de la Congregación?"
+  mappref: "Mapa la Preferencia"
+  lang: "Idioma"
+  password: "Contraseña"
+  passwordmsg: "Contraseña: (Debe ser de 8 caracteres e incluyen una letra mayúscula y un número)"
+  images: "Subir Imágenes"
+  users: "Usuarios"
+
+  #Congs
+  cong_button: "Congregaciones"
+  congregation: "Congregacion"
+  email: "Correo Electrónico"
+  house_no: "Numero de Casa"
+  errors: "Erro!"
+
+  activerecord:
+    attributes:
+     address:
+      house_no: "Casa #"
+
+    models:    
+    errors:
+            template:
+                body: "Hubo problemas con los siguientes datos"
+                header: "Un error impidió que esto sea guardado"
+            messages:
+                blank: "é obrigatório"
+                taken: "ya se ha asignado"
+                too_short: "incompleto"
+
+
+
+
+
+
+
+
+
+
+
+
+

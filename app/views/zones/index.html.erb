@@ -1,0 +1,56 @@
+
+
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <strong class="strong">
+      <%= flash[:znotice] %>
+    </strong>
+    <h1><%= t :zones %>
+    <%= link_to "#{t :new_zone}", new_zone_path, class: 'btn btn-warning btn-right' %>
+    </h1>
+  </div>
+  <div class="card-block">
+
+
+
+
+<%@zones.each do |zone| %>
+
+<table class="table table-striped">
+<tr>
+<th><%=t :zone%></th>
+<th><%=t :description%></th>
+<th class="buttons"><%=t :view%></th>
+<th class="buttons"><%=t :edit%> </th>
+<th class="buttons"><%=t :delete%> </th>
+<th class="buttons"><%=t :terrs_in_zone%> </th>
+</tr>
+<tr>
+<td class="zone"><%=h zone.zone_no %></td>
+<td class="description"><%=h zone.descrip %></td>
+<td class="buttons"><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), zone %></td>
+<td class="buttons"><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_zone_path(zone) %></td>
+<td class="buttons"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), zone, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+<td class="buttons"><%= link_to image_tag("samplestaticmap.png",:class=>"button",:size=>"60x36",:title=>"#{t :terrs_in_zone}"),:controller=>"territories",:action=>"index_zone",:zoneid=>zone.id %></td>
+</tr>
+</table>
+
+<%if zone.img_url.size > 0 %>
+ <%= image_tag("/images/#{session[:congid]}/#{zone.img_url}")  %>
+<%else%>
+<%end%>
+
+
+  
+<% end %>
+
+<br />
+
+
+
+
+</div>
+</div>

@@ -1,0 +1,69 @@
+
+<div class="card">
+  <div class="card-header">
+  <h2>
+    <%=t :territory_number%>
+    <% if !@addresses[0].nil? %>
+        <%= @addresses[0].territory.territory_no%>
+    <%end%>
+
+
+    <% if @addresses[0].nil? %>
+        <br><br>
+        <%=t :no_addresses_available_in_ter%><br>
+        <%= link_to "Back",:back %>
+    <%end%>
+   </h2>
+  </div>
+  <div class="card-block">
+
+    <table class="table table-striped">
+
+
+<% @addresses.each do |address| %>
+ 
+
+ <% address.householders.each do |hh| %>
+  <tr>
+    <td>
+      <% if !hh.phone.nil? and hh.phone != "" and hh.phone.to_s != " " %>
+
+ <table class="printout">
+  <tr>
+    <td class="address" >  <%=t :address%></td>
+    <td class="apt_no"><%=t :apt_no%></td>
+    <td class="city"> <%=t :city%> </td>
+    <td class="date"> <%=t :date%></td>
+    <td class="symbol"> <%=t :symbol%> </td>
+  </tr>
+  <tr>
+    <td class="address2"><%=address.house_no + " " + address.street %></td>
+    <td class="apt_no2"> <%=address.apt_no%> </td>
+    <td class="city2"><%=address.city%> </td>
+    <td class="date2">  </td><!--MEANT to BE BLANK!! -->
+    <td class="symbol2"> </td> <!--MEANT to BE BLANK!! -->
+  </tr>
+  </table>
+
+<table class="hh1">
+  <tr class="hhname"><td class="hhname">
+       <%=t :name%> <%= ": " +  hh.fname + " " + hh.lname %> <br>
+         <%=t :phone%><%= ": " + hh.phone %>
+    </td>
+     
+
+   <td>
+    <%=t :notes%> <%= ": " + hh.notes %>
+    </td></tr>
+</table>
+</td>
+</tr>
+<%end%>
+<%end%>
+
+<%end%>
+</table>
+
+<div class="digg_pagination">
+  <%=  will_paginate @addresses,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
+</div>

@@ -1,0 +1,68 @@
+<div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 left">
+   <br>
+   <br>
+
+  <%= link_to "#{t :help}", {:action=>'help'}, class: 'btn btn-primary' %>
+  <br>
+  <%=link_to "#{t :addresses}", {:controller => 'addresses', :action => 'home'}, class: 'btn btn-primary' %>
+  <br>
+  <%= link_to "#{t :householder_button}",{ controller: 'householders', action: 'home'}, class: 'btn btn-primary' %>
+  <br>
+
+  <% if  session[:role] == "admin"  or  session[:role] == "congadmin" %>
+     <%= link_to "#{t :territory_button}",{controller: 'territories', action: 'home'}, class: 'btn btn-primary'%>
+     <br>
+      <%= link_to "#{t :zone_button}",{controller: 'zones', action: 'index'}, class: 'btn btn-primary'%>
+     <br>
+     <%= link_to "#{t :user_button}",{controller: 'users', action: 'index'}, class: 'btn btn-primary'%>
+
+<%end%>
+
+  <br>
+
+
+  <% if  session[:role] == "admin" %>
+
+      <%= link_to "#{t :cong_button}",{controller: 'congregations', action: 'index'}, class: 'btn btn-primary'%>
+
+
+<%end%>
+
+
+  <%=link_to "#{t :logoff}","login/logout", class: 'btn btn-primary'%>
+
+
+</div>
+
+<div class="col-lg-9 col-md-9 hidden-xs hidden-sm right">
+
+  <br>
+  <br>
+
+
+<table class="table table-striped" style="margin-left: 5%!important;">
+  <tr>
+    <th colspan="2" style="background-color: white;color:black;">
+      <%=t  :terr_needing_work %>
+    </th>
+  </tr>
+
+  <%@territories.each do |ter| %>
+  <tr>
+    <td> <%=ter.territory_no %> </td>
+    <td>
+      <%if ter.checkout_date.blank? %>
+       <%= t :never_used %>
+      <%else%>
+       <%=ter.checkout_date %>
+      <%end%>
+    </td>
+    <td> <%=link_to image_tag('view.png', size: '40x40'), {controller: 'territories', action: 'show', id: ter.id  } %>  </td>
+  </tr>
+    <%end%>
+
+</table>
+
+
+ 
+</div>

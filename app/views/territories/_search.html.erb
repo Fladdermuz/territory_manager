@@ -1,0 +1,33 @@
+<% @territories = Territory.where(congregation_id: session[:congid]) %>
+<%= select_tag "ter", options_from_collection_for_select(@territories, "id", "territory_no"), include_blank: true, style: 'width:90%;', prompt: "#{t :search}" %>
+
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#ter').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+
+                window.location = "/territories/" + url; // redirect
+
+            }
+            return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $("#ter").select2({
+        theme: "bootstrap"
+    });
+
+</script>

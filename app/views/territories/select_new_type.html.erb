@@ -1,0 +1,23 @@
+
+<div class="card">
+  <div class="card-header">
+    <h1><%=t :new_territory%></h1>
+  </div>
+
+  <div class="card-block" style="padding:12px;">
+
+
+   <% if Congregation.find(session[:congid]).disable_all_google_maps == false  %>
+    <%=link_to "#{t :new_dynamic_territory}", {controller: 'territories', action: 'new_dynamic'}, class: 'btn btn-primary' %>
+   <%end%>
+
+   <% if Congregation.find(session[:congid]).disable_all_google_maps == false  %>
+    <%=link_to "#{t :new_dynamic_territory_circle}", {controller: 'territories', action: 'new_dynamic_centered'}, class: 'btn btn-primary' %>
+   <%end%>
+
+
+    <%=link_to "#{t :new_static_territory}", {controller: 'territories', action: 'new'}, class: 'btn btn-primary' %>
+
+
+ </div>
+</div>

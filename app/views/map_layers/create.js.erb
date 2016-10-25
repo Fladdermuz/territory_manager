@@ -1,0 +1,33 @@
+<%if @errors.nil? %>
+try {
+    $('#mod').modal('hide');
+    $("#map_layers").html("<%= escape_javascript(render partial: "map_layers/map_layers", locals: {map_layers: @map_layers} ) %>");
+}
+catch(er){
+    alert(er);
+}
+
+
+   try {
+    $("#top_title").html("<%= escape_javascript(render partial: "layouts/flash_message", locals: {message: @message, title: @title}  ) %>");
+    }
+    catch(er){
+    alert(er);
+    }
+
+
+
+try {
+    $("#modals").html("<%= escape_javascript(render partial: "modforms", locals: { map_layers: @map_layers} ) %>");
+}
+catch(er){
+    alert(er);
+}
+
+
+<%else%>
+$("#error<%=@map_layer.id%>").html("<%= escape_javascript(render partial: "layouts/flash_message2", locals: {name: 'errors',msg: @errors} ) %>");
+<%end%>
+
+
+

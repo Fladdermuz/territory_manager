@@ -1,0 +1,19 @@
+<div class="card" style="max-width: 50%;margin: 0 auto;margin-top: 4%;">
+  <div class="card-header">
+    <%= image_tag "logo.jpg", class: 'logo' %>
+  </div>
+
+<div class="card-block">
+ <table class="table">
+   <tr>
+     <td>  <%=render 'search'  %> </td>
+   </tr>
+   <tr>
+     <td><%= link_to "#{t :new_householder_button}",{controller: 'householders', action: 'new'}, class: 'btn btn-primary'%> </td>
+   </tr>
+   <tr>
+     <td>  <%= link_to "#{t :all_householders}",{controller: 'householders', action: 'index'}, class: 'btn btn-primary'%> </td>
+   </tr>
+  </table>
+</div>
+</div>

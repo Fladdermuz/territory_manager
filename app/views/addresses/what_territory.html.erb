@@ -1,0 +1,48 @@
+<div class="card">
+<div class="card-header">
+<%if flash[:notice]%>
+<p class="notice" id="notice"><%=notice %></p>
+<%end%>
+
+
+<table id="terrs" class="table table-inverse">
+  <tr>
+    <td>
+
+      <%= form_tag('/addresses/what_territory_post', remote: true) %>
+      <%=t :house_number%> <%=text_field_tag 'house_no',nil,{:class=>'txt-field'} %>
+    </td>
+    <td> <%=t :street %> <%=text_field_tag 'street', nil, {class: 'txt-field'} %> </td>
+    <td> <%=t :city %> <%= select_tag "city", options_for_select(@cities.collect{ |u| [u.city] }), class: 'sel-field' %> </td>
+    <td> <%=t :state %> <%=text_field_tag 'state', @state , class: 'txt-field'%> </td>
+    <td> <%=t :zone %><%=collection_select(:zone1,nil, Zone.where(congregation_id:  session[:congid]).order('zone_no'),:id, :zone_no,{},{class: 'sel-field'}) %> </td>
+    <td style="padding-top:18px;padding-bottom: 0px;"> <%= submit_tag "#{t :search}", class: 'btn btn-primary' %></td>
+    </td>
+  </tr>
+</table>
+
+</div>
+ <div class="card-block" style="display: table">
+
+   <%@zones.each do |z|%>
+
+       <% if z.img_url.size > 0 %>
+
+           <div class="card zone">
+             <div class="card-header">
+               <%= z.zone_no %>
+             </div>
+             <div class="card-block">
+              <%= image_tag "/images/#{session[:congid]}/#{z.img_url}", class: 'zone' %>
+             </div>
+           </div>
+
+       <% else %>
+       <% end %>
+
+   <%end%>
+
+<%=render partial: 'what_terr', locals: {zones: @zones, house_no: @house_no, street: @street,city: @city, state: @state, zone: @zone} %>
+</div>
+
+</div>

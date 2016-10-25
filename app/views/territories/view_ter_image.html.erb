@@ -1,0 +1,10 @@
+ <div class="card">
+   <div class="card-header">
+    <%=t :image %>
+ </div>
+   <div class="card-block">
+     <%=  image_tag @imgurl, :style=>"width:100%;" %>
+     <br>
+     <%= link_to "#{t :back}", :back %>
+   </div>
+ </div>

@@ -1,0 +1,30 @@
+<%if @errors.nil? %>
+try {
+    $('#mod<%=@map_layer.id%>').modal('hide');
+    $("#map_layer_tr<%=@map_layer.id%>").html("<%= escape_javascript(render partial: "map_layers/map_layer", locals: { map_layer: @map_layer}   ) %>");
+}
+catch(er){
+    alert(er);
+}
+
+
+
+   try {
+
+    $("#top_title").html("<%= escape_javascript(render partial: "layouts/flash_message", locals: {message: @message, title: @title}  ) %>");
+    }
+    catch(er){
+    alert(er);
+    }
+
+
+
+
+
+
+<%else%>
+$("#error<%=@map_layer.id%>").html("<%= escape_javascript(render partial: "layouts/flash_message2", locals: {name: 'errors',msg: @errors} ) %>");
+<%end%>
+
+
+

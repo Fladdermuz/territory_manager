@@ -1,0 +1,19 @@
+<%@map_layers = MapLayer.order(:name) %>
+
+<%= select_tag "map_layers",  options_from_collection_for_select(@map_layers, "id", "name"), style: 'width:100%;', class: 'text-field', prompt: "#{t :map_type}"  %>
+
+
+<script>
+    $(function(){
+        // bind change event to select
+        $('#map_layers').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+                window.location = '/map_layers/set_layer?map_layer_id=' + url; // redirect
+            }
+            return false;
+        });
+    });
+
+
+</script>

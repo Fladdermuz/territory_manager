@@ -1,0 +1,28 @@
+
+<div class="card">
+  <div class="card-header">
+    <h1><%=t :territory_histories %></h1>
+  </div>
+  <div class="card-block">
+
+    <table class="table table-striped">
+      <tr>
+        <td> <b><%=t :territory %> </b> </td>
+        <td> <%= @territory_history.territory.territory_no %> </td>
+      </tr>
+      <tr>
+        <td> <b><%=t :check_out_date %></b> </td>
+        <td> <%= @territory_history.check_out_date %> </td>
+      </tr>
+      <tr>
+        <td> <b><%=t :check_in_date %></b> </td>
+        <td> <%= @territory_history.check_in_date %> </td>
+      </tr>
+      <tr>
+        <td> <b><%=t :checked_out_by%></b> </td>
+        <td>  <%= @territory_history.checked_out_by %></td>
+        </tr>
+        </table>
+ 
+</div> 
+</div>

@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header card-header-sales">
+    <table class="table table-noborder table-nopadding">
+      <tr>
+        <td class="card-title">
+          <h2> <%=t :map_layers%> </h2>
+        </td>
+        <td class="buttons">
+          <a href="#mod" class="btn btn-primary btn-top" data-toggle="modal">  <icon class='fa fa-plus-circle fa-5x'> </icon> </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="card-block">
+    <table id="map_layers" class="table table-striped">
+      <thead>
+        <tr>
+          <th> <b> <%=t :map_layer_url  %></b> </th>
+          <th> <b> <%=t :map_layer_provider  %> </b> </th>
+          <th> <b> <%=t :map_type %> </b></th>
+          <th> <b> <%=t :map_layer_file_ext  %></b></th>
+          <th> <b> <%=t :map_layer_zoom_max  %></b></th>
+          <th> <b> <%=t :map_layer_api %> </b> </th>
+          <th> <b> <%=t :map_layer_is_mapbox %> </b> </th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @map_layers.each do |map_layer| %>
+          <tr id='map_layer_tr<%=map_layer.id%>'>
+            <td><%= map_layer.layer_url %></td>
+            <td><%= map_layer.provider %></td>
+            <td><%= map_layer.map_type %></td>
+            <td><%= map_layer.file_ext %></td>
+            <td><%= map_layer.max_zoom %></td>
+            <td><%= map_layer.api_key %></td>
+            <td><%= map_layer.is_mapbox %></td>
+            <td>
+              <%=link_to image_tag('edit.png'), 'javascript:;', 'data-toggle' => 'modal', 'data-target' => "#mod#{map_layer.id}" %>
+            </td>
+            <td><%= link_to  image_tag('delete.png'), map_layer,remote:true, method: :delete, data: { confirm: "#{t :are_you_sure}" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= render partial: 'map_layers/form', locals: {map_layer: MapLayer.new} %>
+<div id='modals'>
+  <%=render 'modforms', map_layers: @map_layers %>
+</div>

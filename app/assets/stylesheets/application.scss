@@ -1,0 +1,211 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require select2
+ *= require select2-bootstrap
+ *= require bootstrap-datepicker3
+ *= require mapbox
+ *= require_self
+ */
+
+ @import "bootstrap";
+
+
+th a{color:white;}
+
+.datepicker-days{
+  width:400px;
+}
+
+.datepicker{
+  width:200px;
+}
+
+.table-condensed{
+  width:200px;
+}
+
+img.logo{
+  width:99%;
+}
+
+.search{
+  width:85%;
+}
+
+.center{
+  text-align: center;
+}
+
+table.center{
+  text-align: center;
+}
+
+table.center tr{
+  text-align: center;
+}
+
+table.center td{
+  text-align: center;
+  padding-left:20%;
+  padding-right: 20%;
+
+}
+
+
+div.login{
+    margin-top: 100px;
+    max-width:40%;
+    margin: 0 auto;
+}
+
+h4{
+  color:red;
+}
+
+h5.ci{
+  color:green;
+}
+
+h5.co{
+  color: #c8c800;
+}
+
+
+p.notice{
+  border: 1px solid red;
+  height: 40px;
+  background-color: red;
+  color: white;
+  font-size: 17px;
+  border-bottom-left-radius: 8px 8px;
+  border-bottom-right-radius: 8px 8px;
+  padding-left:12px;
+  padding-top:6px;
+
+}
+
+
+div.left{
+  background-color: #d6d7e7;
+  border-right: 1px solid grey;
+  display: table-column;
+  min-height: 1200px;
+
+}
+
+div.right{
+  display: table-column;
+  background-color: #ffffff;
+  in-height: 1200px;
+  padding-left:0px;
+  padding-right:0px;
+}
+
+th{
+  background-color: #0044cc;
+  color: white;
+  font-size: 11px;
+}
+
+.btn-primary{
+  min-width: 200px;
+  margin-bottom: 12px;
+}
+
+.card{
+  margin-top: 40px;
+}
+
+
+.card-block{
+
+  padding:0px;
+}
+
+.card-header{
+  background-color: #3871c0;
+  color: white;
+}
+
+table.table-inverse{
+  border-radius: 8px 8px;
+  border: 0px;
+}
+
+.table-inverse tr{
+  border: 0px;
+ }
+
+.table-inverse td{
+  border:0px;
+}
+
+.button{
+  float:left;
+}
+
+.button_edit{
+  float:right;
+}
+
+.btn-right{
+  float:right;
+}
+
+.txt-area{
+  color:black;
+  border-radius: 8px 8px;
+  min-height: 124px;
+  border: 1px solid grey;
+  width:100%;
+  padding:8px;
+}
+
+
+
+.txt-field{
+  color:black;
+  border-radius: 8px 8px;
+  min-height: 34px;
+  border: 1px solid grey;
+  width:100%;
+}
+
+.sel-field{
+  color:black;
+  border-radius: 8px 8px;
+  border: 1px solid grey;
+  width:100%;
+  padding-top: 6px;
+  padding-bottom: 5px;
+}
+
+.checkout{
+  background-image:url('checkout.jpeg');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  background-position: 100% 0px;
+  height:100px;
+}
+
+
+div.zone{
+  display: inline-block;
+  margin:4px;
+  max-width:200px;
+}
+
+img.zone{
+  width:99%;
+}

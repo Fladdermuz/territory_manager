@@ -1,0 +1,165 @@
+
+
+<% if Congregation.find(session[:congid]).language == 'Spanish' %>
+
+<%I18n.locale = 'es'%>
+<%end%>
+
+<% if Congregation.find(session[:congid]).language == 'English' %>
+
+<%I18n.locale = 'en'%>
+<%end%>
+
+<div class="card">
+  <div class="card-header">
+    <table class="table table-inverse">
+      <tr>
+        <td><h1><%=t :territories %></h1></td>
+        <td> <%=t :territory_number %> <%=@territory.territory_no%> </td>
+        <td> <%=t :address_count%>: <%= @territory.addresses.count%></td>
+    </tr>
+  </table>
+</div>
+ 
+<div class="card-block">
+
+
+<% if @addresses[0].nil? %>
+
+  <%= render :partial => "territories/dynamic_maps", :locals => { :territory=> @territory } %>
+ 
+  <% if @territory.zone.img_url.size > 2 %>
+   <%=image_tag("/images/#{session[:congid]}#{@territory.zone.img_url}",:size=>"200x180")%>
+  <%end%>
+          
+   <%=t :no_addresses_available_in_ter%><br>
+   <%= link_to "Back",:back %>
+ 
+  <%end%>
+
+<% if !@addresses[0].nil? %>
+
+<%= render :partial => "territories/dynamic_maps", :locals => { :territory=> @territory } %>
+ 
+<div style="page-break-after:always"></div>
+
+
+ 
+
+<% @addresses.each_with_index do |address, index| %>
+<% index+1 %>
+
+  
+
+ <table class="table table-striped">
+   <thead>
+  <tr>
+    <th><%=t :terr_no%></th>
+    <th><%=t :neighborhood%></th>
+    <th> <%=t :address%> </th>
+    <th><%=t :apt_no%></th>
+    <th><%=t :city%> </th>
+    <th> <%=t :date%></th>
+    <th><%=t :symbol%> </th>
+  </tr>
+   </thead>
+
+
+
+
+ 
+  
+ 
+<tbody>
+  <tr>
+    <td>T# <%=address.territory.territory_no%> </td>
+     <td> <%=address.neighborhood%> </td><!--MEANT to BE BLANK!! -->
+    <td><%=address.house_no + " " + address.street %></td>
+    <td> <%=address.apt_no%> </td>
+    <td><%=address.city%> </td>
+    <td>  </td><!--MEANT to BE BLANK!! -->
+    <td> </td> <!--MEANT to BE BLANK!! -->
+  </tr>
+</tbody>
+
+  </table>
+          
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+<%if !address.coordinate.nil?%>
+<% if address.coordinate.size > 2%>
+
+<%end%>
+<%end%>
+
+   <% if Congregation.find(session[:congid]).disable_all_google_maps == true || Congregation.find(session[:congid]).disable_terr_maps == true   %>
+&nbsp;
+ <%else%>
+
+
+
+<% if !address.hide_map %>
+
+<% if address.alt_house_no.nil? %>
+ <img src="http://maps.google.com/maps/api/staticmap?center=<%=address.house_no%>+<%=address.street%>,<%=address.city%>,<%=address.state%>&zoom=<%=@zoom%>&size=200x100&maptype=<%=@map%>&markers=color:blue|label:S|40.702147,-74.015794&markers=color:green|label:G|40.711614,-74.012318&markers=color:red|label:X|<%=address.house_no%>+<%=address.street%>+<%=address.city%>,<%=address.state%>&sensor=true&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg
+"></img>
+ <%else%>
+ <img src="http://maps.google.com/maps/api/staticmap?center=<%=address.alt_house_no%>+<%=address.alt_street%>,<%=address.alt_city%>,<%=address.state%>&zoom=<%=@zoom%>&size=200x100&maptype=<%=@map%>&markers=color:blue|label:S|40.702147,-74.015794&markers=color:green|label:G|40.711614,-74.012318&markers=color:red|label:X|<%=address.alt_house_no%>+<%=address.alt_street%>+<%=address.alt_city%>,<%=address.state%>&sensor=true&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg
+"></img>
+ <%end%>
+
+
+ <%else%>
+ <%=t :no_map_available%>
+<%end%>
+ <%end%>
+  </div>
+ <% for hh in address.householders do %>
+
+<table class="table table-striped">
+  <tr>
+    <td> 
+         <%=t :name%> <%= ": " +  hh.fname + " " + hh.lname %> <br>
+         <%=t :phone%><%= ": " + hh.phone %>
+    </td>
+     
+
+   <td>
+   <%=t :notes%>  <%= ": " + hh.notes %>
+    </td></tr>
+</table>
+      <%end%>
+
+<table class="table">
+  <tr>
+    <td>
+       Notes
+    </td>
+
+
+   </tr>
+</table>
+   <br>
+
+ 
+
+
+
+
+<%end%>
+ 
+<%end%>
+
+
+
+
+
+
+
+
+
+
+
+   <% if !@addresses[0].nil? && !@addresses2[0].nil? %>
+    <img src="/public/staticmap.php?center=<%=@addresses2[0].territory.center_coordinate%>&zoom=<%=@addresses2[0].territory.zoom%>&size=650x600&markers=<%@street.each_with_index do |street, index|%><%for addy in @addresses2 do%><%if addy.street == street.street%><%=addy.coordinate%>,<%=@colors[index]%><%=addy.house_no%><%="|" unless addy == @addresses2.last%><%end%><%end%><% index+1 %><%end%></img>"
+<%end%>

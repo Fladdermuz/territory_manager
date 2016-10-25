@@ -1,0 +1,122 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1><%= t :edit_territory %></h1>
+  </div>
+
+
+  <div class="card-block">
+    <%= form_for(@territory) do |f| %>
+
+        <table class="table table-striped">
+          <tr>
+            <td colspan="2" style="text-align: center;"> <%= render :partial => "territories/dynamic_maps", :locals => {:territory => @territory} %> </td>
+          </tr>
+
+          <tr>
+            <td><%= t :territory %> </td>
+            <td><%= f.text_field :territory_no, class: 'txt-field' %></td>
+          </tr>
+
+          <tr>
+            <td><%= t :description %></td>
+            <td> <%= f.text_area :descrip, class: 'txt-area' %> </td>
+          </tr>
+
+          <tr>
+            <td><%= t :notes %></td>
+            <td><%= f.text_area :notes, class: 'txt-area' %></td>
+          </tr>
+
+          <tr>
+            <td> <%= t :zone %></td>
+            <td> <%= f.select(:zone_id, Zone.where(congregation_id: session[:congid]).collect { |c| [c.zone_no, c.id] }, {}, {class: 'txt-field'}) %></td>
+          </tr>
+
+          <tr>
+            <td> <%= t :center_coordinate %> </td>
+            <td> <%= f.text_field :center_coordinate, class: 'txt-field' %></td>
+          </tr>
+
+
+          <% if @territory.is_dynamic | !@territory.center_coordinate.nil? %>
+              <tr>
+                <td> <%= t :zoom %>  </td>
+                <td> <%= f.select(:zoom, ([['1', '12'], ['2', '13'], ['3', '14'], ['4', '15'], ['5', '16'], ['6', '17'], ['7', '18'], ['8', '19']]), {:selected => @territory.zoom.to_s}, {class: 'txt-field'}) %> </td>
+              </tr>
+          <% end %>
+
+          <% if @territory.is_dynamic %>
+              <tr>
+                <td><%= t :maptype %></td>
+                <td><%= f.select(:maptype, ([['roadmap'], ['hybrid'], ['satellite'], ['terrain']]), {:selected => @territory.maptype}, {class: 'sel-field'}) %></td>
+              </tr>
+          <% end %>
+
+          <% if @territory.is_dynamic %>
+
+              <tr>
+                <td><%= t :fill_color %></td>
+                <td><%= f.select :color, {"Black" => "black", "Blue" => "blue", "Red" => "red", "Green" => "green", "None" => "0x00000000"}, {:selected => @territory.color.to_s}, {class: 'sel-field'} %>
+                </td>
+              </tr>
+          <% end %>
+
+          <% if @territory.is_dynamic %>
+              <tr>
+                <td><%= t :border_color %></td>
+                <td><%= f.select :border_color, {"Black" => "black", "Blue" => "blue", "Red" => "red", "Green" => "green", "None" => "0x00000000"}, {:selected => @territory.border_color.to_s}, {class: 'sel-field'} %> </td>
+              </tr>
+          <% end %>
+
+
+          <% if !@territory.is_dynamic %>
+
+              <tr>
+                <td><b><%= t :images %></b></td>
+                <td><%= f.file_field :image %></td>
+              </tr>
+
+
+          <% end %>
+
+          <tr>
+            <td> <%= t :last_worked %></td>
+            <td> <%= f.text_field :last_worked, class: 'txt-field' %> </td>
+          </tr>
+
+          <tr>
+            <td><%= t :ischeckedin %></td>
+            <td><%= f.check_box :is_checked_in, class: 'txt-field' %> </td>
+          </tr>
+          <tr>
+            <td><%= t :checked_out_by %></td>
+            <td><%= f.text_field :checked_out_by, class: 'txt-field' %> </td>
+          </tr>
+          <tr>
+            <td><%= f.submit "#{t :update}", class: 'btn btn-primary' %></td>
+            <td></td>
+          </tr>
+
+    <% end %>
+
+
+
+    <% if !@territory.center_coordinate.nil? %>
+        <tr>
+          <td colspan="2">
+            <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territoryid => @territory.id}, class: 'btn btn-primary' %>
+          </td>
+    <% end %>
+
+    <tr>
+      <td colspan="2">
+        <%= link_to image_tag('view.png'), @territory %>
+      </td>
+    </tr>
+    </table>
+
+  </div>
+</div>

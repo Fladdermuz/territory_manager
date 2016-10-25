@@ -1,0 +1,73 @@
+<%= stylesheet_link_tag 'territory'  %>
+
+<h1><%=link_to("#{t :territories}","/territories/home")%></h1>
+
+<table class="territory">
+    <tr>
+    <th class="territory_number_report">#</th>
+    <th class="territory_status"><%=link_to("#{t :territory_status}","report_status") %></th>
+    <th class="territory_cob"><%=link_to("#{t :checked_out_by}","report_cob") %></th>
+    <th class="territory_descript"><%=t :description %> </th>
+    <th class="territory_last_worked"><%=link_to("#{t :checked_out}","report_co_date") %></th>
+    <th class="territory_last_worked"><%=link_to("#{t :last_worked}","report_last_worked") %></th>
+    <th class="territory_zone"><%= t :zone  %> </th>
+    <th class="territory_zone"><%= t :address_count  %> </th>
+
+
+    </tr></table>
+<% for territory in @territories %>
+<table class="territory">
+
+  <tr class="territory">
+
+
+    <td class="territory_number_report"><b><%= link_to territory.territory_no, {:controller => 'territories',:action=> 'show',:id =>territory.id},{:style=>'color:black;', :class => "nolink"} %></b></td>
+      <td class="territory_status" >
+    <%if territory.is_checked_in == true     %>
+
+       <%=t :checked_in%>
+     <%end%>
+
+  <%if territory.is_checked_in == false     %>
+<% @checkout_date = territory.checkout_date %>
+<% @today = Date.today %>
+<% @length = @today - @checkout_date %>
+
+<%if @length > 89 %>
+        <h4 class="h4"> <%=t :overdue%></h4>
+<%else%>
+<%=t :checked_out  %>
+
+   <%end%>
+     <%end%>
+
+
+    </td>
+
+    <td class="territory_cob" >
+
+
+  <%if territory.is_checked_in == false     %>
+
+       <%=territory.checked_out_by%>
+
+     <%end%>
+
+    </td>
+
+    <td class="territory_descript" ><%=h territory.descrip %></td>
+      <td class="territory_last_worked"><%=h territory.checkout_date %></td>
+    <td class="territory_last_worked"><%=h territory.last_worked %></td>
+    <td class="territory_zone" ><%=territory.zone.zone_no %>   </td>
+    <td class="territory_zone" ><%=territory.addresses.count %>   </td>
+    </tr>
+
+
+
+
+<br>
+
+<% end %>
+  </table>
+
+<br />

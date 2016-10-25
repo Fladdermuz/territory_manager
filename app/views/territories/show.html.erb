@@ -1,0 +1,103 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+      <table class="table table-inverse">
+        <tr>
+          <td> <%=t :territory_number %>
+            <%if !@territory.territory_no.nil?%>
+            <%= @territory.territory_no %>
+            <%end%>
+          </td>
+          <td>
+            <%=t :territory_status%>
+
+            <% if @territory.is_checked_in == true %>
+                <%=t :available%>
+            <%end%>
+            <% if @territory.is_checked_in == false %>
+                <%=t :unavailable%>
+                <%=t :checked_out_by %>:
+                <%=h @territory.checked_out_by %>
+            <%end%>
+          </td>
+          <td> <%= link_to image_tag("edit.png",:size=>"36x36",:title=>"#{t :edit}"), {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn-right' %>
+          </td>
+        </tr>
+      </table>
+
+ <%= flash[:tnotice] %>
+
+  <% if @territory.isreserved %>
+  <%=t :isreserved_warning%>
+  <%= @territory.reserved_by %>
+  <%=t :isreserved_warning2%>
+
+  <%end%>
+</div>
+  <div class="card-block">
+
+  <table class="table table-striped">
+    <tr>
+
+        <%if @territory.is_checked_in == true %>
+          <td>
+            <% if  Congregation.find(session[:congid]).is_coordinate_only == true  %>
+                <%= link_to image_tag("print.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_addresses}"),:action=>"view_ter_householders_coords",:territory_id =>@territory.id %>
+            <%else%>
+                <%= link_to image_tag("print.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'territories' ,:action=>"view_ter_householders",:territory_id =>@territory.id %>
+            <%end%>
+           </td>
+            <td>
+            <%= link_to image_tag("phone.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_phone}"),controller: 'territories' ,:action=>"view_ter_householders_with_phones",:territory_id =>@territory.id %>
+            <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:territory_id =>@territory.id %>
+            </td>
+        <%end%>
+
+
+
+        <%if @territory.is_checked_in == false     %>
+          <td>
+            <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),{controller: 'territories' ,:action=>"check_in",:territory_id =>@territory.id}, :confirm => "#{t :check_in_sure}"%>
+          </td>
+          <td>
+           </td>
+        <%end%>
+    </tr>
+
+
+  <tr>
+    <td> <%=t :description %></td>
+    <td> <%= @territory.descrip %> </td>
+  </tr>
+    <tr>
+      <td><%=t :notes%> </td>
+      <td><%= @territory.notes %></td>
+     </tr>
+    <tr>
+      <td> <%=t :zone%> </td>
+      <td><%= @territory.zone.zone_no %></td>
+    </tr>
+    <tr>
+      <td><%=t :address_count%>:</td>
+      <td> <%= @territory.addresses.count %> </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+       <%= render :partial => "territories/dynamic_maps", :locals => { :territory=> @territory } %>
+      </td>
+    </tr>
+    <tr>
+      <td> <%=t :last_worked%></td>
+      <td><%= @territory.last_worked %></td>
+    </tr>
+    <% if !@territory.center_coordinate.nil? %>
+        <tr>
+          <td colspan="2">
+            <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territoryid => @territory.id}, class: 'btn btn-primary' %>
+          </td>
+    <% end %>
+    </table>
+ </div>
+    </div>

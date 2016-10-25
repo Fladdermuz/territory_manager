@@ -1,0 +1,33 @@
+<% @householders = Householder.where(congregation_id: session[:congid]) %>
+<%= select_tag "hh", options_from_collection_for_select(@householders, "id", "fullname"), include_blank: true, class: 'search', prompt: "#{t :search}" %>
+
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#hh').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+
+                window.location = "/householders/" + url; // redirect
+
+            }
+            return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $("#hh").select2({
+        theme: "bootstrap"
+    });
+
+</script>

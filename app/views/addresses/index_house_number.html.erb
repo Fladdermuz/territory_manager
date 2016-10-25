@@ -1,0 +1,63 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1> <%= t :address_list %> </h1>
+  </div>
+
+  <tr class="card-block">
+
+
+
+
+<table class="table table-striped">
+  <tr>
+   <th><%=t :house_number %></th>
+    <th><%=t :street %></th>
+    <th><%=t :apartment_number %></th>
+    <th><%=t :city %></th>
+    <th><%=t :call_date %></th>
+    <th><%=t :territory_number %></th>
+  </tr>
+</table>
+<br>
+<% for address in @addresses %>
+
+<table class="table table-striped">
+  <tr>
+    <td><%=h address.house_no %></td>
+    <td><%=h address.street %></td>
+    <td><%=h address.apt_no %></td>
+    <td><%=h address.city %></td>
+    <td><%=h address.call_date %></td>
+    <td><%=h address.territory.territory_no %>
+    <%= link_to("#{t :view}",:controller => 'territories',:action => 'show',id: address.territory_id) %>
+    </td>
+   
+    <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
+    <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_address_path(address) %></td>
+    <td><%= link_to image_tag("householderadd.png",:class=>"button",:size=>"36x36",:title=>"#{t :add}"),
+            :controller=>"householders",:action=>"new",:addressID => address.id  %></td>
+    <td style="text-align: right;"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), address, :confirm => 'Are you sure?', :method => :delete %></td>
+
+  </tr>
+
+
+  <% for hh in address.householders %>
+    <tr>
+      <td colspan="9">
+      <%= link_to image_tag("householder2.png",:size =>"38x38",:class => "img",
+      :onmouseover => "this.src='/images/householder3.png'",
+      :onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show',id: hh.id %>
+      <%=link_to hh.fname + " " + hh.lname,:controller =>'householders',:action => 'show',id: hh.id %></td>
+      <td style="text-align: right;" colspan="1"> <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %></td>
+   </tr>
+  <% end %>
+
+<% end %>
+
+    </table>
+
+ </div>
+    </div>

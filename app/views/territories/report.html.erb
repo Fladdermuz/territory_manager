@@ -1,0 +1,69 @@
+
+<div class="card">
+  <div class="card-header">
+
+    <h1> <%= t :territories %>
+
+    </h1>
+  </div>
+  <div class="card-block">
+
+
+
+  <table class="table table">
+    <tr>
+    <th>#</th>
+    <th><%=link_to("#{t :territory_status}","report_status") %></th>
+    <th><%=link_to("#{t :checked_out_by}","report_cob") %></th>
+    <th><%=t :description %> </th>
+    <th><%=link_to("#{t :checked_out}","report_co_date") %></th>
+    <th><%=link_to("#{t :last_worked}","report_last_worked") %></th>
+    <th><%= t :zone  %> </th>
+    <th><%= t :address_count  %> </th>
+    </tr>
+
+
+<% for territory in @territories %>
+
+    <tr>
+      <td><%= link_to territory.territory_no, {:controller => 'territories',:action=> 'show',:id =>territory.id},{:style=>'color:black;', :class => "nolink"} %></b></td>
+      <td>
+        <%if territory.is_checked_in == true %>
+         <h5 class="ci"> <%=t :checked_in%> </h5>
+        <%end%>
+
+        <%if territory.is_checked_in == false     %>
+          <% @checkout_date = territory.checkout_date %>
+          <% @today = Date.today %>
+          <% @length = @today - @checkout_date %>
+
+           <%if @length > 89 %>
+            <h4><%=t :overdue %></h4>
+           <%else%>
+           <h5 class="co"> <%=t :checked_out  %> </h5>
+           <%end%>
+        <%end%>
+    </td>
+
+    <td>
+
+     <%if territory.is_checked_in == false %>
+       <%=territory.checked_out_by%>
+     <%end%>
+
+    </td>
+
+    <td><%=h territory.descrip %></td>
+    <td><%=h territory.checkout_date %></td>
+    <td><%=h territory.last_worked %></td>
+    <td><%=territory.zone.zone_no %>   </td>
+    <td><%=territory.addresses.count %>   </td>
+    </tr>
+<% end %>
+
+
+</table>
+</div>
+</div>
+
+

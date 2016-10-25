@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag 'householders'  %>
+<div class="show">
+<h1><%=t :edit_householder %></h1>
+
+
+<%= error_messages_for :householder %>
+
+<% form_for(@householder) do |f| %>
+  <p>
+    <b><%=t :first_name %></b><br />
+    <%= f.text_field :fname %>
+  </p>
+
+  <p>
+    <b><%=t :last_name %></b><br />
+    <%= f.text_field :lname %>
+  </p>
+
+  <p>
+    <b><%=t :notes %></b><br />
+    <%= f.text_area :notes, :class=>"text_notes" %>
+  </p>
+  <p>
+    <b><%=t :phone %></b><br />
+    <%= f.text_field :phone %>
+  </p>
+  <p>
+
+  <p>
+    <b><%=t :call_date %></b><br />
+    <%= f.date_select :call_date, :include_blank => true,:use_month_numbers => true, :order => [:month,:day,:year] %>
+  </p>
+
+  <p>
+    <%= f.submit "#{t :update}" %>
+  </p>
+<% end %>
+
+<%= link_to image_tag('view.png'), @householder %>
+  <br>
+<br>
+</div>

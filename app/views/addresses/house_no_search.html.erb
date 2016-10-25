@@ -1,0 +1,42 @@
+ 
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'address'  %>
+
+
+
+<%= image_tag "logo.jpg" %>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="find_street">
+ 
+  
+  <div class="find_street_top">
+ <%= t :search_by_house_number %>
+  </div>
+
+
+
+
+
+
+<%= form_tag nil, { :id => 'house_search_form' } %>
+<%= text_field 'house_search', 'house' %>
+<%= form_tag %><br>
+
+
+<div id="house_search">
+
+
+<%= observe_form :house_search_form, :frequency => 0.5,
+     :update => 'house_search',
+     :url => { :action => 'search_ajax_house_number' } %>
+
+</div>
+ 
+<br>
+  </div>

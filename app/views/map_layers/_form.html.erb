@@ -1,0 +1,75 @@
+<div id="mod<%=map_layer.id%>" class="modal fade">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title"> <%=t :indicator%> </h4>
+
+      </div>
+
+      <div class="modal-body">
+
+<%= form_for(map_layer, remote: true) do |f| %>
+
+ 
+    <div id="errors"></div>
+
+    <table class='table table-striped'>
+  <tr>
+  <td>   <%= f.label :layer_url %></td>
+    <td> <%= f.text_field :layer_url, class: 'text-field-wide' %>
+  </tr>
+  <tr>
+    <td>  <%= f.label :provider %></td>
+    <td>  <%= f.text_field :provider, class: 'text-field-wide' %>
+  </tr>
+
+      <tr>
+        <td> <%= f.label :max_zoom %></td>
+        <td> <%= f.text_area :max_zoom, class: 'text-field-wide' %>
+      </tr>
+      <tr>
+
+      <tr>
+        <td> <%= f.label :subdomains %></td>
+        <td> <%= f.text_area :subdomains, class: 'text-field-wide' %>
+      </tr>
+      <tr>
+      <tr>
+        <td> <%= f.label :map_type %></td>
+        <td> <%= f.text_area :map_type, class: 'text-field-wide' %>
+      </tr>
+      <tr>
+
+      <tr>
+        <td> <%= f.label :file_ext %></td>
+        <td> <%= f.text_area :file_ext, class: 'text-field-wide' %>
+      </tr>
+      <tr>
+  <tr>
+    <td> <%= f.label :api_key %></td>
+    <td> <%= f.text_area :api_key, class: 'text-field-wide' %>
+  </tr>
+  <tr>
+    <td> <%= f.label :is_mapbox %></td>
+    <td> <%= f.check_box :is_mapbox %>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <% new_or_update(map_layer) %>
+      <%= f.submit "#{@button_txt}", class: 'btn btn-primary' %>
+    </td>
+  </tr>
+</table>
+<% end %>
+
+
+</div>
+</div>
+</div>
+</div>

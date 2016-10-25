@@ -1,0 +1,183 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map_c<%=territory.id%> {
+        margin-bottom: 30px;
+        position: relative;
+        top: 10px;
+        height: 500px;
+        bottom: 0;
+        width: 100%;
+    }
+
+
+    .css-icon {
+        width: 0;
+        height: 0;
+    }
+
+</style>
+
+<% get_map_layer ## returns @map_layer %>
+
+  <%if edit == 1 %>
+   <%= render 'map_layers/set_layer_terr',territory_id: territory.id %>
+ <%end%>
+
+<div id='map_c<%=territory.id%>'></div>
+
+<script>
+
+    <%if edit == 1 %>
+      var position = document.getElementById('territory_center_coordinate');
+    <%end%>
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
+
+    <%if territory.new_record?  %>
+     <% @cord = zone.center_coordinate %>
+     <%@zoom = 15%>
+    <%else%>
+    <%  @cord = territory.center_coordinate %>
+    <% @zoom =  territory.zoom %>
+    <%end%>
+
+    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=@cord%>], "<%=@zoom%>");
+
+    L.tileLayer('<%=@map_layer.layer_url%>', {
+        attribution: 'EcuaERP',
+        maxZoom: '<%=@map_layer.max_zoom%>',
+
+        <%if !@map_layer.min_zoom.blank?%>,
+          min_zoom: '<%= @map_layer.min_zoom %>'
+        <%end%>
+
+        <%if !@map_layer.map_type.blank?%>,
+          type: '<%=@map_layer.map_type%>'
+        <%end%>
+
+        <%if !@map_layer.file_ext.blank?%>,
+         ext: '<%= @map_layer.file_ext %>'
+        <%end%>
+
+        <%if !@map_layer.subdomains.blank?%>,
+        subdomains: '<%=@map_layer.subdomains %>'
+         <%end%>
+
+    }).addTo(map_c<%=territory.id%>);
+
+    <%if edit == 1 %>
+    var cssIcon = L.divIcon({
+        // Specify a class name we can refer to in CSS.
+        className: 'css-icon',
+        html: '<img src=/assets/pin.png>',
+        iconSize: [60, 60]
+    });
+
+    var marker = L.marker(new L.LatLng(<%=@cord%>), {
+        icon: cssIcon,
+        draggable: true
+    });
+
+    marker.on('dragend', ondragend);
+    marker.bindPopup('<%=t :map_drag_marker %>');
+    marker.addTo(map_c<%=territory.id%>);
+    <%else%>
+    var cssIcon = L.divIcon({
+        // Specify a class name we can refer to in CSS.
+        className: 'css-icon',
+        html: "<span class='icon-span'>T#:<%=territory.territory_no%></span>",
+        iconSize: [60, 60]
+    });
+
+    var marker = L.marker(new L.LatLng(<%=@cord%>), {
+        icon: cssIcon,
+        draggable: false
+    });
+
+    marker.on('dragend', ondragend);
+    marker.bindPopup('<%=t :territory%>#: <%=territory.territory_no%>');
+    marker.addTo(map_c<%=territory.id%>);
+    <%end%>
+
+
+
+
+
+      <%Zone.where(client_id: current_user.client_id).each do |z| %>
+
+      var cssIcon<%=z.id%> = L.divIcon({
+          className: 'css-icon',
+          html: "<span class='icon-span'>Z#:<%=z.zone_no%></span>",
+          iconSize: [60, 60]
+      });
+
+      var marker<%=z.id%> = L.marker(new L.LatLng(<%=z.center_coordinate%>), {
+          icon: cssIcon<%=z.id%>,
+          draggable: false
+      });
+
+     <%if edit == 0 %>
+      marker<%=z.id%>.bindPopup('Zone <%=z.zone_no%>');
+      marker<%=z.id%>.addTo(map_c<%=territory.id%>);
+     <%end%>
+
+     var line_points = [
+        <%z.coordinates.each do |c| %>
+          [<%=c.coordinate%>],
+        <%end%>
+      ];
+
+
+        <%@colorz = z.border_color %>
+
+
+      var polyline_options = {
+          color: '<%=@colorz%>'
+          <%if z.fill_color? %>,
+           fill:  true
+          <%end%>
+          <%if !z.border_size.blank?%>,
+          weight: <%=z.border_size%>
+          <%end%>
+      };
+
+      var polyline = L.polyline(line_points, polyline_options).addTo(map_c<%=territory.id%>);
+      <%end%>
+
+
+
+     var line_points2 = [
+        <%territory.coordinates.each do |t| %>
+          [<%=t.coordinate%>],
+        <%end%>
+      ];
+
+        <%if territory.border_color.blank?%>
+           <%@color = 'red'%>
+         <%else%>
+           <%@color = territory.border_color %>
+        <%end%>
+
+      var polyline_options2 = {
+           color: '<%=@color%>'
+          <%if territory.fill_color? %>,
+           fill: true
+          <%end%>
+          <%if !territory.border_size.blank?%>,
+           weight: <%=territory.border_size%>
+          <%end%>
+      };
+      var polyline2 = L.polyline(line_points2, polyline_options2).addTo(map_c<%=territory.id%>);
+      
+
+
+    <%if edit == 1 %>
+    function ondragend() {
+        var m = marker.getLatLng();
+        position.value = m.lat + ',' + m.lng;
+    }
+    <%end%>
+</script>

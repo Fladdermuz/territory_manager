@@ -1,0 +1,95 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1><%=t :new_coordinate%></h1>
+  </div>
+
+
+  <div class="card-block">
+
+    <%= form_for(@coordinate) do |f| %>
+
+    <table class="table table-striped">
+      <tr>
+        <td><%=t :coordinate%> </td>
+        <td><%= f.text_field :coordinate, id: 'coordinate' %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.hidden_field(:territory_id,:value => @territoryid) %>
+          <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+          <%  if !@territory.coordinates.nil?%>
+
+            <% if @territory.coordinates.length == 1%>
+             <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.coordinates[0].coordinate%>
+              &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+             <%end%>
+
+              <% if @territory.coordinates.length > 1%>
+              <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.border_color%>|weight:5|fillcolor:<%=@territory.color%>|
+                 <%@territory.coordinates.each do |cord| %>
+                   <%=cord.coordinate%>
+                   <%="|" unless cord == @territory.coordinates.last %>
+                 <%end%>
+                   &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+              <%end%>
+
+
+                <%if !@territory.center_coordinate.blank? && !@territory.coordinates.any? %>
+                    <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.center_coordinate%>
+                    &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg">
+                <%end%>
+
+          <%end%>
+              </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+          <%  if @territory.coordinates.nil? || @territory.coordinates.last.nil? %>
+                <%=render partial: 'coordinates/map', locals: {coordinate: @territory.center_coordinate} %>
+               <%else%>
+                <%=render partial: 'coordinates/map', locals: {coordinate:  @territory.coordinates.last.coordinate} %>
+               <%end%>
+
+          </div>
+
+
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><%= f.submit "#{t :add}", class: 'btn btn-primary' %>
+
+
+<% end %>
+
+
+  <% if !@territory.coordinates[1].nil? %>
+  <% if @territory.coordinates.last.coordinate != @territory.coordinates.first.coordinate %>
+
+
+       <%= form_for(@coordinate) do |f| %>
+       <%@firstcoordinate=@territory.coordinates[0].coordinate%>
+       <%= f.hidden_field(:coordinate,:value =>  @territory.coordinates[0].coordinate) %>
+       <%= f.hidden_field(:territory_id,:value => @territoryid) %>
+
+        <%= f.submit "#{t :close_loop}", class: 'btn btn-primary' %>
+        <% end %>
+
+
+<%end%>
+<%end%>
+    </td>
+    </tr>
+</table>
+
+<table class="table">
+<tr>
+  <td><%= link_to "#{t :clear_last_coordinate}",{ :controller=>"territories",:action=> "clear_last_coordinate",:territory=> @territory.id}, class: 'btn btn-warning' %> </td>
+  <td><%= link_to "#{t :clear_coordinates}",{:controller=>"territories",:action=> "clear_coordinates",:territory=> @territory.id}, class: 'btn btn-warning' %></td>
+  <td><%= link_to "#{t :done}", "/territories/#{@territoryid}", class: 'btn btn-primary' %> </td>
+</tr>
+ </table>
+</div>
+</div>

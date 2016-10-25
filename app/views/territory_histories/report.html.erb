@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%=t :report_for%> <%=@territories[0].congregation.congname%></h2>
+  </div>
+
+  <div class="card-block">
+
+<table class="table table-striped">
+
+  <% for territory in @territories do%>
+
+  <tr>
+    <td><%=t :territory %></td>
+  </tr>
+
+  <tr>
+     <td><%= territory.territory_no %></td>
+  </tr>
+
+
+   <% territory.territory_histories.each do |t|%>
+
+  <tr>
+    <td> <%= t.checked_out_by %></td>
+  </tr>
+
+
+  <tr>
+    <td> <%= t.check_out_date %></td>
+  </tr>
+  <tr>
+    <td class="out"><%= t.check_in_date %></td>
+  </tr>
+   <%end%>
+   
+
+
+<% end %>
+
+ 
+</table>
+</div>
+  </div>
+
+<div class="digg_pagination">
+<%=will_paginate @territories %>
+</div>
+
+</div>

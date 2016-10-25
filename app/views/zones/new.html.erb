@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'zones'  %>
+<div class="show">
+<h1><%=t :new_zone%></h1>
+
+<%= error_messages_for :zone %>
+
+<% form_for(@zone) do |f| %>
+  <p>
+    <b><%=t :zone%>#</b><br />
+    <%= f.text_field :zone_no %>
+  </p>
+
+  <p>
+    <b><%=t :description%></b><br />
+    <%= f.text_area :descrip %>
+  </p>
+
+  <p>
+    <b><%=t :imgurl%></b><br />
+    <%= f.text_field :img_url %>
+  </p>
+ <%= f.hidden_field(:congregation_id,:value => session[:congid]) %>
+  <p>
+    <%= f.submit "#{t :create}" %>
+  </p>
+<% end %>
+
+<br>
+<br>
+</div>

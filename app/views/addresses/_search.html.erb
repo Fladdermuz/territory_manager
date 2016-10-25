@@ -1,0 +1,33 @@
+<% @addresses = Address.where(congregation_id: session[:congid]) %>
+<%= select_tag "addy", options_from_collection_for_select(@addresses, "id", "fulladdy"), include_blank: true, style: 'font-size:10px;color:black;width:100%;', prompt: "#{t :search}" %>
+
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#addy').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+
+                window.location = "/addresses/" + url; // redirect
+
+            }
+            return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $("#addy").select2({
+        theme: "bootstrap"
+    });
+
+</script>

@@ -1,0 +1,68 @@
+
+<div class="card">
+  <div class="card-header">
+    <h1>Edit Congregation
+      <%= link_to 'New congregation', new_congregation_path, class: 'btn btn-warning btn-right' %>
+    </h1>
+  </div>
+  <div class="card-block">
+    
+    
+    
+<%= form_for(@congregation) do |f| %>
+        
+        <table class="table table-striped">
+          <tr>
+           <td> <%= f.label :congname %> </td>
+           <td> <%= f.text_field :congname %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :address %></td>
+            <td><%= f.text_field :address %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :city %></td>
+            <td><%= f.text_field :city %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :state %></td>
+            <td><%= f.text_field :state %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :zip %></td>
+            <td><%= f.text_field :zip %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :country %></td>
+            <td> <%= f.text_field :country %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :language %></td>
+            <td><%= f.text_field :language %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :disable_terr_maps %></td>
+            <td><%= f.check_box :disable_terr_maps  %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :disable_all_google_maps %></td>
+            <td> <%= f.check_box :disable_all_google_maps  %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :is_coordinate_only %></td>
+            <td><%= f.check_box :is_coordinate_only  %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :contact_id %></td>
+            <td> <%= f.select(:contact_id, User.where(congregation_id: session[:congid]).collect {|p| [ p.fname + " " + p.lname, p.id ] }, { :include_blank => true }) %> </td>
+          </tr>
+          <tr>
+            <td colspan="2"> <%= f.submit 'Update', class: 'btn btn-primary' %></td>
+            </tr>
+        </table>
+  
+<% end %>
+
+
+</div>
+</div>

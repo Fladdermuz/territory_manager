@@ -1,0 +1,63 @@
+<style>
+    body { margin:0; padding:0; }
+    #map_c { margin-bottom:30px;position:relative;top:10px; height:500px; bottom:0; width:100%; }
+</style>
+
+<style>
+    .css-icon {
+        width: 0;
+        height: 0;
+
+    }
+</style>
+
+
+
+
+
+
+
+<div id='map_c'></div>
+
+
+
+
+<script>
+
+    var position = document.getElementById('coordinate');
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
+    var map_c = L.mapbox.map('map_c', 'mapbox.streets', {
+        zoomControl: true}).setView([<%=coordinate%>],15);
+
+    var cssIcon = L.divIcon({
+        // Specify a class name we can refer to in CSS.
+        className: 'css-icon',
+        html: '<img src=/assets/pin.png>',
+        iconSize: [60, 60]
+    });
+
+
+
+    var marker = L.marker(new L.LatLng(<%=coordinate%>), {
+        icon: cssIcon,
+        draggable: true
+    });
+
+
+
+
+
+     marker.on('dragend', ondragend);
+     marker.bindPopup('This marker is draggable! Move it around.');
+     marker.addTo(map_c);
+
+
+
+    function ondragend() {
+        var m = marker.getLatLng();
+        position.value = m.lat + ',' + m.lng;
+    }
+</script>
+
+

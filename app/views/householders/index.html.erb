@@ -1,0 +1,48 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+
+    <h1> <%= t :householders %>
+
+     </h1>
+  </div>
+  <div class="card-block">
+
+
+  <table class="table table-striped">
+  <tr>
+    <th class="fname"><%=t :first_name%></th>
+    <th class="lname"><%=t :last_name%></th>
+    <th class="notes"><%=t :notes%></th>
+    <th class="phone"><%=t :phone%></th>
+
+    <th class="calldate"><%=t :call_date%></th>
+    <th class="edit"> </th>
+    <th class="edit"> </th>
+    <th class="edit"> </th>
+  </tr>
+
+<% @householders.each do |householder| %>
+  <tr>
+    <td class="fname"><%= householder.fname %></td>
+    <td class="lname"><%= householder.lname %></td>
+    <td class="notes"><%= householder.notes %></td>
+    <td class="phone"><%= householder.phone %></td>
+
+    <td class="calldate"><%= householder.call_date %></td>
+    <td class="edit"><%= link_to image_tag('view.png', size: '23x23'), householder %></td>
+    <td class="edit"><%= link_to image_tag('edit.png',size: '23x23'), edit_householder_path(householder) %></td>
+    <td class="edit"><%=link_to image_tag('trash.png', size: '23x23'), householder, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+
+  <div class="digg_pagination">
+  <%=  will_paginate @householders,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
+  </div>
+
+</div>
+</div>

@@ -1,0 +1,8 @@
+<%= stylesheet_link_tag 'address'  %>
+
+<div class="all_cords_header"><%=@addresses[0].street%></div>
+<div class="show">
+
+<img src="http://maps.google.com/staticmap?center=<%=@addresses[0].territory.center_coordinate%>&zoom=17&size=800x800&maptype=mapmaker-<%=@map%>
+<%for addy in @addresses%>&markers=<%=addy.coordinate%>,red<%=addy.house_no.chars.first%><%="|" unless addy == @addresses.last%><%end%>&key=ABQIAAAARGsYqr1Qe8aHLxBzDPVg8RSRXWCxfBZQxUPFeO1fEKXGT2aXExSjBmp62ioToSIU5gkCv_p99qjqjg&sensor=false"></img>
+</div>

@@ -1,0 +1,16 @@
+<%@map_layers = MapLayer.order(:name) %>
+
+<%= select_tag "territory_map_layer_id",  options_from_collection_for_select(@map_layers, "id", "name"), style: 'width:100%;',name: 'territory[map_layer_id]', class: 'text-field', prompt: "#{t :map_type}"  %>
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#territory_map_layer_id').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+                window.location = '/map_layers/set_layer?territory_id=<%=territory_id%>&map_layer_id=' + url; // redirect
+            }
+            return false;
+        });
+    });
+</script>

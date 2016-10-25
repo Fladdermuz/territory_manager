@@ -1,0 +1,50 @@
+<br>
+<br>
+
+<div class="card" style="max-width: 50%;margin: 0 auto;">
+  <div class="card-header">
+   <table class="table table-inverse">
+     <tr>
+       <td> <%=t :addresses %></td>
+       <td><%=render 'search' %></td>
+     </tr>
+   </table>
+
+  </div>
+
+  <div class="card-block">
+    <table class="table table-striped center">
+      <tr>
+        <td>
+
+          <%=render partial: 'addresses/new_from_terr'%>
+
+        </td>
+      </tr>
+
+          <% if Congregation.find(session[:congid]).disable_all_google_maps == true %>
+          <%else%>
+
+          <tr>
+            <td>
+            <%= link_to "#{t :what_territory}", {controller: 'addresses', action: 'what_territory'}, class: 'btn btn-primary' %>
+          </td>
+          </tr>
+          <%end%>
+
+
+          <tr>
+           <td> <%=link_to  "#{t :terr_search_button}", {controller: 'addresses', action: 'select_terr'}, class: 'btn btn-primary' %> </td>
+          </tr>
+
+
+          <tr>
+           <td> <%=link_to  "#{t :search_all_houses_button}", {controller: 'addresses', action: 'index'}, class: 'btn btn-primary' %> </td>
+          </tr>
+         </table>
+
+      </div>
+
+    </div>
+
+

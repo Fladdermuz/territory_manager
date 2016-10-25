@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header">
+    <h1> <%=t :username%>: <%= @user.username %> </h1>
+  </div>
+  <div class="card-block">
+
+<table class="table table-striped">
+  <tr>
+  <td><b><%=t :congregation%></b></td>
+  <td><%= @user.congregation.congname%></td>
+ </tr>
+    <tr>
+    <td><b><%=t :email%></b></td>
+    <td><%= @user.email %></td>
+    </tr>
+  <tr>
+    <td><b><%=t :first_name%></b></td>
+    <td><%= @user.fname %></td>
+  </tr>
+  <tr>
+    <td><b><%=t :last_name%></b></td>
+    <td><%= @user.lname %></td>
+  </tr>
+
+<% if  session[:role] == "admin" %>
+ <tr>
+   <td> <b><%=t :isadmin%></b></td>
+   <td><%= @user.isadmin %></td>
+</tr>
+<%end%>
+
+  <tr>
+    <td><b><%=t :iscongadmin%></b></td>
+    <td><%= @user.iscongadmin %></td>
+  </tr>
+  <tr>
+    <td><b><%=t :mappref%></b></td>
+    <td><%= @user.mappref %></td>
+  </tr>
+  <tr>
+    <td><b><%=t :lang%></b></td>
+    <td><%= @user.sitelang %></td>
+</tr>
+</table>
+
+
+</div>
+</div>

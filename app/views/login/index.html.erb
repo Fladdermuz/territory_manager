@@ -1,0 +1,49 @@
+<br>
+<br>
+<div class="login">
+
+  <div class="card">
+
+
+    <div class="card-header">
+
+
+      <%= form_for @user, url: "login/login" do |f| %>
+          <table class="table">
+            <tr>
+              <td>User Name <%= f.text_field :username, class: 'txt-field' %> </td>
+            </tr>
+            <tr>
+              <td>Password &nbsp;&nbsp;<%= f.password_field :password, class: 'txt-field'  %> </td>
+            </tr>
+            <tr>
+              <td> <%= f.submit "Login", class: 'btn btn-warning' %></td>
+            </tr>
+          </table>
+      <% end %>
+
+    </div>
+
+    <div class="card-block">
+
+      <A HREF="http://www.youtube.com/watch?v=nGUAdQa7o8U">
+
+        Watch Video Demo </A>
+      <br>
+
+
+      <A HREF="mailto:fladdermuz@gmail.com">
+
+        Request Information / Access </A>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

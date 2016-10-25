@@ -1,0 +1,8 @@
+PassengerEnabled On
+PassengerRuby /usr/local/ruby20/bin/ruby
+PassengerLoadShellEnvVars On
+PassengerAppRoot /home/ministry/MinistryManager
+RailsBaseURI /
+
+
+

@@ -1,0 +1,12 @@
+
+<td><%= map_layer.layer_url %></td>
+<td><%= map_layer.provider %></td>
+<td><%= map_layer.map_type %></td>
+<td><%= map_layer.file_ext %></td>
+<td><%= map_layer.max_zoom %></td>
+<td><%= map_layer.api_key %></td>
+<td><%= map_layer.is_mapbox %></td>
+<td>
+  <%=link_to image_tag('edit.png'), 'javascript:;', 'data-toggle' => 'modal', 'data-target' => "#mod#{map_layer.id}" %>
+</td>
+<td><%= link_to  image_tag('delete.png'), map_layer,remote:true, method: :delete, data: { confirm: "#{t :are_you_sure}" } %></td>

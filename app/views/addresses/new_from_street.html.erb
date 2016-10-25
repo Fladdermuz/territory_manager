@@ -1,0 +1,96 @@
+
+ <%= stylesheet_link_tag 'address'%>
+ <%= javascript_include_tag :defaults %>
+
+
+<div class="toptitle">
+<h1><%=t :newaddress %></h1>
+</div>
+<%= error_messages_for :address %>
+
+
+
+
+<% form_for(@address) do |f| %>
+
+  
+
+<br>
+
+<div class="quickname">
+    <b><%=t :neighborhood%></b><br/>
+  
+    <%= f.text_field :neighborhood, :value => @neighborhood %>
+
+  
+</div>
+
+
+<div class="new1">
+    <b><%=t :house_number %><br>
+    <%= f.text_field :house_no,:value => @house_no %>
+</div>
+
+<div class="new1">
+    <b><%=t :street %><br>
+    <%= f.text_field :street,:value => @street %>
+</div>
+
+<div class="new2">
+    <b><%=t :apartment_number %></b><br />
+    <%= f.text_field :apt_no %>
+ </div>
+
+  <div class="new2">
+    <b><%=t :city %></b><br />
+    <%= f.text_field :city,:value => @city  %>
+    </div>
+
+ <div class="new1">
+    <b><%=t :state %></b><br />
+    <%= f.text_field :state,:value => @state  %>
+ </div>
+
+  <div class="new1">
+    <b><%=t :zip %></b><br />
+    <%= f.text_field :zip, :value => @zip %>
+  </div>
+
+  <div class="new2">
+    <b><%=t :call_date%></b><br />
+    <%= f.date_select(:call_date,:include_blank => true,:use_month_numbers => true, :order => [:month,:day,:year]) %>
+  </div>
+
+   <div class="new2">
+    <b><%=t :territory_number %></b><br />
+       <%=  f.select(:territory_id,Territory.find(:all,:conditions=>"congregation_id ='#{session[:congid]}'",:order=>"territory_no+0").collect {|c| [c.territory_no, c.id ] },:selected => @territory.to_i) %>
+    <%= f.hidden_field(:congregation_id,:value => session[:congid]) %>
+  </div>
+<br><br>
+<div class="quickname">
+    <b><%=t :first_name_only%></b><br />
+
+  
+
+
+
+  <% fields_for :fname, @householder do |ff| %>
+    <%= ff.hidden_field(:congregation_id,:value => session[:congid]) %>
+    <%= ff.text_field :fname %>
+
+    
+
+  <% end %>
+</div>
+<br>
+
+<div class="submit"><br><br>
+    <%= f.submit "#{t :create}" %><br><br>
+  </div>
+<% end %>
+
+     <script
+               type="text/javascript"
+               language="javascript">
+               document.getElementById("address_house_no").focus();
+          </script>

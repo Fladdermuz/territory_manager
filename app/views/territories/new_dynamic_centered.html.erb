@@ -1,0 +1,51 @@
+
+<div class="card">
+  <div class="card-header">
+    <h1> <%= t :new_territory %> </h1>
+  </div>
+  <div class="card-block">
+
+ 
+
+<%= form_for(@territory) do |f| %>
+
+        <table class="table table-striped">
+          <tr>
+           <td> <b> <%=t :territory_number%> </b> </td>
+           <td> <%= f.text_field :territory_no, class: 'txt-field' %></td>
+         </tr>
+         <tr>
+           <td><b><%=t :description%></b>
+           <td> <%= f.text_area :descrip,:class=>"txtbox_descript", class: 'txt-area' %></td>
+         </tr>
+          <tr>
+            <td><b><%=t :notes%></b></td>
+            <td> <%= f.text_area :notes,:class=>"txtbox_notes", class: 'txt-area' %></td>
+          </tr>
+          <tr>
+            <td> <b><%=t :zone%></b> </td>
+            <td> <%=  f.select(:zone_id, Zone.where(congregation_id: session[:congid]).collect {|c| [ c.zone_no, c.id ] }) %> </td>
+          </tr>
+          <tr>
+           <td>  <b><%=t :center_coordinate%></b></td>
+            <td> <%= f.text_field :center_coordinate , class: 'txt-field'%></td>
+           </tr>
+          <tr>
+            <td> <b><%=t :zoom%></b> </td>
+            <td>  <%= f.select(:zoom,([['1','12'], ['2','13'],['3','14'],['4','15'],['5','16'],['6','17'],['7','18'],['8','19']]))%> </td>
+           </tr>
+          <tr>
+            <td>  <b><%=t :maptype%></b> </td>
+            <td> <%= f.select(:maptype,([['roadmap'], ['hybrid'],['satellite'],['terrain']]))%> </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.hidden_field(:is_dynamic,:value => 1) %>
+              <%= f.hidden_field(:congregation_id,:value => session[:congid]) %>
+              <%= f.submit "#{t :create}", class: 'btn btn-primary' %>
+            </td>
+          </tr>
+         </table>
+<% end %>
+</div>
+</div>
