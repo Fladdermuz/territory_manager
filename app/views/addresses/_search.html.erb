@@ -1,4 +1,4 @@
-<% @addresses = Address.where(congregation_id: session[:congid]) %>
+<% @addresses = Address.where(client_id: session[:client_id]) %>
 <%= select_tag "addy", options_from_collection_for_select(@addresses, "id", "fulladdy"), include_blank: true, style: 'font-size:10px;color:black;width:100%;', prompt: "#{t :search}" %>
 
 

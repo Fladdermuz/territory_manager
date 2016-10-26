@@ -19,7 +19,92 @@
  */
 
  @import "bootstrap";
+ @import "font-awesome";
 
+
+.btn-card-nopad{
+  padding:3px;
+  font-size: 12px!important;
+  max-width: 140px!important;
+  min-width:140px!important;
+  width:140px!important;
+
+}
+
+
+table.table-nopadding{
+ border:0px!important;
+ padding:0px!important;
+ td {
+   padding:0px;
+   border:0px!important;
+}
+
+
+}
+
+
+
+table.table-noborder{
+ border:0px!important;
+
+ td {
+
+   border:0px!important;
+}
+
+
+}
+
+
+
+.text-field {
+    border-radius: 8px 8px;
+    border: 1px solid #d7d7d7;
+    height: 38px;
+    padding-left: 8px;
+    min-width: 200px!important;
+    background-color: white!important;
+}
+
+.text-field-sm {
+    border-radius: 8px 8px;
+    border: 1px solid #d7d7d7;
+    height: 30px;
+    padding-left: 8px;
+    min-width: 98%!important;
+    margin-bottom: 3px;
+    background-color: white!important;
+}
+
+.text-field-wide {
+    border-radius: 8px 8px;
+    border: 1px solid #d7d7d7;
+    height: 38px;
+    padding-left: 8px;
+    width: 100%;
+    font-size: 14px;
+    color: black;
+    background-color: white!important;
+}
+
+.text-area-wide {
+    border-radius: 8px 8px;
+    border: 1px solid #d7d7d7;
+    height: 80px;
+    padding-left: 8px;
+    width: 100%;
+    color: black;
+    background-color: white!important;
+}
+
+ .card-header-top {
+     max-height: 82px;
+     padding-top: 2px;
+     margin-top: -16px;
+     padding-bottom: 2px;
+     padding-right: 0;
+ }
 
 th a{color:white;}
 
@@ -129,8 +214,12 @@ th{
 
 
 .card-block{
-
   padding:0px;
+}
+
+.card-header-top{
+  background-color: #3871c0;
+  color: white;
 }
 
 .card-header{
@@ -209,3 +298,112 @@ div.zone{
 img.zone{
   width:99%;
 }
+
+
+@media only screen and (min-width: 100px) {
+
+    .btn-top {
+        height: 78px;
+        min-width: 20%;
+        margin-bottom: 0;
+        border-top-right-radius: 4px 4px;
+        font-size: 10px;
+        font-weight: bolder;
+        display: inline-block;
+        padding-top: 12px;
+        padding-left: 0;
+        margin-left: 0;
+        text-align: right;
+    }
+
+  }
+
+  @media only screen and (min-width: 320px) {
+
+      .btn-top {
+          height: 78px;
+          min-width: 22%;
+          margin-bottom: 0;
+          border-top-right-radius: 4px 4px;
+          font-size: 10px;
+          font-weight: bolder;
+          display: inline-block;
+          padding-top: 12px;
+          padding-left: 0;
+          margin-left: 0;
+          text-align: right;
+      }
+
+
+    }
+
+    @media only screen and (min-width : 480px) {
+
+        .btn-top {
+            height: 78px;
+            min-width: 22%;
+            margin-bottom: 0;
+            border-top-right-radius: 4px 4px;
+            font-size: 10px;
+            font-weight: bolder;
+            display: inline-block;
+            padding-top: 12px;
+            padding-left: 0;
+            margin-left: 0;
+            text-align: right;
+        }
+
+      }
+
+      @media only screen and (min-width : 560px) {
+
+          .btn-top {
+              height: 78px;
+              min-width: 25%;
+              margin-bottom: 0;
+              border-top-right-radius: 4px 4px;
+              font-size: 10px;
+              font-weight: bolder;
+              display: inline-block;
+              padding-top: 12px;
+              padding-left: 0;
+              margin-left: 0;
+              text-align: right;
+          }
+        }
+
+        @media only screen and (min-width : 992px) {
+
+            .btn-top {
+                height: 78px;
+                min-width: 35%;
+                margin-bottom: 0;
+                border-top-right-radius: 4px 4px;
+                font-size: 10px;
+                font-weight: bolder;
+                display: inline-block;
+                padding-top: 12px;
+                padding-left: 0;
+                margin-left: 0;
+                text-align: right;
+            }
+}
+
+
+@media only screen and (min-width : 1200px) {
+
+    .btn-top {
+        height: 78px;
+        min-width: 49%;
+        margin-bottom: 0;
+        border-top-right-radius: 4px 4px;
+        font-size: 10px;
+        font-weight: bolder;
+        display: inline-block;
+        padding-top: 12px;
+        padding-left: 0;
+        margin-left: 0;
+        text-align: right;
+        float:right;
+    }
+  }

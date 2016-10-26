@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-
-  resources :territory_images
+  get 'main/change_lang' => 'main#change_lang', :as=> 'main/change_lang'
   get 'map_layers/set_layer' => 'map_layers#set_layer', :as=>  'map_layers/set_layer'
-  resources :map_layers,  only: [:update, :create, :destroy, :index]
-
+  patch 'zones/update_zoom' => 'zones#update_zoom', :as=> 'zones/update_zoom'
+  get 'coordinates/new_zone' => 'coordinates#new_zone', :as=> 'coordinates/new_zone'
+  get 'zones/clear_last_coordinate' => 'zones#clear_last_coordinate', :as=> 'zones/clear_last_coordinate'
+  get 'zones/clear_coordinates' => 'zones#clear_coordinates', :as=> 'zones/clear_coordinates'
   get 'main/help' => 'main#help', :as=> 'main/help'
   get 'addresses/home' => 'addresses#home', :as=> 'addresses/home'
   get 'addresses/new_from_street' => 'addresses#new_from_street', :as=> 'addresses/new_from_street'
@@ -47,11 +48,10 @@ Rails.application.routes.draw do
   post 'addresses/index_terr' => 'addresses#index_terr', :as=> 'addresses/index_terr'
   post 'login/login' => 'login#login', :as=> 'login/login'
   get 'logout' => 'login#logout', :as=> :logout
-
   post 'upload/uploadFile' => 'upload#uploadFile', :as=> 'upload/uploadFile'
-
+  resources :map_layers,  only: [:update, :create, :destroy, :index]
   resources :addresses
-  resources :congregations
+  resources :clients
   resources :coordinates
   resources :householders
   resources :login
@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   resources :upload
   resources :users
   resources :zones
-
+  resources :territory_images
 
 
 

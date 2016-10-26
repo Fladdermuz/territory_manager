@@ -5,7 +5,7 @@ class Territory < ActiveRecord::Base
   has_many :addresses
   has_many :coordinates, :dependent => :delete_all
   has_many :territory_histories
-  belongs_to :congregation
+  belongs_to :client
   has_many :territory_images
   before_destroy :ensure_no_children
   validates_presence_of :zone_id

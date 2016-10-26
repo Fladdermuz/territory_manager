@@ -5,7 +5,7 @@ class CreateTerritoryHistories < ActiveRecord::Migration
       t.date :check_out_date
       t.date :check_in_date
       t.string :checked_out_by
-      t.integer :congregation_id
+      t.integer :client_id
       t.timestamps null: false
     end
   end

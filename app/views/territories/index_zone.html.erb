@@ -1,101 +1,80 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header">
+    <div class="card-header-top card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title">
+                    <h2>
+                        <%=t :territories %>
+                    </h2>
+                </td>
 
-    <strong class="strong">
-      <%= flash[:dnotice]%>
-    </strong>
-    
-    <h1> <%= t :territories %>
-      <%= link_to "#{t :new_territory}",{:controller => "territories", action: 'select_new_type'}, class: 'btn-right btn btn-warning' %>
-    </h1>
-  </div>
-  <div class="card-block">
+                <td class='button'>
+                 <%= link_to "", territories_path, class: 'btn btn-primary btn-top btn-home right' %>
+                </td>
+            </tr>
+        </table>
+    </div>
 
+    <div class="card-block">
+        <%  @territories.each do |territory| %>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th><%=t :territory_number %></th>
+                <th></th>
+                <th><%=t :territory_status %></th>
+                <th><%=t :descriptiontion %>
+                </th>
+                <th><%= t :last_worked  %>
+                </th>
+                <th><%= t :zone  %>
+                </th>
+                <th><%=t :show%></th>
+                <th><%=t :edit%></th>
+                <th><%=t :delete%></th>
 
-<%  @territories.each do |territory| %>
- <table class="table table-striped">
-  <tr>
-    <th><%=t :territory_number %></th>
-     <th><%=t :territory_status %></th>
-    <th><%=t :description %> </th>
-    <th><%= t :last_worked  %> </th>
-     <th><%= t :zone  %> </th>
-     <th><%=t :show%></th>
-     <th><%=t :edit%></th>
-     <th><%=t :delete%></th>
+            </tr>
+            <tr>
+                <td><%= territory.territory_no  %></td>
+                <td>
+                    <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),:action=>"view_ter_householders",:id =>territory.id %>
+                    <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_householders",:id =>territory.id %>
+                </td>
+                <td>
+                    <%if territory.is_checked_in == true     %>
 
-  </tr>
-  <tr>
-    <td><b><%=h territory.territory_no  %></b> <%= link_to image_tag("print.png",:size=>"33x33",:class=>"button"),:action=>"view_ter_householders",:territory_id =>territory.id %>
+                    <%= link_to image_tag("ok.png",:size=>"25x25",:class=>"button",:title => "#{t :check_out}"),:action=>"check_out",:id =>territory.id %>
+                    <%end%>
 
-  <%= link_to image_tag("phone.png",:size=>"33x33",:class=>"button"),:action=>"view_ter_householders_with_phones",:territory_id =>territory.id %>
-    </td>
-     <td >
-     <%if territory.is_checked_in == true     %>
+                    <%if territory.is_checked_in == false     %>
 
-         <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),:action=>"check_out",:territory_id =>territory.id %>
-     <%end%>
+                    <%= link_to image_tag("cancel.png",:size=>"25x25",:class=>"button",:title => "#{t :check_in}"),:action=>"check_in",:id =>territory.id %>
+                    <%end%>
 
-  <%if territory.is_checked_in == false     %>
+                </td>
+                <td><%=h territory.description %></td>
+                <td><%=h territory.last_worked %></td>
+                <td>
 
-         <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),:action=>"check_in",:territory_id =>territory.id %>
-     <%end%>
+                    <%=link_to("#{territory.zone.zone_no}",:controller=>"zones",:action=> 'show',id: territory.zone.id)%>
 
-     </td>
-    <td  ><%=h territory.descrip %></td>
-    <td><%=h territory.last_worked %></td>
-    <td >
- 
-  <%=link_to("#{territory.zone.zone_no}",:controller=>"zones",:action=>'show',id: territory.zone.id)%>
+                </td>
+                <td><%= link_to image_tag("view.png",:class=>"button",:size=>"26x26",:title=>"#{t :view}"), territory %></td>
+                <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"26x26",:title=>"#{t :edit}"), edit_territory_path(territory) %></td>
+                <td><%= link_to image_tag("delete.png",:class=>"button",:size=>"26x26",:title=>"#{t :delete}"), territory, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+            </tr>
+        </table>
 
-    </td>
-    <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), territory %></td>
-    <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_territory_path(territory) %></td>
-    <td><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), territory, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
-    </tr>
- </table>
+        <div class="territory_img">
+          <%=render 'map', territory: territory, edit: 0, zone: territory.zone %>
+        </div>
 
-<div class="territory_img">
+        <br>
 
+        <% end %>
+        <div class="digg_pagination">
+            <%=  will_paginate @territories,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
+        </div>
 
-<% if territory.is_dynamic? %>
- <%if territory.coordinates.nil?%>
-<img src="http://maps.google.com/maps/api/staticmap?center=<%=territory.center_coordinate%>path=color:<%=territory.color%>|weight:5|fillcolor:<%=territory.color%>&size=512x512&zoom=<%=territory.zoom%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
-</img>
-<%end%>
+    </div>
 
-
-<%if !territory.coordinates.nil?%>
-
-<img src="http://maps.google.com/maps/api/staticmap?center=<%=territory.center_coordinate%>&path=color:<%=territory.border_color%>|weight:5|fillcolor:<%=territory.color%>|
-<%for cord in territory.coordinates %>
-
-  <%=cord.coordinate%>
-  <%= "|" unless cord == territory.coordinates.last %>
-     <%end%>
-&size=620x512&maptype=<%=territory.maptype%>&zoom=<%=territory.zoom%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
-</img>
-
-
-<%end%>
-
-
-
-<%else%>
-      <%= image_tag("/images/#{session[:congid]}/#{territory.img_url}",:style=>"width:100%;height:100%;") %>
-<%end%>
-
-
-
-
-</div>
-
-<% end %>
-
-
-
-</div>
 </div>

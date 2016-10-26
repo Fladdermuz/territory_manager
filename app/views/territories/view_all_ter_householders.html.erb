@@ -1,0 +1,119 @@
+<div class="card">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map_c {
+            margin-bottom: 30px;
+            position: relative;
+            top: 10px;
+            height: 500px;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .css-icon {
+            width: 0;
+            height: 0;
+        }
+
+    </style>
+
+    <div class="card-header-top card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title">
+                    <h2>
+                        <%=t :territory %>
+                    </h2>
+                </td>
+                <td class='button'>
+                  <%= link_to "", territories_path, class: 'right btn btn-primary btn-home btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card-block">
+
+        <% get_map_layer ## returns @map_layer %>
+        <%= render 'map_layers/set_layer_terr',territory_id: @territory.id %>
+         <br>
+         <br>
+        <div id='map_c'></div>
+
+        <script>
+
+            L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
+
+            <%  @cord = @territory.center_coordinate %>
+
+            var map_c = L.map('map_c').setView([<%=@cord%>], "<%=@territory.zoom%>");
+
+            L.tileLayer('<%=@map_layer.layer_url%>', {
+                attribution: 'EcuaERP',
+                maxZoom: '<%=@map_layer.max_zoom%>',
+
+                <%if !@map_layer.min_zoom.blank?%>,
+                min_zoom: '<%= @map_layer.min_zoom %>' <%end%>
+
+                <%if !@map_layer.map_type.blank?%>,
+                type: '<%=@map_layer.map_type%>' <%end%>
+
+                <%if !@map_layer.file_ext.blank?%>,
+                ext: '<%= @map_layer.file_ext %>' <%end%>
+
+                <%if !@map_layer.subdomains.blank?%>,
+                subdomains: '<%=@map_layer.subdomains %>' <%end%>
+
+            }).addTo(map_c);
+
+            <% @territory.addresses.each do |a| %>
+
+            var cssIcon<%=a.id%> = L.divIcon({
+                // Specify a class name we can refer to in CSS.
+                className: 'css-icon',
+                html: '<img src=/assets/pin.png>',
+                iconSize: [60, 60]
+            });
+
+            var marker<%=a.id%> = L.marker(new L.LatLng(<%=a.coordinate%>), {icon: cssIcon<%=a.id%>});
+
+            marker<%=a.id%>.on('dragend', ondragend);
+            marker<%=a.id%>.bindPopup('<%=t :address%> : <%=a.house_no%> <%=a.street%><br><%if a.users.any?%><%=a.users[0].full_name%><%end%>');
+            marker<%=a.id%>.addTo(map_c);
+            <%end%>
+
+
+            var line_points2 = [<%@territory.coordinates.each do |t| %>
+            [<%=t.coordinate%>],
+            <%end%>
+            ];
+
+            <%if @territory.border_color.blank?%>
+            <%@color = 'red'%>
+            <%else%>
+            <%@color = @territory.border_color %>
+            <%end%>
+
+            var polyline_options2 = {
+                color: '<%=@color%>'
+
+                 <%if @territory.fill_color? %>,
+                  fill: true
+                 <%end%>
+
+                <%if !@territory.border_size.blank?%>,
+                  weight: <%=@territory.border_size%>
+                <%end%>
+            };
+            var polyline2 = L.polyline(line_points2, polyline_options2).addTo(map_c);
+
+
+
+        </script>
+
+    </div>
+</div>

@@ -1,0 +1,187 @@
+<table class="table table-striped">
+
+    <% if @client.errors.any? %>
+
+    <% @client.errors.full_messages.each do |message| %>
+    <div class="alert alert-danger" role="alert">
+        <%= message %>
+    </div>
+    <% end %>
+
+    <% end %>
+
+    <%= form_for(@client) do |f| %>
+
+    <% if client.new_record? %>
+    <% @first_rendered = TRUE %>
+    <%= f.fields_for :users do |ff| %>
+
+    <%if @first_rendered %>
+    <tr>
+        <td colspan="2">
+            <h4>
+                <%=t :user_create %>
+            </h4>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-td">
+            <%= ff.label :username %>
+        </td>
+        <td>
+            <%= ff.text_field :username, class:  'text-field-wide' %>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-td">
+            <%= ff.label :password %>
+        </td>
+        <td>
+            <%= ff.text_field :password, class:  'text-field-wide' %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="form-td">
+            <%= ff.label :email %>
+        </td>
+        <td>
+            <%= ff.text_field :email, class:  'text-field-wide' %>
+            <%=ff.hidden_field :usadmin, value: TRUE %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :lang %>
+        </td>
+        <td>
+            <%= select_tag "user_sitelang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {name: "user_sitelang",id: "user_sitelang",   :class=>'text-field-wide'  } %>
+        </td>
+    </tr>
+    <tr>
+        <td class="form-td">
+            <%= ff.label :fname %>
+        </td>
+        <td>
+            <%= ff.text_field :fname,  class:  'text-field-wide' %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="form-td">
+            <%= ff.label :lname %>
+        </td>
+        <td>
+            <%= ff.text_field :lname , class:  'text-field-wide' %>
+        </td>
+    </tr>
+
+    <%@first_rendered = FALSE %>
+    <%end%>
+    <% end %>
+    <% end %>
+
+  <% if client.new_record? %>
+    <tr>
+        <td colspan="2">
+            <h4>
+                <%=t :client_create%>
+            </h4>
+        </td>
+    </tr>
+    <%end%>
+    
+    <tr>
+        <td>
+            <%= f.label :name %>
+        </td>
+        <td>
+            <%= f.text_field :name , class:  'text-field-wide'%>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :address %>
+        </td>
+        <td>
+            <%= f.text_field :address , class:  'text-field-wide'%>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :city %>
+        </td>
+        <td>
+            <%= f.text_field :city, class:  'text-field-wide' %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :state %></td>
+        <td>
+            <%= f.text_field :state, class:  'text-field-wide' %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :zip %></td>
+        <td>
+            <%= f.text_field :zip, class:  'text-field-wide' %>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <%= f.label :lang %></td>
+        <td>
+            <%= select_tag "lang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "lang",   :class=>'text-field-wide'  } %>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <%= f.label :country_id %>
+
+        </td>
+
+        <td>
+            <%= f.select("country_id", Country.all.order(:name).collect { |p| [p.name, p.id]}, {selected: 0}, {class: 'select2 text-field-wide'}) %>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <%= f.label :disable_terr_maps %></td>
+        <td>
+            <%= f.check_box :disable_terr_maps  %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :disable_all_google_maps %></td>
+        <td>
+            <%= f.check_box :disable_all_google_maps  %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%= f.label :is_coordinate_only %></td>
+        <td>
+            <%= f.check_box :is_coordinate_only  %>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <%=render 'clients/map_drag', center: @client.coordinate %>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <%= f.submit 'Create', class:  'btn btn-primary' %>
+        </td>
+    </tr>
+    <% end %>
+</table>

@@ -7,7 +7,7 @@ class CreateHouseholders < ActiveRecord::Migration
       t.text :phone
       t.integer :address_id
       t.date :call_date
-      t.integer :congregation_id
+      t.integer :client_id
       t.timestamps null: false
 
     end

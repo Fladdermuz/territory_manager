@@ -1,7 +1,7 @@
 
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
 
     <h1><%=t :address%></h1>
 
@@ -69,13 +69,13 @@
     </tr>
     <tr>
       <td>
-        <% if  Congregation.find(session[:congid]).is_coordinate_only == true  %>
+        <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
          <%=t :coordinate %>
          <%=@address.coordinate%>
          <%end%>
        </td>
       <td>
-           <% if Congregation.find(session[:congid]).disable_all_google_maps == true || Congregation.find(session[:congid]).disable_terr_maps == true  %>
+           <% if Client.find(session[:client_id]).disable_all_google_maps == true || Client.find(session[:client_id]).disable_terr_maps == true  %>
 
             <%else%>
 

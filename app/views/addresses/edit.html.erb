@@ -2,7 +2,7 @@
 <br>
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
     <h1><%=t :edit_address %></h1>
   </div>
 
@@ -46,10 +46,10 @@
       </tr>
       <tr>
         <td> <%=t :territory_number%> </td>
-        <td> <%=  f.select(:territory_id, Territory.where(congregation_id: session[:congid]).order("territory_no+0").collect {|c| [ c.territory_no, c.id ] },{}, {class: 'sel-field'}) %> </td>
+        <td> <%=  f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|c| [ c.territory_no, c.id ] },{}, {class: 'sel-field'}) %> </td>
       </tr>
 
-  <% if Congregation.find(session[:congid]).disable_all_google_maps == true || Congregation.find(session[:congid]).disable_terr_maps == true   %>
+  <% if Client.find(session[:client_id]).disable_all_google_maps == true || Client.find(session[:client_id]).disable_terr_maps == true   %>
 
   <%else%>
           <tr>
@@ -59,7 +59,7 @@
   <%end%>
 
 
-  <% if  Congregation.find(session[:congid]).is_coordinate_only == true  %>
+  <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
     <tr>
       <td><%=t :coordinate%></td>
       <td><%= f.text_field :coordinate %></td>

@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
     <h1><%=t :territories %></h1>
   </div>
   <div class="card-block">
@@ -22,7 +22,7 @@
   <tr>
     <th class="territory_number"><%=t :territory_number %></th>
      <th class="territory_status"><%=t :territory_status %></th>
-    <th class="territory_descript"><%=t :description %> </th>
+    <th class="territory_descriptiont"><%=t :descriptiontion %> </th>
     <th class="territory_last_worked"><%= t :last_worked  %> </th>
      <th class="territory_zone"><%= t :zone  %> </th>
      <th class="territory_zone"><%=t :remove_from_que%></th>
@@ -46,7 +46,7 @@
      <%end%>
 
      </td>
-    <td><%=h territory.descrip %></td>
+    <td><%=h territory.description %></td>
     <td><%=h territory.last_worked %></td>
     <td>
       <%=link_to("#{territory.zone.zone_no}",:controller=>"zones",:action=> 'show',id: territory.zone.id)%>
@@ -56,7 +56,7 @@
 
   <% @territory = territory %>
    <tr>
-     <td colspan="6">  <%= render :partial => "territories/dynamic_maps", :locals => { :territory => @territory } %>  </td>
+     <td colspan="6">  <%= render partial: "territories/dynamic_maps", locals: { :territory => @territory } %>  </td>
    </tr>
    <tr>
      <td colspan="6"><%=t :printed_by%><%=  territory.reserved_by%>  </td>

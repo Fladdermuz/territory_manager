@@ -2,7 +2,7 @@
 <br>
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
     <h1> <%= t :address_list %> </h1>
   </div>
 
@@ -31,7 +31,7 @@
 
   <tr>
     <td>
- <% if !address.coordinate.nil? && Congregation.find(session[:congid]).is_coordinate_only == true%>
+ <% if !address.coordinate.nil? && Client.find(session[:client_id]).is_coordinate_only == true%>
  <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
   <%else%>
     <%=h address.house_no %>

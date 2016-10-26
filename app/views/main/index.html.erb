@@ -9,7 +9,7 @@
   <%= link_to "#{t :householder_button}",{ controller: 'householders', action: 'home'}, class: 'btn btn-primary' %>
   <br>
 
-  <% if  session[:role] == "admin"  or  session[:role] == "congadmin" %>
+  <% if  session[:role] == "admin"  or  session[:role] == "admin" %>
      <%= link_to "#{t :territory_button}",{controller: 'territories', action: 'home'}, class: 'btn btn-primary'%>
      <br>
       <%= link_to "#{t :zone_button}",{controller: 'zones', action: 'index'}, class: 'btn btn-primary'%>
@@ -23,7 +23,7 @@
 
   <% if  session[:role] == "admin" %>
 
-      <%= link_to "#{t :cong_button}",{controller: 'congregations', action: 'index'}, class: 'btn btn-primary'%>
+      <%= link_to "#{t :client_button}",{controller: 'clients', action: 'index'}, class: 'btn btn-primary'%>
 
 
 <%end%>

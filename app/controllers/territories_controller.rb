@@ -1,14 +1,14 @@
 class TerritoriesController < ApplicationController
    before_filter :login_required,:isadminuser
    before_filter :set_territory, only: [:show, :edit, :update, :destroy]
-
+   before_action :setup
 
    # GET /territories
   # GET /territories.xml
   def index
-    @territories= Territory.where(congregation_id: session[:congid]).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
+    @territories= Territory.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
     respond_to do |format|
-      format.html # index.html.erb      
+      format.html # index.html.erb
      end
   end
 
@@ -16,7 +16,7 @@ class TerritoriesController < ApplicationController
     def index_zone
 
    @zoneid = params[:zoneid]
-   @territories= Territory.where(congregation_id: session[:congid], zone_id: @zoneid).order("territory_no+0") # Return only Requested street
+   @territories= Territory.where(client_id: session[:client_id], zone_id: @zoneid).order("territory_no+0") # Return only Requested street
     respond_to do |format|
       format.html # index.html.erb
      end
@@ -31,6 +31,7 @@ class TerritoriesController < ApplicationController
 
 
   def new
+    @zone = Zone.find(params[:zone_id])
     @territory = Territory.new
     respond_to do |format|
       format.html # new.html.erb
@@ -38,11 +39,11 @@ class TerritoriesController < ApplicationController
   end
 
     def new_dynamic
-    @territory = Territory.new 
-    
+    @territory = Territory.new
+
 
     respond_to do |format|
-      format.html 
+      format.html
     end
   end
 
@@ -54,7 +55,7 @@ class TerritoriesController < ApplicationController
     end
   end
 
-  
+
   # GET /territories/1/edit
   def edit
 
@@ -98,8 +99,8 @@ class TerritoriesController < ApplicationController
   # DELETE /territories/1
   # DELETE /territories/1.xml
   def destroy
-    @territory = Territory.find_by(id: params[:id],congregation_id: session[:congid])
-   
+    @territory = Territory.find_by(id: params[:id],client_id: session[:client_id])
+
     respond_to do |format|
      if @territory.destroy
       format.html { redirect_to(territories_url) }
@@ -118,12 +119,12 @@ class TerritoriesController < ApplicationController
     @territory.reserved_by = session[:username]
     @territory.isreserved = true
     @territory.save
-    @addresses = Address.where(territory_id: @territory_id,congregation_id: session[:congid]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
+    @addresses = Address.where(territory_id: @territory_id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
 
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 15
     if @map == "satellite"
-    
+
     end
   end
 
@@ -134,9 +135,9 @@ class TerritoriesController < ApplicationController
     @territory.reserved_by = session[:username]
     @territory.isreserved = true
     @territory.save
-    @addresses = Address.where(territory_id: @territory_id,congregation_id: session[:congid]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-    @addresses2 = Address.where(territory_id: @territory_id, congregation_id: session[:congid]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-    @street = Address.where(territory_id: @territory_id, congregation_id: session[:congid]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
+    @addresses = Address.where(territory_id: @territory_id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
+    @addresses2 = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
+    @street = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 17
     @colors = Array.new
@@ -169,12 +170,12 @@ class TerritoriesController < ApplicationController
     @zoom = 18
     end
   end
-  
+
 
   def view_ter_householders_with_phones
     #a printout of this is what is given to publishers to take out in service.
     @territory_id = params[:territory_id]
-    @addresses = Address.where(territory_id: @territory_id, congregation_id: session[:congid]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
+    @addresses = Address.where(territory_id: @territory_id, client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
   end
 
 
@@ -182,7 +183,7 @@ class TerritoriesController < ApplicationController
   def view_all_ter_householders_with_phones
     #a printout of this is what is given to publishers to take out in service.
     @territory_id = params[:territory_id]
-    @addresses = Address.where(congregation_id: session[:congid]).paginate(:page => params[:page], :per_page => 30).order("street,LENGTH(house_no),house_no")
+    @addresses = Address.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,LENGTH(house_no),house_no")
   end
 
 
@@ -200,13 +201,13 @@ class TerritoriesController < ApplicationController
       @by = params[:cob]
       @t =  params[:territory_id]
 
-      @Territory = Territory.find_by(id: @t, congregation_id: session[:congid])
+      @Territory = Territory.find_by(id: @t, client_id: session[:client_id])
 
 
 
       @Territory.checked_out_by = @by
       @Territory.is_checked_in = false
-      @D = Date.today 
+      @D = Date.today
       @Territory.checkout_date = @D
       @Territory.isreserved = false
       @Territory.reserved_by = ""
@@ -215,14 +216,14 @@ class TerritoriesController < ApplicationController
       @History = TerritoryHistory.new
       @History.territory_id = @t
       @History.check_out_date =   @D
-      @History.congregation_id = session[:congid]
+      @History.client_id = session[:client_id]
       @History.checked_out_by = @by
       @History.save
        redirect_to :controller =>"territories", :action => 'show',id: @t
-     
+
     else
    @t =  params[:territory_id]
-    
+
     end
 
     end
@@ -232,13 +233,13 @@ class TerritoriesController < ApplicationController
 
       flash[:tnotice] = "#{t :checked_in_success}"
       @t =  params[:territory_id]
-      @Territory = Territory.find_by(id: @t, congregation_id: session[:congid])
+      @Territory = Territory.find_by(id: @t, client_id: session[:client_id])
       @Territory.is_checked_in = true
       @Territory.last_worked = Date.today
       @Territory.checked_out_by = "Last Worked BY:" + @Territory.checked_out_by.to_s
       @Territory.save!
 
-      @History = TerritoryHistory.where(territory_id: @t, congregation_id: session[:congid])
+      @History = TerritoryHistory.where(territory_id: @t, client_id: session[:client_id])
       if !@History[0].check_in_date.blank?
         @History[0].check_in_date = Date.today
         @History[0].save
@@ -254,37 +255,37 @@ class TerritoriesController < ApplicationController
 
     def home
 
-       
+
     end
 
 
 
 
     def report
-      @territories = Territory.where(congregation_id: session[:congid]).order("territory_no+0")
+      @territories = Territory.where(client_id: session[:client_id]).order("territory_no+0")
 
     end
 
 
     def report_status
-      @territories = Territory.where(:all,:conditions => "congregation_id = '#{session[:congid]}'", :order => "is_checked_in")
+      @territories = Territory.where(:all,:conditions => "client_id = '#{session[:client_id]}'", :order => "is_checked_in")
 
     end
 
     def report_cob
-      @territories = Territory.where("checked_out_by != '' and is_checked_in = false AND congregation_id = '#{session[:congid]}'").order("checked_out_by")
+      @territories = Territory.where("checked_out_by != '' and is_checked_in = false AND client_id = '#{session[:client_id]}'").order("checked_out_by")
 
     end
 
 
      def report_co_date
-      @territories = Territory.where("checkout_date != '' AND congregation_id = '#{session[:congid]}' ").order("checkout_date")
+      @territories = Territory.where("checkout_date != '' AND client_id = '#{session[:client_id]}' ").order("checkout_date")
 
     end
 
 
     def report_last_worked
-      @territories = Territory.where("last_worked != '' AND congregation_id = '#{session[:congid]}'").order("last_worked ASC")
+      @territories = Territory.where("last_worked != '' AND client_id = '#{session[:client_id]}'").order("last_worked ASC")
 
     end
 
@@ -296,12 +297,12 @@ class TerritoriesController < ApplicationController
 
 
     def notfound
-      
+
     end
 
 
    def printedque
-      @territories = Territory.where(isreserved:TRUE, congregation_id: session[:congid]).order("territory_no+0")
+      @territories = Territory.where(isreserved:TRUE, client_id: session[:client_id]).order("territory_no+0")
    end
 
 
@@ -315,15 +316,15 @@ class TerritoriesController < ApplicationController
 
 
   end
- 
+
 def clear_coordinates
   @territory = params[:territory]
   @Coordinates = Coordinate.where(territory_id: @territory)
-  
+
   @Coordinates.each do |coord|
      coord.delete
   end
-  
+
   redirect_to :controller=>"coordinates",:action => "new",:territoryid=>@territory
 
 end
@@ -334,7 +335,7 @@ def clear_last_coordinate
   @Count = @Coordinates.count -1
   @Coordinates.last.delete
 
-  
+
   redirect_to :controller=>"coordinates",:action => "new",:territoryid=>@territory
 
 end
@@ -342,12 +343,12 @@ end
    private
   # Use callbacks to share common setup or constraints between actions.
    def set_territory
-     @territory = Territory.find_by(id: params[:id], congregation_id: session[:congid])
+     @territory = Territory.find_by(id: params[:id], client_id: session[:client_id])
    end
 
   # Never trust parameters from the scary internet, only allow the white list through.
    def territory_params
-     params.require(:territory).permit(:image, :is_dynamic, :center_coordinate,:zoom, :color, :border_color,:maptype, :territory_no, :descrip,:notes, :img_url, :zone_id, :last_worked, :checkout_date, :checked_out_by, :is_checked_in, :congregation_id)
+     params.require(:territory).permit(:image, :is_dynamic, :center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
    end
 
 

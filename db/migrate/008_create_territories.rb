@@ -2,23 +2,23 @@ class CreateTerritories < ActiveRecord::Migration
   def self.up
     create_table :territories do |t|
       t.string :territory_no
-      t.text :descrip
+      t.text :description
       t.text :notes
-      t.string :img_url
+      t.attachment :image
       t.integer :zone_id
       t.date :last_worked, :default => nil
       t.date  :checkout_date
-      t.text :checked_out_by
+      t.integer :checked_out_by
       t.boolean :is_checked_in, default: TRUE
-      t.integer :congregation_id
+      t.integer :client_id
       t.boolean :is_dynamic
       t.string :center_coordinate
-      t.attachment :image
       t.integer :zoom
-      t.string :color
+      t.boolean :fill_color
       t.string :border_color
-      t.string :maptype
-      t.boolean :isreserved, default: FALSE
+      t.integer :border_size
+      t.integer :map_layer_id
+      t.boolean :isreserved
       t.string :reserved_by
       t.timestamps null: false
 

@@ -1,8 +1,8 @@
 class DataFile < ActiveRecord::Base
 
-  def self.save(upload,congid)
+  def self.save(upload,client_id)
     name =  upload['datafile'].original_filename
-    directory = "public/images/#{congid}"
+    directory = "public/images/#{client_id}"
     # create the file path
     path = File.join(directory, name)
     # write the file

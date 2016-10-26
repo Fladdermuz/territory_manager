@@ -1,53 +1,67 @@
 
-<br>
-<br>
 
-<div class="card" style="max-width: 50%;margin: 0 auto;">
-<div class="card-header">
-  <table class="table-inverse table">
-    <tr>
-      <td> <%=t :territories %></td>
-      <td> <%=render 'search'%></td>
-    </tr>
-  </table>
+        <div class="card">
+            <div class="card-header card-header-top">
+                <table class="table table-noborder table-nopadding">
+                    <tr>
+                      <td class="card-title">
+                          <h2>
+                              <%=t :territories %>
+                          </h2>
+                      </td>
+
+                      <td style='padding-top:12px;padding-right:12px;'>
+                          <%=render 'search'%>
+                      </td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="card-block">
 
 
- </div>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <%= render 'territories/new_from_zone' %>
+                </td>
+            </tr>
+            <tr>
+                <td><%= link_to "#{t :show_all}",{:controller=>"territories"},class: 'btn btn-card-nopad btn-primary'  %>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <%= link_to "#{t :terr_que}",{:controller => "territories", action: 'printedque'},class: 'btn btn-card-nopad tn-primary' %>
+                </td>
+            </tr>
 
-<div class="card-block">
-<table class="table table-striped center">
-  <tr>
-    <td> <%= link_to "#{t :terr_que}",{:controller => "territories", action: 'printedque'},class: 'btn btn-primary' %></td>
-  </tr>
-  <tr>
-    <td><%= link_to "#{t :show_all}",{:controller=>"territories"},class: 'btn btn-primary'  %></td>
-  </tr>
-  <tr>
-    <td><%= link_to "#{t :new_territory}",{:controller => "territories", action: 'select_new_type'},class: 'btn btn-primary'  %></td>
-  </tr>
-  <tr>
-    <td><%= link_to "#{t :report}", {:controller => "territories", action: 'report' },class: 'btn btn-primary'  %></td>
-  </tr>
-  <tr>
-    <td><%= link_to "#{t :history}", {:controller => "territory_histories", action: 'report'},class: 'btn btn-primary'   %></td>
-  </tr>
-  <tr>
-    <td> <%= link_to "#{t :phone}",{:action=>"view_all_ter_householders_with_phones"}, class: 'btn btn-primary' %></td>
-  </tr>
-  <tr>
-    <td>
-      <% if  session[:role] == "admin" || session[:role] == "congadmin" %>
-          <%= link_to "#{t :manage_histories}", {:controller => "territory_histories"},class: 'btn btn-primary'  %>
-      <%end%>
-    </td>
-  </tr>
-  <tr>
-    <td> <%= link_to "#{t :getbackup}", {:controller => "addresses", action: 'export'},class: 'btn btn-primary'  %></td>
-  </tr>
-  <tr>
-    <td></td>
-  </tr>
-</table>
+            <tr>
+                <td><%= link_to "#{t :report}", {:controller => "territories", action: 'report' },class: 'btn btn-card-nopad btn-primary'  %>
+                </td>
+            </tr>
 
-</div>
+            <tr>
+                <td><%= link_to "#{t :history}", {:controller => "territory_histories", action: 'report'},class: 'btn btn-card-nopad btn-primary' %>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <% if  session[:role] == "admin" || session[:role] == "admin" %>
+                    <%= link_to "#{t :manage_histories}", {:controller => "territory_histories"},class: 'btn btn-card-nopad btn-primary'  %>
+                    <%end%>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <%= link_to "#{t :getbackup}", {:controller => "addresses", action: 'export'},class: 'btn btn-card-nopad btn-primary'  %></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
 </div>

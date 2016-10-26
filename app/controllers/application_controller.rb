@@ -5,7 +5,88 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   before_filter :set_locale
+  helper_method :is_same_client
+  helper_method :is_same_client_redirect
+  helper_method :current_user2
+  helper_method :is_admin
+  helper_method :is_client_admin
+  helper_method :setup
 
+
+
+  def setup
+
+  @u = current_user
+    if @u.client.coordinate == "38.802859, -96.208728"
+      redirect_to controller: "clients", action: "edit", id: @u.client_id
+    end
+
+  end
+
+
+  def is_client_admin
+  @is_client_admin = FALSE
+
+   if session[:role].to_s == "client_admin"
+     @is_client_admin = FALSE
+   end
+
+   return @is_client_admin
+  end
+
+
+  def is_admin
+  @is_admin = FALSE
+
+   if session[:role].to_s == "admin"
+    @is_admin = FALSE
+   end
+
+   return @is_admin
+
+  end
+
+    def current_user
+
+     @current_user = User.find(session[:uid])
+     return @current_user
+
+    end
+
+
+    def is_same_client(object)
+
+      @same_test = FALSE
+
+      if is_admin
+        @same_test = TRUE
+      else
+
+        if object.client_id == current_user.client_id
+          @same_test = TRUE
+        end
+
+      end
+
+
+      return @same_test
+
+
+    end
+
+
+    def is_same_client_redirect(object)
+
+      @same_test = is_same_client(object)
+
+      if @same_test
+      else
+        redirect_to controller: 'main', action: 'no_perms'
+      end
+
+      return @same_test
+
+    end
 
 
  def set_locale # if params[:locale] is nil then I18n.default_locale will be used
@@ -17,15 +98,14 @@ class ApplicationController < ActionController::Base
      if session[:user]
      return true
     else
-     session[:return_to]=request.request_uri
-    redirect_to :controller => "login"
+      redirect_to :controller => "login"
     return false
   end
   end
 
 
 def isadminuser
-  if session[:role] == "admin" or  session[:role] == "congadmin"
+  if session[:role] == "admin" or  session[:role] == "admin"
    return true
   else
    redirect_to :controller => "main"
@@ -33,11 +113,6 @@ def isadminuser
   end
 end
 
-
-
-  def current_user
-    session[:user]
-  end
 
 
 

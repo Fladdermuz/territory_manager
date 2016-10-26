@@ -17,7 +17,6 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'uglifier', '~> 1.3.0'
 
-
 gem 'passenger'
 
 gem 'select2-rails'
@@ -34,8 +33,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'paperclip'
 
+gem "font-awesome-rails"
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
+
+gem 'unirest'
 
 gem 'will_paginate'
 
@@ -49,4 +51,3 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

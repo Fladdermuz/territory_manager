@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%=t :edit%>
+                    </h2>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
+        <%if @client.coordinate == "38.802859, -96.208728" || @client.coordinate.blank? %>
+        <div class="alert alert-danger" role="alert"><%=t :must_have_coord %></div>
+        <%end%>
+
+        <%=render 'form', client: @client %>
+
+    </div>
+</div>

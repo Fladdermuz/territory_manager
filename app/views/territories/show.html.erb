@@ -1,103 +1,132 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header">
-      <table class="table table-inverse">
-        <tr>
-          <td> <%=t :territory_number %>
-            <%if !@territory.territory_no.nil?%>
-            <%= @territory.territory_no %>
-            <%end%>
-          </td>
-          <td>
-            <%=t :territory_status%>
+    <div class="card-header-top card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2 >
+                        <%= t :territory %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                    <%= link_to "", {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn btn-primary btn-edit btn-top' %>
+                    <%= link_to "", territories_path, class: 'btn btn-primary btn-home btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
-            <% if @territory.is_checked_in == true %>
-                <%=t :available%>
-            <%end%>
-            <% if @territory.is_checked_in == false %>
-                <%=t :unavailable%>
-                <%=t :checked_out_by %>:
-                <%=h @territory.checked_out_by %>
-            <%end%>
-          </td>
-          <td> <%= link_to image_tag("edit.png",:size=>"36x36",:title=>"#{t :edit}"), {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn-right' %>
-          </td>
-        </tr>
-      </table>
-
- <%= flash[:tnotice] %>
-
-  <% if @territory.isreserved %>
-  <%=t :isreserved_warning%>
-  <%= @territory.reserved_by %>
-  <%=t :isreserved_warning2%>
-
-  <%end%>
-</div>
-  <div class="card-block">
-
-  <table class="table table-striped">
-    <tr>
-
-        <%if @territory.is_checked_in == true %>
-          <td>
-            <% if  Congregation.find(session[:congid]).is_coordinate_only == true  %>
-                <%= link_to image_tag("print.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_addresses}"),:action=>"view_ter_householders_coords",:territory_id =>@territory.id %>
-            <%else%>
-                <%= link_to image_tag("print.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'territories' ,:action=>"view_ter_householders",:territory_id =>@territory.id %>
-            <%end%>
-           </td>
-            <td>
-            <%= link_to image_tag("phone.png",:size=>"35x35",:class=>"button",:title=>"#{t :print_phone}"),controller: 'territories' ,:action=>"view_ter_householders_with_phones",:territory_id =>@territory.id %>
-            <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:territory_id =>@territory.id %>
-            </td>
+        <%if flash[:notice]%>
+        <div class="alert alert-success" role="alert">
+            <%= flash[:notice] %>
+        </div>
         <%end%>
 
+        <table class="table table-inverse" style='text-align:left;'>
+            <tr>
+                <td>
+                    <%=t :territory_number %>
+                    <%if !@territory.territory_no.nil?%>
+                    <%= @territory.territory_no %>
+                    <%end%>
+                </td>
+                <%if current_user.client.include_territory_check_out? %>
+                <td>
+                    <%=t :territory_status%>
+                    :
 
+                    <% if @territory.is_checked_in == true %>
+                    <%=t :available%>
+                    <%end%>
+                    <% if @territory.is_checked_in == false %>
+                    <%=t :unavailable%>
+                    <%end%>
+                </td>
+                <td>
+                    <% if @territory.is_checked_in == false %>
 
-        <%if @territory.is_checked_in == false     %>
-          <td>
-            <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),{controller: 'territories' ,:action=>"check_in",:territory_id =>@territory.id}, :confirm => "#{t :check_in_sure}"%>
-          </td>
-          <td>
-           </td>
+                    <%=t :checked_out_by %>:
+                    <%=h @territory.get_checked_out_by %>
+                    <%end%>
+                </td>
+                <%end%>
+            </tr>
+        </table>
+
+        <% if @territory.isreserved %>
+        <%=t :isreserved_warning%>
+        <%= @territory.reserved_by %>
+        <%=t :isreserved_warning2%>
+
         <%end%>
-    </tr>
+    </div>
+    <div class="card-block">
 
+        <table class="table table-striped">
+            <tr>
 
-  <tr>
-    <td> <%=t :description %></td>
-    <td> <%= @territory.descrip %> </td>
-  </tr>
-    <tr>
-      <td><%=t :notes%> </td>
-      <td><%= @territory.notes %></td>
-     </tr>
-    <tr>
-      <td> <%=t :zone%> </td>
-      <td><%= @territory.zone.zone_no %></td>
-    </tr>
-    <tr>
-      <td><%=t :address_count%>:</td>
-      <td> <%= @territory.addresses.count %> </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-       <%= render :partial => "territories/dynamic_maps", :locals => { :territory=> @territory } %>
-      </td>
-    </tr>
-    <tr>
-      <td> <%=t :last_worked%></td>
-      <td><%= @territory.last_worked %></td>
-    </tr>
-    <% if !@territory.center_coordinate.nil? %>
-        <tr>
-          <td colspan="2">
-            <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territoryid => @territory.id}, class: 'btn btn-primary' %>
-          </td>
-    <% end %>
-    </table>
- </div>
+                <td>
+                    <%= link_to image_tag("customers.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}"),:action=>"view_ter_householders",:id =>@territory.id %>
+                </td>
+                <td>
+                    <div style='float:right;'>
+
+                        <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}-#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_householders", :id =>@territory.id %>
+                        <div style='width:20px;display:inline-block;'></div>
+
+                        <%if current_user.client.include_territory_check_out? %>
+                        <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:id =>@territory.id%>
+                        <%if @territory.is_checked_in == false     %>
+                        <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),{controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, :confirm => "#{t :check_in_sure}"%>
+                        <%end%>
+
+                        <%end%>
+
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <%=t :descriptiontion %></td>
+                <td>
+                    <%= @territory.description %>
+                </td>
+            </tr>
+            <tr>
+                <td><%=t :notes%>
+                </td>
+                <td><%= @territory.notes %></td>
+            </tr>
+            <tr>
+                <td>
+                    <%=t :zone%>
+                </td>
+                <td><%= @territory.zone.zone_no %></td>
+            </tr>
+            <tr>
+                <td><%=t :address_count%>:</td>
+                <td>
+                    <%= @territory.addresses.count %>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <%= render 'map', territory: @territory, edit: 0, zone: @territory.zone  %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <%=t :last_worked%></td>
+                <td><%= @territory.last_worked %></td>
+            </tr>
+            <% if !@territory.center_coordinate.nil? %>
+            <tr>
+                <td colspan="2" data-no-turbolink='true'>
+                    <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territory_id => @territory.id}, class: 'btn btn-primary', data: { no_turbolink: true } %>
+                </td>
+                <% end %>
+            </table>
+        </div>
     </div>

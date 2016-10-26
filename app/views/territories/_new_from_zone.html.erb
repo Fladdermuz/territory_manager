@@ -1,0 +1,31 @@
+
+
+<% @zones = Zone.where(client_id: current_user.client_id) %>
+<%= select_tag "zone", options_from_collection_for_select(@zones, "id", "zone_no"), include_blank: true, style: 'font-size:10px;color:black;width:100%;', prompt: "#{t :territory_new_in_zone}" %>
+
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#zone').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+
+                window.location = "/territories/new?zone_id=" + url; // redirect
+
+            }
+            return false;
+        });
+    });
+</script>
+
+
+
+
+<script>
+    $("#zone").select2({
+        theme: "bootstrap"
+    });
+
+</script>

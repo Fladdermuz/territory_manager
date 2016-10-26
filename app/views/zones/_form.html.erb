@@ -1,0 +1,111 @@
+<%if flash[:notice] %>
+<div class="alert alert-danger" role="alert">
+    <%= flash[:zone_notice] %>
+</div>
+<%end%>
+
+<%= form_for(@zone) do |f| %>
+<%= f.hidden_field(:client_id,value:  current_user.client_id) %>
+<%= f.hidden_field :center_coordinate , class: 'text-field-wide' %></td>
+
+<table class='table table-striped'>
+<tr>
+    <td>
+        <b>
+            <%=f.label :zone_no%>#
+        </b>
+    </td>
+    <td><%= f.text_field :zone_no ,class: 'text-field-wide' %>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <b><%=f.label :description %>
+        </b>
+    </td>
+    <td>
+        <%= f.text_area :description, class: 'text-area-wide' %>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <b><%= f.label :image%>
+        </b>
+    </td>
+    <td><%= f.file_field :image %>
+    </td>
+</tr>
+<tr>
+    <td>
+        <b><%=f.label :city %>
+        </b>
+    </td>
+    <td>
+        <%= f.text_field :city,value:  @city,class: 'text-field-wide' %></td>
+</tr>
+<tr>
+    <td>
+        <b><%=f.label :state %>
+        </b>
+    </td>
+    <td><%= f.text_field :state, class: 'text-field-wide' %></td>
+</tr> 
+
+<tr>
+    <td>
+        <b>
+            <%=f.label :zoom%>
+        </b>
+    </td>
+    <td>
+        <%= f.select(:zoom,([['1','12'], ['2','13'],['3','14'],['4','15'],['5','16'],['6','17'],['7','18'],['8','19']]),{}, {class: 'text-field-wide' } )%>
+    </td>
+</tr>
+
+<%if @zone.new_record? %>
+ <%@def_border = '#F30000' %>
+<%else%>
+<%@def_border =  @zone.border_color %>
+<%end%>
+
+
+<tr>
+    <td>
+        <b>
+            <%=f.label :fill_color%>
+        </b>
+    </td>
+    <td>
+      <%= f.check_box :fill_color %>
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>
+            <%=f.label :border_color%>
+        </b>
+    </td>
+    <td><%= f.color_field :border_color,  value: @def_border %>
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>
+            <%=f.label :border_size%>
+        </b>
+    </td>
+    <td><%= f.select :border_size, { "1" => "1","5" => "5","10" => "10","15" => "15","20" => "20"},{},{class: 'text-field-wide'} %>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <%= f.hidden_field(:is_dynamic,value:  1) %>
+        <% new_or_update(@zone)%>
+        <%= f.submit "#{@button_txt}", class: 'btn btn-primary' %>
+    </td>
+</tr>
+
+<% end %>
+</table>

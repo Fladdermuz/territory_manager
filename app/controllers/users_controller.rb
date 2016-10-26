@@ -8,11 +8,11 @@ class UsersController < ApplicationController
 
 
     if session[:role] == "admin"
-    @users = User.includes(:congregation).order(:username)
+    @users = User.includes(:client).order(:username)
     end
 
-    if session[:role] == "congadmin"
-       @users = User.where(congregation_id: session[:congid])
+    if session[:role] == "admin"
+       @users = User.where(client_id: session[:client_id])
     end
 
     if  session[:role].nil?
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
      else
 
     end
-    
+
   end
 
   # GET /users/1
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
     end
 
 
-    if session[:role] == "congadmin"
-    @user = User.find_by(id: params[:id],congregation_id: session[:congid])
+    if session[:role] == "admin"
+    @user = User.find_by(id: params[:id],client_id: session[:client_id])
 
         respond_to do |format|
           format.html # show.html.erb
@@ -113,4 +113,22 @@ class UsersController < ApplicationController
       format.html { redirect_to(users_url) }
      end
   end
+
+
+  private
+ # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find_by(id: params[:id])
+  end
+
+ # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :password, :fname, :lane, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
+  end
+
+
+
+
+
+
 end

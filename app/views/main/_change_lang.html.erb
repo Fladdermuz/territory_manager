@@ -1,0 +1,20 @@
+<%= select_tag "lang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "lang",   :class=>'text-field-wide',prompt: "#{t :lang}" } %>
+
+<script>
+    $(function(){
+        // bind change event to select
+        $('#lang').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+               window.location = '/main/change_lang?lang=' + url; // redirect
+
+            }
+            return false;
+        });
+    });
+
+
+
+
+</script>

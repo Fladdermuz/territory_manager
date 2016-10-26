@@ -1,32 +1,71 @@
 class ZonesController < ApplicationController
-   before_filter :login_required,:isadminuser
-   before_action :set_zone, only: [:edit, :destroy, :update, :show]
+
+   before_action :set_zone, only: [:clear_coordinates, :clear_last_coordinate, :edit, :destroy, :update_zoom, :update, :show]
+   before_action :check_client, only: [:edit, :show, :update, :destroy]
+   before_action :setup
 
   def index
-    @zones = Zone.where(congregation_id: session[:congid])
+
+ 
+    @zones = Zone.where(client_id: current_user.client_id)
 
     respond_to do |format|
       format.html # index.html.erb
-    end
+     end
   end
+
+
+
+ def update_zoom
+
+   @zone.zoom = params[:zone][:zoom]
+   @zone.save
+   respond_to do |format|
+       flash[:zone_notice] = 'Zone was successfully updated.'
+       format.html { redirect_to controller: 'coordinates', action: 'new_zone', zone_id: @zone.id}
+   end
+
+
+ end
+
+
 
 
   def show
 
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
+
 
   def new
     @zone = Zone.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-    end
   end
 
+
   def edit
+
+  end
+
+
+  def clear_coordinates
+
+    @Coordinates = Coordinate.where(zone_id: @zone.id)
+
+    @Coordinates.each do |coord|
+       coord.delete
+    end
+
+    redirect_to :controller=>"coordinates",:action => "new_zone",:zone_id=> @zone.id
+
+  end
+
+  def clear_last_coordinate
+
+    @Coordinates = Coordinate.where(zone_id: @zone.id).order("id ASC")
+    @Count = @Coordinates.count -1
+    @Coordinates.last.delete
+
+    redirect_to :controller=>"coordinates",:action => "new_zone",:zone_id=> @zone.id
 
   end
 
@@ -36,32 +75,39 @@ class ZonesController < ApplicationController
 
     respond_to do |format|
       if @zone.save
-        flash[:notice] = 'Zone was successfully created.'
+        @msg = "#{t :zone}" + "#{t :record_created}"
+        flash[:zone_notice] = @msg
         format.html { redirect_to(@zone) }
-      else
+       else
+         @errors = @zone.errors.full_messages
+         flash[:zone_notice] = @errors
         format.html { render :action => "new" }
-      end
+       end
     end
   end
+
 
   def update
 
     respond_to do |format|
       if @zone.update_attributes(zone_params)
-        flash[:notice] = 'Zone was successfully updated.'
+        @msg = "#{t :zone}" + "#{t :record_updated}"
+        flash[:zone_notice] = @msg
         format.html { redirect_to(@zone) }
-      else
+       else
         format.html { render :action => "edit" }
-      end
+       end
     end
   end
+
 
   def destroy
       respond_to do |format|
         if @zone.destroy
       format.html { redirect_to(zones_url) }
-        else
-         flash[:znotice] = 'Can not delete Zone with Territories still in it.'
+         else
+           @msg = "#{t :zone}" + "#{t :record_deleted}"
+           flash[:zone_notice] = @msg
          format.html { redirect_to(:back) }
         end
     end
@@ -70,12 +116,16 @@ class ZonesController < ApplicationController
    private
   # Use callbacks to share common setup or constraints between actions.
    def set_zone
-     @zone = Zone.find_by(id: params[:id], congregation_id: session[:congid])
+     @zone = Zone.find_by(id: params[:id], client_id: current_user.client_id)
+   end
+
+   def check_client
+     is_same_client_redirect(@zone)
    end
 
   # Never trust parameters from the scary internet, only allow the white list through.
    def zone_params
-     params.require(:zone).permit(:zone_no, :descrip, :img_url, :congregation_id)
+     params.require(:zone).permit(:zone_no, :city, :state, :country_id, :description, :client_id, :center_coordinate, :zoom, :fill_color, :border_size,:border_color, :map_layer_id)
    end
 
 

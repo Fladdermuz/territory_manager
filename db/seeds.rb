@@ -7,9 +7,35 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "ab1d48a0f8724f2fcec5fb9068344e6f",isadmin:1,iscongadmin:1, congregation_id:1)
-Congregation.create!(congname: "New", contact_id: 1)
+require 'open-uri'
 
+if Rails.env.test?
+ Country.create(code: "C#{i}",name: "C#{i}", region: 'South America')
+else
+response = Unirest.get "https://restcountries-v1.p.mashape.com/all",
+  headers:{
+    "X-Mashape-Key" => "63x4LUL69emshA6FO0XwGFSbHKnZp1Lhaz6jsnRLjc8S7bAAp4",
+    "Accept" => "application/json"
+  }
+
+
+response.body.each do |c|
+
+  if File.exist?("#{Rails.root}/public/images/flags/#{c['alpha2Code'].downcase}.png")
+    Country.create(code: c['alpha2Code'].downcase,name: c['name'],region: c['subregion'],flag: File.new("#{Rails.root}/public/images/flags/#{c['alpha2Code'].downcase}.png"))
+  else
+    Country.create(code: c['alpha2Code'].downcase,name: c['name'],region: c['subregion'])
+  end
+
+end
+
+
+
+
+end
+
+User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "ab1d48a0f8724f2fcec5fb9068344e6f", isadmin:1, client_id:1)
+Client.create!(name: "New", coordinate: "38.802859, -96.208728")
 
 
 MapLayer.create(name: 'Mapnik',layer_url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',max_zoom: 18, provider: 'Open Street Maps')

@@ -1,7 +1,18 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
+  record_created: "Record Created"
+  auto_submit: "Auto Submit"
+  finish: "Finish"
+  coordinates: "Coordinates"
+  search: "Search"
+  client_create: "Create Your Organization"
+  user_create: "Create Your User"
+  must_have_coord: "You must move the map marker to your area!"
+  english: "English"
+  spanish: "Spanish"
+  lang: "Language"
+  create_account: "Create New Account"
+  new_client: "New Account"
+  map_type: "Map Type"
   new: "New"
   home: "Home"
   notes: "Notes"
@@ -30,7 +41,7 @@ en:
   publisher: "Publisher Name"
   no_street: "You must include a street!"
   #For Main Index Page
- 
+
 
   address_button: "Manage Addresses"
 
@@ -42,7 +53,7 @@ en:
 
   user_button: "Users"
   # end main index
-  cong_button: "Congregations"
+  client_button: "Clients"
 
 
   #territory Histories
@@ -53,8 +64,8 @@ en:
   new_history: "New Territory History"
   report_for: "Report for:"
   edit_history: "Edit History"
-
   # For Territories page
+  territory_new_in_zone: "Create New In Zone"
   territories: "Territories"
   terr_needing_work: "Territories Needing Work"
   new_territory: "New Territory"
@@ -63,7 +74,7 @@ en:
   last_worked: "Last Worked"
   no_addresses_available_in_ter: "Sorry, there are no addresses for this territory"
   territory_status: "Status"
-  check_out: "Check Out"   
+  check_out: "Check Out"
   check_in: "Check In"
   checked_in: "Checked In"
   checked_out: "Checked Out"
@@ -152,7 +163,7 @@ en:
   hide_map: "Do not print Google Map"
   what_territory: "Which Territory?"
   territory_has_no_cords: "This Territory Has No Coordinates Entered"
-  
+
   #Householders
   householders: "Householders"
   new_householder_button: "New Householder"
@@ -162,7 +173,7 @@ en:
   search_householder: "Enter Householders Name"
   first_name: "First Name"
   last_name: "Last Name"
-  creation_success:  "Householder was successfully created!"  
+  creation_success:  "Householder was successfully created!"
   phone: "Phone"
   edit_householder: "Edit Householder"
   assign_new_address: "Assign to Existing Address"
@@ -183,16 +194,102 @@ en:
   name: "Name"
   newuser: "New User"
   isadmin: "Is Admin?"
-  iscongadmin: "Is Congregation Admin?"
+  isadmin: "Is Client Admin?"
   mappref: "Map Preference"
   lang: "Language"
   password: "Password"
   passwordmsg: " Password: (Must be 8 Characters & include 1 Uppercase letter & 1 Number)"
   images: "Upload Images"
   users: "Users"
-
-  cong_button: "Congregations"
-  congregation: "Congregation"
+  client_button: "Clients"
+  client: "Client"
   email: "Email"
+  activerecord:
+    attributes:
+      map_layer:
+        name: "Name"
+        layer_url: "Map URL"
+        provider: "Provider"
+        api_key: "Api Key"
+        max_zoom: "Max Zoom"
+        is_mapbox: "Is Mapbox?"
+        map_type: "Map Type"
+        file_ext: "File Extention"
+        subdomains: "Subdomains"
+      address:
+        neighborhood: "Neighborhood"
+        house_no: "House No"
+        street: "Street"
+        coordinate: "Coordinate"
+        apt_no: "Apartment Number"
+        city: "City"
+        state: "State"
+        zip: "Zip"
+        call_date: "Last Visit"
+        territory_id: "Territory"
+        client_id: "Client"
+        alt_house_no: "Alternate House No"
+        alt_street: "Alternate Street"
+        alt_city: "Alternate City"
+        hide_map: "Hide Map"
+      client:
+        name: "Name of Institution"
+        address: 'Address'
+        state: "Default State or Province"
+        city: "Default City"
+        country_id: "Country"
+        coordinate: "Coordinate"
+        require_address_coordinates: "Require Addresses to Be Mapped"
+        include_territory_check_out: "Include Territory Check Out "
+        is_coordinate_only: "Use only Coordinates, not Addresses"
+        lang: "Target Language"
+        zip: "Zip"
+        disable_all_google_maps: "Disable Google Maps"
+      user:
+        username: "User Name"
+        fname: "First Name"
+        lname: "Last Name"
+        email: "Email"
+        sitelang: "Your Language"
+      territory:
+        territory_no: "Territory Identifier"
+        description: "Description"
+        notes: "Notes"
+        zone_id: "Zone"
+        last_worked: "Last Census"
+        check_out_date: "Check Out Date"
+        checked_out_by: "Checked Out By"
+        is_checked_in: "Checked In?"
+        client_id: "Client"
+        is_dynamic: "Is Dynamic?"
+        center_coordinate: "Center Coordinate"
+        zoom: "Zoom"
+        color: "Colour"
+        border_color: "Border Colour"
+        maptype: "Map Type"
+        isreserved: "Is Reserved?"
+        reserved_by: "Reserved By"
+      zone:
+        zone_no: "Zone Number"
+        description: "Description"
+        image: "Image"
+        client_id: "Client"
+        center_coordinate: "Center Coordinate"
+        zoom: "Zoom"
+        city: "City"
+        state: "State"
+        country_id: "Country"
+        fill_color: "Fill With Color?"
+        border_color: "Border Color"
+        border_size: "Border Size"
+        map_layer_id: "Map Layer"
 
-
+  errors:
+    models:
+      client:
+        attributes:
+          coordinate:
+            blank: ": can't be blank! "
+          name:
+            blank: ": can't be blank! "
+  attributes:

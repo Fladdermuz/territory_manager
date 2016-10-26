@@ -2,10 +2,10 @@ class Address < ActiveRecord::Base
 
 belongs_to :territory
 has_many :householders, :dependent => :delete_all
-belongs_to :congregation
+belongs_to :client
 accepts_nested_attributes_for :householders
 
-validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_id,:congregation_id]
+validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_id,:client_id]
 
 
   def fulladdy

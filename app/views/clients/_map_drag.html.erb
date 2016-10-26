@@ -1,0 +1,81 @@
+
+
+<style>
+
+    #map_drag { margin-bottom:1px;position:relative;top:0px;height:530px; width:100%; }
+
+.css-icon {
+        width: 0;
+        height: 0;
+    }
+</style>
+
+<% get_map_layer ## returns @map_layer %>
+
+
+<div id='map_drag' > </div>
+
+<tr>
+   <td colspan="2">  <%= text_field_tag 'client_coordinate', {}, {id: 'client_coordinate' , class: 'text-field-wide', name: 'client[coordinate]' }%> </td>
+</tr>
+
+  <%if center.blank? || center.length < 13 %>
+   <% center = '-0.183847, -78.469690'  %>
+  <%end%>
+
+  <script>
+
+      var position = document.getElementById('client_coordinate');
+      position.value = '<%=center%>';
+      var map_drag = L.map('map_drag').setView([<%= center %>],"9");
+      L.tileLayer('<%=@map_layer.layer_url%>', {
+          attribution: 'EcuaERP',
+          maxZoom: '<%=@map_layer.max_zoom%>'
+
+
+          <%if !@map_layer.min_zoom.blank?%>
+          , min_zoom: '<%= @map_layer.min_zoom %>'
+          <%end%>
+
+          <%if !@map_layer.map_type.blank?%>
+          , type:  '<%=@map_layer.map_type%>'
+          <%end%>
+
+          <%if !@map_layer.file_ext.blank?%>
+          , ext: '<%= @map_layer.file_ext %>'
+          <%end%>
+
+          <%if !@map_layer.subdomains.blank?%>
+          , subdomains: '<%=@map_layer.subdomains %>'
+          <%end%>
+
+      }).addTo(map_drag);
+
+
+      var pointList = new Array();
+
+
+      var cssIcon = L.divIcon({
+          className: 'css-icon',
+          html: '<img src=/assets/pin.png>',
+          iconSize: [60, 60]
+      });
+
+
+      var marker = L.marker(new L.LatLng(<%=center%>), {
+          icon: cssIcon,
+          draggable: true
+      });
+
+      marker.on('dragend', ondragend);
+      marker.bindPopup('<%=t :map_drag_marker %>');
+      marker.addTo(map_drag);
+
+      function ondragend() {
+          var m = marker.getLatLng();
+          position.value = m.lat + ',' + m.lng;
+      }
+
+
+
+  </script>

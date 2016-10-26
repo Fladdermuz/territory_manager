@@ -1,95 +1,73 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header">
-    <h1><%=t :new_coordinate%></h1>
-  </div>
+    <div class="card-header-top">
+        <h2><%=t :new_coordinate%></h2>
+    </div>
 
+    <div class="card-block">
 
-  <div class="card-block">
+        <%if flash[:cord_notice]%>
+        <div class="notice alert alert-success" role="alert">
+            <%= flash[:cord_notice] %>
+        </div>
+        <%end%>
 
-    <%= form_for(@coordinate) do |f| %>
+        <%= form_for @coordinate, html: {id: 'new_cord'} do |f| %>
+        <div class='col-lg-10 col-xs-10'>
+            <%= f.hidden_field :coordinate, id: 'coordinate' , class: 'text-field'%>
+            <%= hidden_field_tag "auto_submit", @auto_submit  %>
+            <%= f.hidden_field(:territory_id,value:  @territory.id) %>
+            <br>
+            <%  if @territory.coordinates.nil? || @territory.coordinates.last.nil? %>
+            <%=render partial: 'coordinates/map', locals: {auto_submit: @auto_submit, territory: @territory, coordinate: @territory.center_coordinate} %>
+            <%else%>
+            <%=render partial: 'coordinates/map', locals: {auto_submit: @auto_submit, territory: @territory, coordinate:  @territory.coordinates.last.coordinate} %>
+            <%end%>
+        </div>
 
-    <table class="table table-striped">
-      <tr>
-        <td><%=t :coordinate%> </td>
-        <td><%= f.text_field :coordinate, id: 'coordinate' %></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <%= f.hidden_field(:territory_id,:value => @territoryid) %>
-          <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-          <%  if !@territory.coordinates.nil?%>
-
-            <% if @territory.coordinates.length == 1%>
-             <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.coordinates[0].coordinate%>
-              &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
-             <%end%>
-
-              <% if @territory.coordinates.length > 1%>
-              <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.border_color%>|weight:5|fillcolor:<%=@territory.color%>|
-                 <%@territory.coordinates.each do |cord| %>
-                   <%=cord.coordinate%>
-                   <%="|" unless cord == @territory.coordinates.last %>
-                 <%end%>
-                   &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
-              <%end%>
-
-
-                <%if !@territory.center_coordinate.blank? && !@territory.coordinates.any? %>
-                    <img src="http://maps.google.com/maps/api/staticmap?center=<%=@territory.center_coordinate%>&path=color:<%=@territory.color%>|weight:50|fillcolor:<%=@territory.border_color%>|&markers=color:red|label:X|<%=@territory.center_coordinate%>
-                    &size=512x512&size=512x512&zoom=<%=@territory.zoom%>&maptype=<%=@territory.maptype%>&sensor=false&key=AIzaSyCIL4jbMmEpn5qMkbUq1FuSVQkJDHRepbM">
-                <%end%>
-
-          <%end%>
-              </div>
-
-
-          <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-          <%  if @territory.coordinates.nil? || @territory.coordinates.last.nil? %>
-                <%=render partial: 'coordinates/map', locals: {coordinate: @territory.center_coordinate} %>
-               <%else%>
-                <%=render partial: 'coordinates/map', locals: {coordinate:  @territory.coordinates.last.coordinate} %>
-               <%end%>
-
-          </div>
-
-
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2"><%= f.submit "#{t :add}", class: 'btn btn-primary' %>
-
-
-<% end %>
-
-
-  <% if !@territory.coordinates[1].nil? %>
-  <% if @territory.coordinates.last.coordinate != @territory.coordinates.first.coordinate %>
-
-
-       <%= form_for(@coordinate) do |f| %>
-       <%@firstcoordinate=@territory.coordinates[0].coordinate%>
-       <%= f.hidden_field(:coordinate,:value =>  @territory.coordinates[0].coordinate) %>
-       <%= f.hidden_field(:territory_id,:value => @territoryid) %>
-
-        <%= f.submit "#{t :close_loop}", class: 'btn btn-primary' %>
+        <div class='col-lg-2 col-xs-2'>
+            <br>
+            <%= f.submit "#{t :add}", class: 'btn-card-nopad btn btn-primary' %>
+        </div>
         <% end %>
+        <div class='col-lg-2 col-xs-2'>
+            <br>
+            <br>
+            <%if @auto_submit == TRUE %>
+            <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new',territory_id: @territory.id, auto_submit: 0 },style: 'color: red;background-color: black;', class: 'btn-card-nopad btn btn-primary' %>
+            <%else%>
+            <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new',territory_id: @territory.id, auto_submit: 1 }, class: 'btn-card-nopad btn btn-primary' %>
+            <%end%>
+            <br>
+            <%= link_to "#{t :clear_last_coordinate}",{ :controller=>"territories",:action=> "clear_last_coordinate",:id=> @territory.id}, class: 'btn-card-nopad btn btn-primary', style: 'margin-top:8px;margin-bottom:8px;' %>
+            <%= link_to "#{t :clear_coordinates}",{:controller=>"territories",:action=> "clear_coordinates",:id=> @territory.id}, class: 'btn-card-nopad btn btn-primary', style: 'margin-top:8px;margin-bottom:8px;' %>
+            <%= link_to "#{t :finish}", "/territories/#{@territory.id}", class: 'btn-card-nopad btn btn-primary' %>
 
+            <% if !@territory.coordinates[1].nil? %>
+            <% if @territory.coordinates.last.coordinate != @territory.coordinates.first.coordinate %>
+            <%= form_for(@coordinate, remote: true) do |f| %>
+            <%@firstcoordinate=@territory.coordinates[0].coordinate%>
+            <%= f.hidden_field(:coordinate,value:   @territory.coordinates[0].coordinate) %>
+            <%= f.hidden_field(:territory_id,value: @territory.id) %>
+            <%= f.submit "#{t :close_loop}", class: 'btn-card-nopad btn btn-primary', style: 'margin-top:19px;' %>
+            <% end %>
+            <%end%>
+            <%end%>
 
-<%end%>
-<%end%>
-    </td>
-    </tr>
-</table>
+        </div>
 
-<table class="table">
-<tr>
-  <td><%= link_to "#{t :clear_last_coordinate}",{ :controller=>"territories",:action=> "clear_last_coordinate",:territory=> @territory.id}, class: 'btn btn-warning' %> </td>
-  <td><%= link_to "#{t :clear_coordinates}",{:controller=>"territories",:action=> "clear_coordinates",:territory=> @territory.id}, class: 'btn btn-warning' %></td>
-  <td><%= link_to "#{t :done}", "/territories/#{@territoryid}", class: 'btn btn-primary' %> </td>
-</tr>
- </table>
-</div>
+        <div class='col-lg-12 col-xs-12'>
+            <%= form_for(@territory, url: '/territories/update_zoom') do |f| %>
+            <%= f.hidden_field(:client_id,value:  current_user.client_id) %>
+            <%= hidden_field_tag :id,  @territory.id %>
+
+            <div class='col-lg-10 col-xs-10'>
+                <%= f.select(:zoom,([['1','12'], ['2','13'],['3','14'],['4','15'],['5','16'],['6','17'],['7','18'],['8','19']]),{include_blank: "#{t :zoom}"}, {class: 'text-field-wide' } )%>
+            </div>
+            <div class='col-lg-2 col-xs-2'>
+                <%= f.submit "#{t :update}", class: 'btn btn-primary', style: 'margin-top:3px;' %>
+            </div>
+            <%end%>
+
+        </div>
+    </div>
 </div>

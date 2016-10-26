@@ -8,26 +8,23 @@ class LoginController < ApplicationController
 
   def login
 
-    
+
      @ip = request.remote_ip
      if request.post?
 
        if session[:user] = User.authenticate(params[:user][:username], params[:user][:password])
 
         @uname = params[:user][:username]
-         @user = User.find_by(username: @uname)
+        @user = User.find_by(username: @uname)
         session[:uid] = @user.id
         session[:username] = @uname
+
         if @user.isadmin
           session[:role] = "admin"
         end
+ 
 
-        if @user.iscongadmin
-          session[:role] = "congadmin"
-        end
-
-
-        session[:congid] = @user.congregation_id # Store the users cong in session
+        session[:client_id] = @user.client_id # Store the users client in session
         session[:locale] = @user.sitelang
         redirect_to_stored
 

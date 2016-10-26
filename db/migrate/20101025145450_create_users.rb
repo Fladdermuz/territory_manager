@@ -3,12 +3,11 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string :username
       t.string :password
-      t.integer :congregation_id
+      t.integer :client_id
       t.string :email
       t.string :fname
       t.string :lname
       t.boolean :isadmin
-      t.boolean :iscongadmin
       t.string :mappref
       t.date :lastlogin
       t.string :sitelang

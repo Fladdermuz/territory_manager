@@ -17,11 +17,11 @@
   <p>
   
     <% if session[:role] == "admin" %>
-      <%=t :congregation %><br />
-   <%= f.select(:congregation_id, Congregation.find(:all).collect {|c| [ c.congname , c.id ] }) %>
+      <%=t :client %><br />
+   <%= f.select(:client_id, Client.find(:all).collect {|c| [ c.name , c.id ] }) %>
    <%else%>
 
-          <%= f.hidden_field :congregation_id, :value => session[:congid] %>
+          <%= f.hidden_field :client_id, :value => session[:client_id] %>
   <% end %>
 
     
@@ -48,8 +48,8 @@
   <%end%>
   
     <p>
-     <%=t :iscongadmin %><br />
-    <%= f.check_box :iscongadmin %>
+     <%=t :isadmin %><br />
+    <%= f.check_box :isadmin %>
   </p>
  
   <p>

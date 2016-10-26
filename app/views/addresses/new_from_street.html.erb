@@ -63,8 +63,8 @@
 
    <div class="new2">
     <b><%=t :territory_number %></b><br />
-       <%=  f.select(:territory_id,Territory.find(:all,:conditions=>"congregation_id ='#{session[:congid]}'",:order=>"territory_no+0").collect {|c| [c.territory_no, c.id ] },:selected => @territory.to_i) %>
-    <%= f.hidden_field(:congregation_id,:value => session[:congid]) %>
+       <%=  f.select(:territory_id,Territory.find(:all,:conditions=>"client_id ='#{session[:client_id]}'",:order=>"territory_no+0").collect {|c| [c.territory_no, c.id ] },:selected => @territory.to_i) %>
+    <%= f.hidden_field(:client_id,:value => session[:client_id]) %>
   </div>
 <br><br>
 <div class="quickname">
@@ -75,7 +75,7 @@
 
 
   <% fields_for :fname, @householder do |ff| %>
-    <%= ff.hidden_field(:congregation_id,:value => session[:congid]) %>
+    <%= ff.hidden_field(:client_id,:value => session[:client_id]) %>
     <%= ff.text_field :fname %>
 
     

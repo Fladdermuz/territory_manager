@@ -1,0 +1,102 @@
+
+<%if flash[:notice] %>
+<div class="alert alert-danger" role="alert">
+     <%= flash[:notice] %>
+</div>
+<%end%>
+
+<%= form_for(territory) do |f| %>
+<%= f.hidden_field :center_coordinate  %>
+<%= f.hidden_field :zone_id, value: zone.id %>
+
+<table class="table table-striped">
+    <tr>
+        <td>
+            <b>
+                <%=f.label :territory_no %>
+            </b>
+        </td>
+        <td>
+            <%= f.text_field :territory_no, class: 'text-field-wide' %></td>
+    </tr>
+    <tr>
+        <td>
+            <b>
+                <%=f.label :descrip %>
+            </b>
+        </td>
+        <td>
+            <%= f.text_area :descrip, :class=>"text-area-wide" %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>
+                <%=f.label :notes%>
+            </b>
+        </td>
+        <td><%= f.text_area :notes, class: 'text-area-wide' %></td>
+    </tr>
+
+    <tr>
+        <td>
+            <b>
+                <%=f.label :zoom%>
+            </b>
+        </td>
+        <td><%= f.select(:zoom,([['1','12'], ['2','13'],['3','14'],['4','15'],['5','16'],['6','17'],['7','18'],['8','19']]),{}, {class: 'text-field-wide'} )%>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <b>
+                <%=f.label :border_size%>
+            </b>
+        </td>
+        <td><%= f.select :border_size, { "1" => "1","2" => "2","3" => "3","4" => "4","5" => "5"},{},{class: 'text-field-wide'} %>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <b>
+                <%=f.label :fill_color%>
+            </b>
+        </td>
+        <td>
+            <%= f.check_box :fill_color %>
+        </td>
+    </tr>
+    <%if territory.new_record? %>
+       <%@color =  "#F30000" %>
+    <%else%>
+      <%@color = territory.border_color %>
+    <%end%>
+
+    <tr>
+        <td>
+            <b>
+                <%=f.label :border_color%>
+            </b>
+        </td>
+        <td><%= f.color_field :border_color , value: @color%>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class='col-lg-12 col-xs-12' style='padding:4px;'>
+                <%=render 'map', territory: territory, edit: 1, zone: @zone %>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <%= f.hidden_field(:is_dynamic,value:  true) %>
+            <%= f.hidden_field(:client_id,value:  current_user.client_id) %>
+            <%= f.submit "#{t :next}", class: 'btn btn-primary' %>
+        </td>
+    </tr>
+</table>
+
+<% end %>

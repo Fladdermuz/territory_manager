@@ -1,56 +1,61 @@
-
-
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header">
-    <strong class="strong">
-      <%= flash[:znotice] %>
-    </strong>
-    <h1><%= t :zones %>
-    <%= link_to "#{t :new_zone}", new_zone_path, class: 'btn btn-warning btn-right' %>
-    </h1>
-  </div>
-  <div class="card-block">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                  <br />
+                    <h2>
+                        <%= t :zones %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                  <%= link_to raw("<icon class='fa fa-5x fa-plus-circle'></icon>"), new_zone_path, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
 
+        <%@zones.each do |zone| %>
 
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th><%=t :zone%></th>
+                <th><%=t :descriptiontion%></th>
+                <th class="buttons"><%=t :view%></th>
+                <th class="buttons"><%=t :edit%>
+                </th>
+                <th class="buttons"><%=t :delete%>
+                </th>
+                <th class="buttons"><%=t :terrs_in_zone%>
+                </th>
+            </tr>
+            <tr>
 
-<%@zones.each do |zone| %>
+                <td>
+                    <%if zone.image.exists? %>
+                    <%=image_tag zone.image.url(:thumb)%>
+                    <%end%>
+                </td>
 
-<table class="table table-striped">
-<tr>
-<th><%=t :zone%></th>
-<th><%=t :description%></th>
-<th class="buttons"><%=t :view%></th>
-<th class="buttons"><%=t :edit%> </th>
-<th class="buttons"><%=t :delete%> </th>
-<th class="buttons"><%=t :terrs_in_zone%> </th>
-</tr>
-<tr>
-<td class="zone"><%=h zone.zone_no %></td>
-<td class="description"><%=h zone.descrip %></td>
-<td class="buttons"><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), zone %></td>
-<td class="buttons"><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_zone_path(zone) %></td>
-<td class="buttons"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), zone, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
-<td class="buttons"><%= link_to image_tag("samplestaticmap.png",:class=>"button",:size=>"60x36",:title=>"#{t :terrs_in_zone}"),:controller=>"territories",:action=>"index_zone",:zoneid=>zone.id %></td>
-</tr>
-</table>
+                <td class="zone"><%=h zone.zone_no %></td>
+                <td class="descriptiontion"><%=h zone.description %></td>
+                <td class="button"><%= link_to image_tag("view.png",:class=>"button",:size=>"26x26",:title=>"#{t :view}"), zone %></td>
+                <td class="button"><%= link_to image_tag("edit.png",:class=>"button",:size=>"26x26",:title=>"#{t :edit}"), edit_zone_path(zone) %></td>
+                <td class="button"><%= link_to image_tag("delete.png",:class=>"button",:size=>"26x26",:title=>"#{t :delete}"), zone, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+                <td class="button"><%= link_to image_tag("samplestaticmap.png",:class=>"button",:size=>"50x26",:title=>"#{t :terrs_in_zone}"),:controller=>"territories",:action=>"index_zone", :zone_id=>zone.id %></td>
+            </tr>
+            <tr>
+                <td colspan="7">
+                    <%= render 'map', zone: zone, edit: 0 %>
+                </td>
+            </tr>
+        </table>
+        <% end %>
 
-<%if zone.img_url.size > 0 %>
- <%= image_tag("/images/#{session[:congid]}/#{zone.img_url}")  %>
-<%else%>
-<%end%>
+        <br/>
 
-
-  
-<% end %>
-
-<br />
-
-
-
-
-</div>
+    </div>
 </div>

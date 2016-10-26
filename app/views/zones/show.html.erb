@@ -1,32 +1,62 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header">
-    <h1> <%= t :zone %> </h1>
-  </div>
-  <div class="card-block">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%= t :zones %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                    <%= link_to "", edit_zone_path(@zone), class: 'btn btn-primary btn-top btn-edit' %>
+                    <%= link_to raw(""), zones_path, class: 'btn btn-primary btn-top btn-home' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
-    <table class="table table-striped">
-      <tr>
-        <td> <b><%=t :zone%> #</b></td>
-        <td> <%= @zone.zone_no %><%= link_to image_tag('edit.png'), edit_zone_path(@zone), class: 'btn-right' %></td>
-      </tr>
-      <tr>
-        <td><b><%=t :description%></b></td>
-        <td><%= @zone.descrip %></td>
-        </tr>
-      <tr>
-        <td colspan="2">
-          <%if @zone.img_url.size > 0 %>
-           <%= image_tag("/images/#{session[:congid]}/#{@zone.img_url}")  %>
-          <%else%>
-          <%end%>
-        </td>
-        </tr>
+        <%if flash[:zone_notice]%>
+        <div class="alert alert-success" role="alert">
+            <%= flash[:zone_notice] %>
+        </div>
+        <%end%>
 
- </table>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b><%=t :zone%>#
+                        <%= @zone.zone_no %>
+                    </b>
+                </td>
+                <td class='button'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b><%=t :descriptiontion%></b>
+                </td>
+                <td><%= @zone.description %></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <%if @zone.image.exists? %>
+                    <%= image_tag @zone.image.url(:thumb) %>
+                    <%else%>
+                    <%end%>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" data-no-turbolink='true' >
+                    <%= link_to "#{t :coordinates}", {controller: 'coordinates', action: 'new_zone', zone_id: @zone.id}, class: 'left btn btn-primary',  data: { no_turbolink: true }%>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <%= render 'map', zone: @zone, edit: 0 %>
+                </td>
+            </tr>
+        </table>
 
-
-</div>
+    </div>
 </div>

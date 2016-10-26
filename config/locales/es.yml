@@ -1,7 +1,18 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
-es:
+ es:
+  record_created: "Creado con Exito"
+  auto_submit: "Auto Subir"
+  finish: "Terminar"
+  coordinates: "Coordinadas"
+  search: "Buscar"
+  client_create: "Crear Su Institución"
+  user_create: "Crear Su Usuario"
+  must_have_coord: "Debe mover el marcador del mapa a su área!"
+  english: "Inglés"
+  spanish: "Español"
+  lang: "Idioma"
+  create_account: "Crear Cuenta Nueva"
+  new_client: "Cuenta Nueva"
+  map_type: "Tipo de Mapa"
   new: "Nuevo"
   home: "Inicio"
   notes: "Notas"
@@ -29,20 +40,14 @@ es:
   date: "Fecha"
   publisher: "Nombre de Publicadora"
   no_street: "No pusiste la calle!"
-
   #For Main Index Page
- 
-
   address_button: "Admin Direcciones"
   householder_button: "Amos de Casa"
   territory_button:  "Territorios"
   zone_button: "Zonas"
   # end main index
-
-
-
   # For Territories page
-
+  territory_new_in_zone: "Crear Nuevo en Zona"
   territories: "Territorios"
   terr_needing_work: "Territorios que Necesitan la Predicación"
   new_territory: "Territorios Nuevo"
@@ -100,8 +105,6 @@ es:
   no_map_available: "Ningún mapa disponible"
   notes: "Notas"
   never_used: "Nunca Utilizado"
-
-
   #territory Histories
   territory_histories: "Territorio Historias"
   check_out_date: "Fecha de Conseguir"
@@ -110,10 +113,6 @@ es:
   new_history: "Nuevo Territorio Historia"
   report_for: "Informe para:"
   edit_history: "Editar Historia"
-
-
-
-
   # Address Pages
   addresses: "Direcciones"
   address: "Direccion"
@@ -153,7 +152,6 @@ es:
   hide_map: "No imprima mapa de google"
   what_territory: "Cuál territorio?"
   territory_has_no_cords: "Este territorio no tiene coordenadas"
-
   #Householders
   householders: "Amos de Casa"
   new_householder_button: "Nuevo A.D.C."
@@ -177,52 +175,112 @@ es:
   new_zone: "Nueva Zona"
   edit_zone: "Editar Zona"
   terrs_in_zone: "Territorios en la Zona"
-#USERS
-
+  #USERS
   user_button: "Usuarios"
   username: "Nombre de Usuario"
   name: "Nombre"
   newuser: "Nuevo Usario"
   isadmin: "¿Es Administrador?"
-  iscongadmin: "¿Es el Administrador de la Congregación?"
+  isadmin: "¿Es el Administrador de la Congregación?"
   mappref: "Mapa la Preferencia"
   lang: "Idioma"
   password: "Contraseña"
   passwordmsg: "Contraseña: (Debe ser de 8 caracteres e incluyen una letra mayúscula y un número)"
   images: "Subir Imágenes"
   users: "Usuarios"
-
-  #Congs
-  cong_button: "Congregaciones"
-  congregation: "Congregacion"
+  #Clientes
+  client_button: "Clientes"
+  client: "Cliente"
   email: "Correo Electrónico"
   house_no: "Numero de Casa"
   errors: "Erro!"
-
+  date:
+      formats:
+        default: "%Y-%m-%d"
+        short: "%b %d"
+        long: "%B %d, %Y"
+  day_names: [Sunday, Momnday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+  abbr_day_names: [Sun, Mon, Tue, Wed, Thur, Fri, Sat]
   activerecord:
     attributes:
-     address:
-      house_no: "Casa #"
+      client:
+        name: "Nombre de Institucion"
+        address: 'Direccion'
+        state: "Default Sales State or Province"
+        city: "Ciudad"
+        country_id: "País"
+        coordinate: "Coordinada"
+        is_coordinate_only: "Solo utiliza coordenadas"
+        require_address_coordinates: "Requiera que direcciones tengan coordenadas"
+        include_territory_check_out: "Incluyen salida de territorio"
+        lang: "Idioma"
+        zip: "Codigo Postal"
+        disable_all_google_maps: "Dishabiltar Mapas de Google"
+      map_layer:
+        name: "Nombre"
+        layer_url: "URL de Mapa"
+        provider: "Proveedor"
+        api_key: "Clave de API"
+        max_zoom: "Zoom máximo"
+        is_mapbox: "Es Mapbox?"
+        map_type: "Tipo de Mapa"
+        file_ext: "Extensión de archivo"
+        subdomains: "Subdominios"
+      address:
+        neighborhood: "Barrio"
+        house_no: "Casa No."
+        street: "Calle"
+        coordinate: "Coordenada"
+        apt_no: "Departmento No"
+        city: "Ciudad"
+        state: "Estado"
+        zip: "Codigo Postal"
+        call_date: "Fecha de Visita"
+        territory_id: "Territorio"
+        client_id: "Cliente"
+      user:
+        username: "Nombre de Usuario"
+        fname: "Nombre"
+        lname: "Apellido"
+        email: "Correo Electronico"
+        sitelang: "Su Idioma"
+      territory:
+        territory_no: "Numero del Territorio"
+        description: "Descripción"
+        notes: "Notas"
+        zone_id: "Zona"
+        last_worked: "Último Censo"
+        check_out_date: "Fecha de Asignación"
+        checked_out_by: "Asignado a"
+        is_checked_in: "No Asignado?"
+        client_id: "Cliente"
+        center_coordinate: "Coordenada Central"
+        zoom: "Enfocar"
+        color: "Color"
+        border_color: "Color de Borde"
+        maptype: "Tipo De Mapa"
+        isreserved: "Es Asignado?"
+        reserved_by: "Asignado a "
+      zone:
+        zone_no: "Numero de Zona"
+        description: "Descripción"
+        image: "Imagen"
+        client_id: "Cliente"
+        center_coordinate: "Coordinada Central"
+        zoom: "Enfocar"
+        city: "Ciudad"
+        state: "Estado"
+        country_id: "País"
+        fill_color: "Rellenar?"
+        border_color: "Color de Borde"
+        border_size: "Tamaño de Borde"
+        map_layer_id: "Tipo de Mapa"
 
-    models:    
     errors:
-            template:
-                body: "Hubo problemas con los siguientes datos"
-                header: "Un error impidió que esto sea guardado"
-            messages:
-                blank: "é obrigatório"
-                taken: "ya se ha asignado"
-                too_short: "incompleto"
-
-
-
-
-
-
-
-
-
-
-
-
-
+      models:
+        client:
+          attributes:
+            coordinate:
+              blank: ": no puede ser blanco "
+            name:
+              blank: ": no puede ser blanco "

@@ -1,5 +1,5 @@
 <div class="card">
-<div class="card-header">
+<div class="card-header-top">
 <%if flash[:notice]%>
 <p class="notice" id="notice"><%=notice %></p>
 <%end%>
@@ -15,7 +15,7 @@
     <td> <%=t :street %> <%=text_field_tag 'street', nil, {class: 'txt-field'} %> </td>
     <td> <%=t :city %> <%= select_tag "city", options_for_select(@cities.collect{ |u| [u.city] }), class: 'sel-field' %> </td>
     <td> <%=t :state %> <%=text_field_tag 'state', @state , class: 'txt-field'%> </td>
-    <td> <%=t :zone %><%=collection_select(:zone1,nil, Zone.where(congregation_id:  session[:congid]).order('zone_no'),:id, :zone_no,{},{class: 'sel-field'}) %> </td>
+    <td> <%=t :zone %><%=collection_select(:zone1,nil, Zone.where(client_id:  session[:client_id]).order('zone_no'),:id, :zone_no,{},{class: 'sel-field'}) %> </td>
     <td style="padding-top:18px;padding-bottom: 0px;"> <%= submit_tag "#{t :search}", class: 'btn btn-primary' %></td>
     </td>
   </tr>
@@ -29,11 +29,11 @@
        <% if z.img_url.size > 0 %>
 
            <div class="card zone">
-             <div class="card-header">
+             <div class="card-header-top">
                <%= z.zone_no %>
              </div>
              <div class="card-block">
-              <%= image_tag "/images/#{session[:congid]}/#{z.img_url}", class: 'zone' %>
+              <%= image_tag "/images/#{session[:client_id]}/#{z.img_url}", class: 'zone' %>
              </div>
            </div>
 

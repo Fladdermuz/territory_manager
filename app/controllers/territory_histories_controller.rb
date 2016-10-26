@@ -5,7 +5,7 @@ class TerritoryHistoriesController < ApplicationController
 
   def index
 
-     @territory_histories = TerritoryHistory.where(congregation_id: session[:congid]).joins(:territory).paginate(:page => params[:page], :per_page => 30).order('territories.territory_no+0,territory_histories.check_out_date')
+     @territory_histories = TerritoryHistory.where(client_id: session[:client_id]).joins(:territory).paginate(:page => params[:page], :per_page => 30).order('territories.territory_no+0,territory_histories.check_out_date')
   end
 
 
@@ -54,7 +54,7 @@ class TerritoryHistoriesController < ApplicationController
 
 
   def destroy
-    @territory_history = TerritoryHistory.find_by(id: params[:id],congregation_id: session[:congid])
+    @territory_history = TerritoryHistory.find_by(id: params[:id],client_id: session[:client_id])
     @territory_history.destroy
 
     respond_to do |format|
@@ -67,19 +67,19 @@ class TerritoryHistoriesController < ApplicationController
 
   def report
 
-    @territories = Territory.where(congregation_id: session[:congid]).includes(:territory_histories).paginate(:page => params[:page], :per_page => 30).order('territories.territory_no+0 ASC')
+    @territories = Territory.where(client_id: session[:client_id]).includes(:territory_histories).paginate(:page => params[:page], :per_page => 30).order('territories.territory_no+0 ASC')
 
   end
 
 
     private
      def set_territory_history
-      @territory_history = TerritoryHistory.find_by(id: params[:id],congregation_id: session[:congid])
+      @territory_history = TerritoryHistory.find_by(id: params[:id],client_id: session[:client_id])
     end
 
   # Never trust parameters from the scary internet, only allow the white list through.
     def territory_history_params
-      params.require(:territory_history).permit(:check_out_date, :check_in_date, :checked_out_by, :territory_id, :congregation_id)
+      params.require(:territory_history).permit(:check_out_date, :check_in_date, :checked_out_by, :territory_id, :client_id)
     end
 
 

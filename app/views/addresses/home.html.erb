@@ -2,7 +2,7 @@
 <br>
 
 <div class="card" style="max-width: 50%;margin: 0 auto;">
-  <div class="card-header">
+  <div class="card-header-top">
    <table class="table table-inverse">
      <tr>
        <td> <%=t :addresses %></td>
@@ -22,7 +22,7 @@
         </td>
       </tr>
 
-          <% if Congregation.find(session[:congid]).disable_all_google_maps == true %>
+          <% if Client.find(session[:client_id]).disable_all_google_maps == true %>
           <%else%>
 
           <tr>

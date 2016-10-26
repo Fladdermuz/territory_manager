@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="card-header-top card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title">
+                    <h2>
+                        <%=t :territory %>
+                    </h2>
+                </td>
+
+                <td class='button'></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card-block">
+
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th style='max-width:30%;width:30%;'>
+                        <%=t :address%>
+                    </th>
+                    <th style='max-width:20%;width:20%;'>
+                        <%=t :user%>
+                    </th>
+                    <th>
+                        <%=t :map%>
+                    </th>
+                </tr>
+            </thead>
+            <% @addresses.each do |a| %>
+            <tr>
+                <td>
+                    <table class='table'>
+
+                        <tr>
+                            <td>
+                                <%=t :neighborhood %>
+                            </td>
+                            <td>
+                                <%=a.neighborhood %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <%=t :hose_no %>
+                            </td>
+                            <td>
+                                <%=a.house_no %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <%=t :apt_no %>
+                            </td>
+                            <td>
+                                <%=a.apt_no %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <%=t :zip %>
+                            </td>
+                            <td>
+                                <%=a.zip %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <%=t :call_date %>
+                            </td>
+                            <td>
+                                <%=a.call_date %>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td>
+                    <%a.users.each do |u| %>
+
+                    <%=link_to u.full_name, u%>
+                    <br>
+                    <%=u.email%>
+                    <br>
+                    <%=u.phone%>
+                    <%end%>
+                </td>
+                <td>
+                    <%= render "addresses/map_small", territory: a.territory, coordinate: a.coordinate, address_id: a.id, edit: 0  %>
+                </td>
+            </tr>
+            <%end%>
+        </table>
+
+    </div>
+</div>

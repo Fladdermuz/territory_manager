@@ -1,5 +1,3 @@
-<%= stylesheet_link_tag 'territory'  %>
-
 <h1><%=link_to("#{t :territories}","/territories/home")%></h1>
 
 <table class="territory">
@@ -7,7 +5,7 @@
     <th class="territory_number_report">#</th>
     <th class="territory_status"><%=link_to("#{t :territory_status}","report_status") %></th>
     <th class="territory_cob"><%=link_to("#{t :checked_out_by}","report_cob") %></th>
-    <th class="territory_descript"><%=t :description %> </th>
+    <th class="territory_descriptiont"><%=t :descriptiontion %> </th>
     <th class="territory_last_worked"><%=link_to("#{t :checked_out}","report_co_date") %></th>
     <th class="territory_last_worked"><%=link_to("#{t :last_worked}","report_last_worked") %></th>
     <th class="territory_zone"><%= t :zone  %> </th>
@@ -55,7 +53,7 @@
 
     </td>
 
-    <td class="territory_descript" ><%=h territory.descrip %></td>
+    <td class="territory_descriptiont" ><%=h territory.description %></td>
       <td class="territory_last_worked"><%=h territory.checkout_date %></td>
     <td class="territory_last_worked"><%=h territory.last_worked %></td>
     <td class="territory_zone" ><%=territory.zone.zone_no %>   </td>

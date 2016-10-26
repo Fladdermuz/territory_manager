@@ -1,0 +1,120 @@
+<style>
+    body { margin:0; padding:0; }
+    #map_c { margin-bottom:30px;position:relative;top:10px; height:500px; bottom:0; width:100%; }
+</style>
+
+<style>
+    .css-icon {
+        width: 0;
+        height: 0;
+
+    }
+</style>
+
+<% get_map_layer ## returns @map_layer %>
+<%= render 'map_layers/set_layer' %>
+
+<div id='map_c'></div>
+
+
+
+
+<script>
+
+    var position = document.getElementById('coordinate');
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
+
+
+        var map_c = L.map('map_c').setView([<%=coordinate%>],"<%=zone.zoom%>");
+        L.tileLayer('<%=@map_layer.layer_url%>', {
+            attribution: 'EcuaERP',
+            maxZoom: '<%=@map_layer.max_zoom%>'
+
+
+            <%if !@map_layer.min_zoom.blank?%>
+                , min_zoom: '<%= @map_layer.min_zoom %>'
+             <%end%>
+
+            <%if !@map_layer.map_type.blank?%>
+            , type:  '<%=@map_layer.map_type%>'
+            <%end%>
+
+            <%if !@map_layer.file_ext.blank?%>
+           , ext: '<%= @map_layer.file_ext %>'
+            <%end%>
+
+            <%if !@map_layer.subdomains.blank?%>
+           , subdomains: '<%=@map_layer.subdomains %>'
+            <%end%>
+
+        }).addTo(map_c);
+
+
+    var cssIcon = L.divIcon({
+        // Specify a class name we can refer to in CSS.
+        className: 'css-icon',
+        html: '<img src=/assets/pin.png>',
+        iconSize: [60, 60]
+    });
+
+
+
+    var marker = L.marker(new L.LatLng(<%=coordinate%>), {
+        icon: cssIcon,
+        draggable: true
+    });
+
+
+
+    var cssIcon<%=zone.id%> = L.divIcon({
+        className: 'css-icon',
+        html: "<span class='icon-span'>ZONE:<%=zone.zone_no%></span>",
+        iconSize: [60, 60]
+    });
+
+    var marker<%=zone.id%> = L.marker(new L.LatLng(<%=zone.center_coordinate%>), {
+        icon: cssIcon<%=zone.id%>,
+        draggable: false
+    });
+
+    marker<%=zone.id%>.bindPopup('Zone <%=zone.zone_no%>');
+    marker<%=zone.id%>.addTo(map_c);
+
+   var line_points = [
+      <% zone.coordinates.each do |c| %>
+        [<%=c.coordinate%>],
+      <%end%>
+    ];
+
+
+
+    var polyline_options = {
+          color: '<%=zone.border_color%>',
+          html: ""
+          <%if zone.fill_color? %>,
+          fill: true
+          <%end%>
+          <%if !zone.border_size.blank?%>,
+          weight: <%=zone.border_size%>
+          <%end%>
+    };
+
+    var polyline = L.polyline(line_points, polyline_options).addTo(map_c);
+
+
+
+    marker.on('dragend', ondragend);
+    marker.bindPopup('<%=t :map_drag_marker %>');
+    marker.addTo(map_c);
+
+
+    function ondragend() {
+        var m = marker.getLatLng();
+        position.value = m.lat + ',' + m.lng;
+        <%if auto_submit == TRUE %>
+        $('form#new_cord').trigger('submit');
+        <%end%>
+
+    }
+</script>

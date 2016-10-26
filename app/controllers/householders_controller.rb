@@ -1,10 +1,11 @@
 class HouseholdersController < ApplicationController
   before_action :set_householder, only: [:show, :edit, :update, :destroy]
   before_filter :login_required
-   
+  before_action :setup
+  
   def index
 
-    @householders= Householder.where(congregation_id: session[:congid]).paginate(:page => params[:page], :per_page => 30).order('fname ASC,lname ASC')
+    @householders= Householder.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order('fname ASC,lname ASC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class HouseholdersController < ApplicationController
   def show
 
     if !@householder.address_id.nil?
-      @address = Address.find_by(id: @householder.address_id, congregation_id: session[:congid])
+      @address = Address.find_by(id: @householder.address_id, client_id: session[:client_id])
     end
 
     respond_to do |format|
@@ -30,8 +31,8 @@ class HouseholdersController < ApplicationController
 
     @householder = Householder.new
     @addressID = params[:addressID]
-    if !@addressID.nil?    
-    @address = Address.find_by(id: @addressID, congregation_id: session[:congid])
+    if !@addressID.nil?
+    @address = Address.find_by(id: @addressID, client_id: session[:client_id])
     end
 
     respond_to do |format|
@@ -48,7 +49,7 @@ class HouseholdersController < ApplicationController
   # POST /householders.xml
   def create
     @householder = Householder.new(householder_params)
-    @cong = Congregation.find(session[:congid])
+    @client = Client.find(session[:client_id])
     respond_to do |format|
       if @householder.save
         flash[:notice] = t :creation_success
@@ -62,7 +63,7 @@ class HouseholdersController < ApplicationController
   # PUT /householders/1
   # PUT /householders/1.xml
   def update
-    @householder = Householder.find(params[:id],:conditions => "congregation_id = '#{session[:congid]}'")
+    @householder = Householder.find(params[:id],:conditions => "client_id = '#{session[:client_id]}'")
 
     respond_to do |format|
       if @householder.update_attributes(params[:householder])
@@ -88,9 +89,9 @@ class HouseholdersController < ApplicationController
 
 
   def home
-   
+
   end
-  
+
 
 
 
@@ -98,10 +99,10 @@ class HouseholdersController < ApplicationController
 def add_hh_to_address
 
   @hh_id = params[:hh_id]
-  
+
   @address_id = params[:addressid]
 
-  @hh = Householder.find(@hh_id,:conditions => "congregation_id = '#{session[:congid]}'")
+  @hh = Householder.find(@hh_id,:conditions => "client_id = '#{session[:client_id]}'")
 
   @hh.address_id = @address_id
 
@@ -123,4 +124,3 @@ end
     params.require(:householder).permit(:fname, :lname,:notes, :phone, :address_id, :call_date)
   end
 end
-

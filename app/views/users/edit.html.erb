@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
     <h1><%=t :edit%>: <%=  @user.username%></h1>
   </div>
   <div class="card-block">
@@ -35,8 +35,8 @@
   <%end%>
 
     <tr>
-    <td><%=t :iscongadmin%></td>
-    <td><%= f.check_box :iscongadmin %></td>
+    <td><%=t :isadmin%></td>
+    <td><%= f.check_box :isadmin %></td>
     </tr>
   <tr>
     <td> <%=t :mappref %> </td>

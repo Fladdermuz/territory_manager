@@ -1,6 +1,6 @@
 <br>
 <div class="card">
- <div class="card-header checkout">
+ <div class="card-header-top checkout">
    <%=t :check_out %>
  </div>
 
@@ -10,9 +10,11 @@
       <table class="table table-striped">
         <tr>
           <td><%=t :checked_out_by %></td>
-          <td><%= text_field nil, 'cob',class: 'txt-field',placeholder: "#{t :publisher}" %></td>
+          <td>
+            <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id, is_recipient: FALSE, is_applicant: FALSE).order('f_name ASC'), "id", "full_name"), class: 'text-field-wide',prompt: "#{t :select_user}"  %>
+          </td>
         </tr>
-        <%= hidden_field_tag "territory_id", @t %>
+        <%= hidden_field_tag "id", @id %>
         <tr>
           <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
         </tr>
@@ -23,7 +25,7 @@
 
  </div>
   </div>
-  
+
 
 
 </div>

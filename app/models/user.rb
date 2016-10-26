@@ -2,15 +2,19 @@ require 'digest/md5'
 class User < ActiveRecord::Base
    @salt = "1914"
    validates_uniqueness_of :username
-   belongs_to :congregation
+   validates_presence_of :email
+   validates_presence_of :fname
+   validates_presence_of :username
+   
+   belongs_to :client
 
-  
+
 
   def before_create
 
     self.password = User.encrypt(self.password)
 
-end
+  end
 
 
 

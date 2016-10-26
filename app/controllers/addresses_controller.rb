@@ -3,11 +3,12 @@ class AddressesController < ApplicationController
 
  before_filter :login_required
  before_action :set_address, only: [:show, :edit, :update, :destroy]
+ before_action :setup
 
 
   def index
 
-   @addresses = Address.where(congregation_id: session[:congid]).paginate(:page => params[:page], :per_page => 30).order("street ASC")
+   @addresses = Address.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street ASC")
 
    respond_to do |format|
     format.html # index.html.erb
@@ -21,15 +22,15 @@ class AddressesController < ApplicationController
     @street = params[:street]
     if  params[:street].to_s == ""
     @addresses = nil
-    
+
     else
-    @addresses = Address.where("street LIKE '#{@street}%' AND congregation_id = '#{session[:congid]}'").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
+    @addresses = Address.where("street LIKE '#{@street}%' AND client_id = '#{session[:client_id]}'").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
     end
 
 
     respond_to do |format|
       format.html # index.html.erb
-      
+
     end
   end
 
@@ -42,7 +43,7 @@ class AddressesController < ApplicationController
        session[:terr] = @territory
     end
 
-    @addresses = Address.where(congregation_id: session[:congid], territory_id: session[:terr]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
+    @addresses = Address.where(client_id: session[:client_id], territory_id: session[:terr]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
 
     respond_to do |format|
       format.html # index.html.erb
@@ -59,7 +60,7 @@ class AddressesController < ApplicationController
     if @apt.nil?
       @apt = "%"
     end
-    @addresses = Address.where("house_no = '#{@house}' and street = '#{@street}' and apt_no LIKE '#{@apt}' AND congregation_id = '#{session[:congid]}'") # Return only Requested street
+    @addresses = Address.where("house_no = '#{@house}' and street = '#{@street}' and apt_no LIKE '#{@apt}' AND client_id = '#{session[:client_id]}'") # Return only Requested street
 
     respond_to do |format|
       format.html # index.html.erb
@@ -72,9 +73,9 @@ class AddressesController < ApplicationController
 
  def what_territory
 
-   @cities = Address.where(congregation_id: session[:congid]).select('distinct city')
-   @zones = Zone.where(congregation_id: session[:congid])
-   @territories =  Territory.where(congregation_id: session[:congid], zone_id: @zone).order("territory_no+0")
+   @cities = Address.where(client_id: session[:client_id]).select('distinct city')
+   @zones = Zone.where(client_id: session[:client_id])
+   @territories =  Territory.where(client_id: session[:client_id], zone_id: @zone).order("territory_no+0")
 
  end
 
@@ -82,14 +83,14 @@ class AddressesController < ApplicationController
 
   def what_territory_post
 
-  @cities = Address.where(congregation_id: session[:congid]).select('distinct city')
+  @cities = Address.where(client_id: session[:client_id]).select('distinct city')
   @house_no = params[:house_no]
   @street = params[:street]
   @city = params[:city].to_s
   @state = params[:state]
   @zone = params[:zone1]
-  @zones = Zone.where(congregation_id: session[:congid])
-  @territories =  Territory.where(congregation_id: session[:congid], zone_id: @zone).order("territory_no+0")
+  @zones = Zone.where(client_id: session[:client_id])
+  @territories =  Territory.where(client_id: session[:client_id], zone_id: @zone).order("territory_no+0")
 
   respond_to do |format|
 
@@ -108,7 +109,7 @@ class AddressesController < ApplicationController
 
 
 
-  
+
   def show
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 13
@@ -146,7 +147,7 @@ def show_all_cords
   @street = params[:street]
   @address = params[:address]
   @map = User.find_by(username: session[:username]).mappref
-  @addresses = Address.where(congregation_id: session[:congid], address_id: @address, street: @street).where.not(coordinate: '')
+  @addresses = Address.where(client_id: session[:client_id], address_id: @address, street: @street).where.not(coordinate: '')
        respond_to do |format|
       format.html # new.html.erb
      end
@@ -162,12 +163,12 @@ end
     #See create below.. if the user puts in a name it create the hh object.
     @address = Address.new
     @address.householders.build
-    @cong = Congregation.find(session[:congid])
-    @city = Congregation.find(session[:congid]).city
-    @state = Congregation.find(session[:congid]).state
+    @client = Client.find(session[:client_id])
+    @city = Client.find(session[:client_id]).city
+    @state = Client.find(session[:client_id]).state
       respond_to do |format|
 
-      format.html # new.html.erb      
+      format.html # new.html.erb
      end
   end
 
@@ -175,16 +176,16 @@ end
   def edit
 
   end
- 
+
   def create
 
     @address = Address.new(address_params)
-    
+
 
     if @address.territory_id.blank?
       redirect_to :back
     else
-    
+
     respond_to do |format|
 
       if @address.save
@@ -202,7 +203,7 @@ end
 
   # PUT /addresses/1
   # PUT /addresses/1.xml
-  
+
   def update
 
     respond_to do |format|
@@ -222,9 +223,9 @@ end
   def destroy
 
    @address.destroy
-   @addresses = Address.where(congregation_id: session[:congid],territory_id: @address.territory_id, street: @address.street).where.not(house_no: @address.house_no).order("house_no")
+   @addresses = Address.where(client_id: session[:client_id],territory_id: @address.territory_id, street: @address.street).where.not(house_no: @address.house_no).order("house_no")
 
-  if  Congregation.find(session[:congid]).is_coordinate_only == true
+  if  Client.find(session[:client_id]).is_coordinate_only == true
     if @addresses.count > 0
 
         @addresses.each_with_index do |address, index|
@@ -236,7 +237,7 @@ end
 
     end
   end
-   
+
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -247,7 +248,7 @@ end
 
   def home
 
-   
+
   end
 
 
@@ -255,14 +256,14 @@ end
 
 
   def edit_alt
-    @address = Address.find_by(id: params[:aid], congregation_id: session[:congid])
+    @address = Address.find_by(id: params[:aid], client_id: session[:client_id])
   end
 
 
 
   def remove_alt
 
-      @address = Address.find_by(id: params[:aid],congregation_id: session[:congid])
+      @address = Address.find_by(id: params[:aid],client_id: session[:client_id])
       @address.alt_city = nil
       @address.alt_house_no = nil
       @address.alt_street = nil
@@ -276,7 +277,7 @@ end
 
   def export
       require 'csv'
-      @addresses =  Address.where("addresses.congregation_id = '#{session[:congid]}'").includes(:territory).order("addresses.territory_id ASC,addresses.street,addresses.house_no,LENGTH(addresses.apt_no),addresses.apt_no") # Return only Requested street
+      @addresses =  Address.where("addresses.client_id = '#{session[:client_id]}'").includes(:territory).order("addresses.territory_id ASC,addresses.street,addresses.house_no,LENGTH(addresses.apt_no),addresses.apt_no") # Return only Requested street
 
       @outfile = "address_backup_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 
@@ -319,12 +320,12 @@ end
  private
   # Use callbacks to share common setup or constraints between actions.
  def set_address
-   @address = Address.find_by(id: params[:id], congregation_id: session[:congid])
+   @address = Address.find_by(id: params[:id], client_id: session[:client_id])
  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
  def address_params
-   params.require(:address).permit(:neighborhood, :house_no,:street, :apt_no, :city, :state, :zip, :call_date, :territory_id, :congregation_id, householders_attributes: [:fname, :lname, :address_id, :congregation_id, :call_date ])
+   params.require(:address).permit(:neighborhood, :house_no,:street, :apt_no, :city, :state, :zip, :call_date, :territory_id, :client_id, householders_attributes: [:fname, :lname, :address_id, :client_id, :call_date ])
  end
 
 end

@@ -1,6 +1,6 @@
 
 <div class="card">
-<div class="card-header">
+<div class="card-header-top">
 
 
   <%if flash[:warning]%>
@@ -13,7 +13,7 @@
 <div class="card-block">
 
 <%= form_for(@address) do |f| %>
-      <%= f.hidden_field(:congregation_id,:value => session[:congid]) %>
+      <%= f.hidden_field(:client_id,:value => session[:client_id]) %>
 <table class="table table-striped">
   <tr>
     <td><%=t :neighborhood%> </td>
@@ -37,7 +37,7 @@
   </tr>
   <tr>
     <td><%=t :state %></td>
-    <td><%= f.text_field :state,:value =>  Congregation.find(session[:congid]).state ,class: 'txt-field' %></td>
+    <td><%= f.text_field :state,:value =>  Client.find(session[:client_id]).state ,class: 'txt-field' %></td>
    </tr>
   <tr>
     <td><%=t :zip %></td>
@@ -50,7 +50,7 @@
   <%if @territory.nil?%>
   <tr>
     <td> <%=t :territory_number %> </td>
-    <td> <%=f.select(:territory_id, Territory.where(congregation_id: session[:congid]).order("territory_no+0").collect {|p| [ p.territory_no, p.id ] }, { :include_blank => true,:selected => "" },{class: 'sel-field'}) %></td>
+    <td> <%=f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|p| [ p.territory_no, p.id ] }, { :include_blank => true,:selected => "" },{class: 'sel-field'}) %></td>
     </tr>
   <%else%>
       <%=f.hidden_field :territory_id, value: @territory.id %>
@@ -59,13 +59,13 @@
   <tr>
    <td colspan="2">
 
-     <% if Congregation.find(session[:congid]).is_coordinate_only == true  %>
+     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
              <%= f.text_field :coordinate, id: 'coordinate' %>
           </div>
 
 
-     <% if Congregation.find(session[:congid]).is_coordinate_only == true  %>
+     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
            <%=render partial: 'addresses/map', locals: {coordinate: @coordinate} %>
          </div>
@@ -93,7 +93,7 @@
       <% end %>
 
 
-      <% if Congregation.find(session[:congid]).disable_terr_maps == false  %>
+      <% if Client.find(session[:client_id]).disable_terr_maps == false  %>
           <tr>
             <td colspan="2">
               <%=t :hide_map%><br />

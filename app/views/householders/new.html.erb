@@ -2,7 +2,7 @@
 
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header-top">
     <h1><%=t :new_householder %></h1>
   </div>
   <div class="card-block">
@@ -36,7 +36,7 @@
      </tr>
      <tr>
        <td>
-         <%= f.hidden_field :congregation_id, :value => session[:congid] %>
+         <%= f.hidden_field :client_id, :value => session[:client_id] %>
          <%= f.submit "#{t :create}", class: 'btn btn-primary' %>
        </td>
        <td>
