@@ -18,7 +18,7 @@
 
 <%if zone.new_record?%>
 <%@coord = current_user.client.coordinate %>
-<%@zoom = 4 %>
+<%@zoom = 12 %>
 <%else%>
 <%@coord = zone.center_coordinate %>
 <%@zoom = zone.zoom %>

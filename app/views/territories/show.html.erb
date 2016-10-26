@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header-top card-header-top">
+    <div class="card-header card-header-top">
         <table class="table table-noborder table-nopadding">
             <tr>
                 <td class="card-title no-border">
@@ -30,7 +30,7 @@
                     <%= @territory.territory_no %>
                     <%end%>
                 </td>
-                <%if current_user.client.include_territory_check_out? %>
+
                 <td>
                     <%=t :territory_status%>
                     :
@@ -49,7 +49,7 @@
                     <%=h @territory.get_checked_out_by %>
                     <%end%>
                 </td>
-                <%end%>
+
             </tr>
         </table>
 
@@ -66,7 +66,7 @@
             <tr>
 
                 <td>
-                    <%= link_to image_tag("customers.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}"),:action=>"view_ter_householders",:id =>@territory.id %>
+                    <%= link_to image_tag("home.png", :title=>"#{t :addresses}"),:action=>"view_ter_householders",:id =>@territory.id %>
                 </td>
                 <td>
                     <div style='float:right;'>
@@ -74,12 +74,9 @@
                         <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}-#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_householders", :id =>@territory.id %>
                         <div style='width:20px;display:inline-block;'></div>
 
-                        <%if current_user.client.include_territory_check_out? %>
                         <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:id =>@territory.id%>
                         <%if @territory.is_checked_in == false     %>
                         <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),{controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, :confirm => "#{t :check_in_sure}"%>
-                        <%end%>
-
                         <%end%>
 
                     </div>

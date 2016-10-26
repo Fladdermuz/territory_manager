@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'territories/view_all_ter_householders_with_phones' => 'territories#view_all_ter_householders_with_phones', :as=> 'territories/view_all_ter_householders_with_phones'
   get 'territories/check_in' => 'territories#check_in', :as=> 'territories/check_in'
   get 'territories/check_out' => 'territories#check_out', :as=> 'territories/check_out'
+  get 'territories/view_all_ter_householders' => 'territories#view_all_ter_householders', :as=> 'territories/view_all_ter_householders'
   get 'territories/remove_from_que' => 'territories#remove_from_que', :as=> 'territories/remove_from_que'
   get 'territories/view_ter_householders' => 'territories#view_ter_householders', :as=> 'territories/view_ter_householders'
   get 'territories/view_ter_householders_with_phones' => 'territories#view_ter_householders_with_phones', :as=> 'territories/view_ter_householders_with_phones'

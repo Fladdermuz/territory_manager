@@ -1,6 +1,6 @@
 class TerritoriesController < ApplicationController
    before_filter :login_required,:isadminuser
-   before_filter :set_territory, only: [:show, :edit, :update, :destroy]
+   before_filter :set_territory, only: [:show, :edit, :update, :destroy,:view_all_ter_householders,:view_ter_householders]
    before_action :setup
 
    # GET /territories
@@ -114,12 +114,12 @@ class TerritoriesController < ApplicationController
 
   def view_ter_householders
     #a printout of this is what is given to publishers to take out in service.
-    @territory_id = params[:territory_id]
-    @territory = Territory.find(@territory_id)
+
+
     @territory.reserved_by = session[:username]
     @territory.isreserved = true
     @territory.save
-    @addresses = Address.where(territory_id: @territory_id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
+    @addresses = Address.where(territory_id: @territory.id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
 
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 15
@@ -172,10 +172,9 @@ class TerritoriesController < ApplicationController
   end
 
 
-  def view_ter_householders_with_phones
+  def view_all_ter_householders
     #a printout of this is what is given to publishers to take out in service.
-    @territory_id = params[:territory_id]
-    @addresses = Address.where(territory_id: @territory_id, client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
+    @addresses = Address.where(territory_id: @territory.id, client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
   end
 
 
