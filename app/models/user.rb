@@ -1,16 +1,17 @@
 require 'digest/md5'
 class User < ActiveRecord::Base
    @salt = "1914"
+   belongs_to :client
    validates_uniqueness_of :username
    validates_presence_of :email
    validates_presence_of :fname
    validates_presence_of :username
-   
-   belongs_to :client
+   before_create :before_create_items
 
 
 
-  def before_create
+
+  def before_create_items
 
     self.password = User.encrypt(self.password)
 
@@ -41,10 +42,10 @@ class User < ActiveRecord::Base
        @u.save
     end
   return nil if @u.nil?
-  return @u if User.encrypt(pass)==@u.password
+  return @u if User.encrypt(pass) == @u.password
 
 
-  @isGood = User.encrypt(pass)==@u.password
+  @isGood = User.encrypt(pass) == @u.password
   nil
 end
 

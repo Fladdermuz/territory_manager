@@ -176,6 +176,8 @@
   edit_zone: "Editar Zona"
   terrs_in_zone: "Territorios en la Zona"
   #USERS
+  please_save: "Por favor guarde esta información"
+  your: "Su "
   user_button: "Usuarios"
   username: "Nombre de Usuario"
   name: "Nombre"
@@ -284,3 +286,11 @@
               blank: ": no puede ser blanco "
             name:
               blank: ": no puede ser blanco "
+        user:
+          attributes:
+            client_id:
+              blank: ": can't be blank! "
+            fname:
+              blank: ": can't be blank! "
+            email:
+              blank: ": can't be blank! "

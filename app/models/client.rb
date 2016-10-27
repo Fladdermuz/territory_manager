@@ -1,10 +1,10 @@
 class Client < ActiveRecord::Base
  has_many :users
- accepts_nested_attributes_for :users
+ belongs_to :country
  before_create :check_create
  validates_presence_of :name
- belongs_to :country
 
+ accepts_nested_attributes_for :users
 
  def check_create
 

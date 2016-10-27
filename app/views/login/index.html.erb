@@ -1,23 +1,22 @@
 <br>
 <br>
+
 <div class="login">
 
     <div class="card">
 
         <div class="card-header">
-            <div class='col-lg-12'>
-                <%= render 'main/change_lang' %>
-            </div>
+
             <%= form_for @user, url: "login/login" do |f| %>
             <table class="table table-noborder">
                 <tr>
                     <td>
                         <%=t :username %>
-                        <%= f.text_field :username, class: 'txt-field' %>
+                        <%= f.text_field :username, class: 'text-field-wide' %>
                     </td>
                 </tr>
                 <tr>
-                    <td><%=t :password %>&nbsp;&nbsp;<%= f.password_field :password, class: 'txt-field'  %>
+                    <td><%=t :password %>&nbsp;&nbsp;<%= f.password_field :password, class: 'text-field-wide'  %>
                     </td>
                 </tr>
                 <tr>

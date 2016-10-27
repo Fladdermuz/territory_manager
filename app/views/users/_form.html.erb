@@ -1,0 +1,60 @@
+<%= form_for(@user) do |f| %>
+
+
+  <p>
+    <%=t :username %><br />
+    <%= f.text_field :username, class: 'text-field-wide' %>
+  </p>
+  <p>
+    <%=t :password %><br />
+    <%= f.text_field :password, class: 'text-field-wide' %>
+  </p>
+  <p>
+
+    <% if session[:role] == "admin" %>
+      <%=t :client %><br />
+    <%= f.select(:client_id, Client.all.collect {|c| [ c.name , c.id ] }, {},{class: 'text-field-wide'}) %>
+   <%else%>
+
+    <%= f.hidden_field :client_id, :value => session[:client_id] %>
+  <% end %>
+
+
+
+  </p>
+  <p>
+    <%=t :email %><br />
+    <%= f.text_field :email , class: 'text-field-wide'%>
+  </p>
+  <p>
+    <%=t :first_name %><br />
+    <%= f.text_field :fname, class: 'text-field-wide' %>
+  </p>
+  <p>
+    <%=t :last_name %><br />
+    <%= f.text_field :lname, class: 'text-field-wide' %>
+  </p>
+
+    <% if session[:role] == "admin" %>
+  <p>
+    <%=t :isadmin %><br/>
+    <%= f.check_box :isadmin %>
+  </p>
+  <%end%>
+
+
+  <p>
+     <%=t :mappref %><br />
+    <%= f.select(:mappref,[['satellite'], ['roadmap'],['hybrid'],['terrain']],{}, {class: 'text-field-wide'})%>
+  </p>
+
+   <p>
+     <%=t :lang %><br />
+    <%= f.select(:sitelang,[['en'], ['es']],{}, { class: 'text-field-wide'})%>
+  </p>
+
+
+  <p>
+    <%= f.submit "#{t :create}", class: 'btn-primary' %>
+  </p>
+<% end %>

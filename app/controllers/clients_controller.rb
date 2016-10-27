@@ -46,16 +46,22 @@ class ClientsController < ApplicationController
          @username = nil
        client_params[:users_attributes].values.each do |item|
          @username = item[:username]
+         @password = item[:password]
        end
 
         if !@username.nil?
           @user = User.find_by(username: @username)
-          session[:user] = @user
-          session[:uid] = @user.id
-          session[:username] = @username
-          session[:role] = "admin"
-          session[:client_id] =  @client.id
-          session[:locale] = @user.sitelang
+
+          if @user.nil?
+          else       
+           UserMailer.send_user(@user,@password).deliver_later
+           session[:user] = @user
+           session[:uid] = @user.id
+           session[:username] = @username
+           session[:role] = "admin"
+           session[:client_id] =  @client.id
+           session[:locale] = @user.sitelang
+          end
         end
 
         format.html { redirect_to @client}

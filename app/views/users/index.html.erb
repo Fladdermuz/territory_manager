@@ -1,38 +1,50 @@
-
 <div class="card">
-  <div class="card-header-top">
-    <h1> <%= t :users %>
-      <%= link_to "#{t :newuser}", new_user_path, class: 'btn btn-warning btn-right' %>
-    </h1>
-  </div>
+    <div class="card-header card-header-top">
 
-  <div class="card-block">
+        <table class="table table-noborder table-nopadding">
+            <td>
+                <h1>
+                    <%= t :users %>
+                </h1>
+            </td>
+            <td>
+                <%= link_to "#{t :newuser}", new_user_path, class: 'btn btn-primary btn-top' %>
+            </td>
+          </tr>
+        </table>
+        </div>
 
-  <table class="table table-striped">
-  <tr>
-    <th><%=t :username%></th>
-    <th> <%=t :name%> </th>
-    <th><%=t :client%></th>
-    <th><%=t :email%></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+        <div class="card-block">
 
-<% @users.flat_map do |user| %>
-  <tr>
-    <td><%= user.username %></td>
-    <td> <%=user.fname%>&nbsp; <%=user.lname%>   </td>
-    <td><%= user.client.name %></td>
-    <td><%= user.email %></td>
+            <table class="table table-striped">
+                <tr>
+                    <th><%=t :username%></th>
+                    <th>
+                        <%=t :name%>
+                    </th>
+                    <th><%=t :client%></th>
+                    <th><%=t :email%></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
 
-     <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), user %></td>
-     <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_user_path(user) %></td>
-     <td><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), user, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
- 
+                <% @users.flat_map do |user| %>
+                <tr>
+                    <td><%= user.username %></td>
+                    <td>
+                        <%=user.fname%>&nbsp;
+                        <%=user.lname%>
+                    </td>
+                    <td><%= user.client.name %></td>
+                    <td><%= user.email %></td>
 
-</div>
-</div>
+                    <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), user %></td>
+                    <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_user_path(user) %></td>
+                    <td><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), user, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+                </tr>
+                <% end %>
+            </table>
+
+        </div>
+    </div>

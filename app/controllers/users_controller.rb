@@ -23,8 +23,8 @@ class UsersController < ApplicationController
 
   end
 
-  # GET /users/1
-  # GET /users/1.xml
+
+
   def show
 
     if session[:role] == "admin"
@@ -36,28 +36,11 @@ class UsersController < ApplicationController
     end
 
 
-    if session[:role] == "admin"
-    @user = User.find_by(id: params[:id],client_id: session[:client_id])
-
-        respond_to do |format|
-          format.html # show.html.erb
-        end
-
-    end
-
-
-
-
 
 
   end
 
 
-
-
-
-  # GET /users/new
-  # GET /users/new.xml
   def new
     @user = User.new
 
@@ -66,22 +49,22 @@ class UsersController < ApplicationController
      end
   end
 
-  # GET /users/1/edit
+
   def edit
     @user = User.find(params[:id])
     @map = @user.mappref
   end
 
-  # POST /users
-  # POST /users.xml
+
+
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
         flash[:notice] = 'User was successfully created.'
         format.html { redirect_to(@user) }
-
+        UserMailer.send_user(@user,@password).deliver_later
       else
         format.html { render :action => "new" }
        end

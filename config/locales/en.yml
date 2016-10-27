@@ -189,6 +189,8 @@ en:
   terrs_in_zone: "Territories in Zone"
 
 #Users
+  please_save: "Please Save This Information"
+  your: "Your "
   user_button: "Users"
   username: "User Name"
   name: "Name"
@@ -292,4 +294,11 @@ en:
             blank: ": can't be blank! "
           name:
             blank: ": can't be blank! "
-  attributes:
+      user:
+        attributes:
+          client_id:
+            blank: ": can't be blank! "
+          fname:
+            blank: ": can't be blank! "
+          email:
+            blank: ": can't be blank! "

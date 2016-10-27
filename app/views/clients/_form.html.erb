@@ -15,7 +15,7 @@
     <% if client.new_record? %>
     <% @first_rendered = TRUE %>
     <%= f.fields_for :users do |ff| %>
-
+    <%=ff.hidden_field :client_id, value: @client.id %>
     <%if @first_rendered %>
     <tr>
         <td colspan="2">
@@ -47,12 +47,12 @@
         </td>
         <td>
             <%= ff.text_field :email, class:  'text-field-wide' %>
-            <%=ff.hidden_field :usadmin, value: TRUE %>
+            <%=ff.hidden_field :isadmin, value: TRUE %>
         </td>
     </tr>
     <tr>
         <td>
-            <%= f.label :lang %>
+            <%= ff.label :sitelang %>
         </td>
         <td>
             <%= select_tag "user_sitelang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {name: "user_sitelang",id: "user_sitelang",   :class=>'text-field-wide'  } %>
@@ -90,7 +90,7 @@
         </td>
     </tr>
     <%end%>
-    
+
     <tr>
         <td>
             <%= f.label :name %>

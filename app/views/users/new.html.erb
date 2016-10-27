@@ -1,72 +1,16 @@
-<%= stylesheet_link_tag 'users'  %>
+<div class="card">
+    <div class="card-header-top card-header">
+       
+        <h1>
+            <%=t :newuser%>
+        </h1>
+    </div>
 
-<h1><%=t :newuser%></h1>
+    <div class="card-block">
+        <br/>
+        <div class='col-lg-12'>
+            <%= render 'form', user: @user %>
 
-<div class="show">
-<% form_for(@user) do |f| %>
-  <center> </center>
-
-  <p>
-    <%=t :username %><br />
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%=t :passwordmsg %><br />
-    <%= f.text_field :password %>
-  </p>
-  <p>
-  
-    <% if session[:role] == "admin" %>
-      <%=t :client %><br />
-   <%= f.select(:client_id, Client.find(:all).collect {|c| [ c.name , c.id ] }) %>
-   <%else%>
-
-          <%= f.hidden_field :client_id, :value => session[:client_id] %>
-  <% end %>
-
-    
-
-  </p>
-  <p>
-    <%=t :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%=t :first_name %><br />
-    <%= f.text_field :fname %>
-  </p>
-  <p>
-    <%=t :last_name %><br />
-    <%= f.text_field :lname %>
-  </p>
-
-    <% if session[:role] == "admin" %>
-  <p>
-    <%=t :isadmin %><br />
-    <%= f.check_box :isadmin %>
-  </p>
-  <%end%>
-  
-    <p>
-     <%=t :isadmin %><br />
-    <%= f.check_box :isadmin %>
-  </p>
- 
-  <p>
-     <%=t :mappref %><br />
-    <%= f.select(:mappref,[['satellite'], ['roadmap'],['hybrid'],['terrain']])%>
-  </p>
-
-   <p>
-     <%=t :lang %><br />
-    <%= f.select(:sitelang,[['en'], ['es']])%>
-  </p>
-
-
-  <p>
-    <%= f.submit "#{t :create}" %>
-  </p>
-<% end %>
-
-<%= link_to "#{t :back}", users_path %>
+        </div>
+    </div>
 </div>

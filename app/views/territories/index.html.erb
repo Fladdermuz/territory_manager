@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header-top card-header-top">
+    <div class="card-header card-header-top">
         <table class="table table-noborder table-nopadding">
             <tr>
                 <td class="card-title">
@@ -9,7 +9,7 @@
                 </td>
 
                 <td class='button'>
-                 <%= link_to "", territories_home_path, class: 'btn btn-primary btn-top btn-home right' %>
+                    <%= link_to "", territories_home_path, class: 'btn btn-primary btn-top btn-home right' %>
                 </td>
             </tr>
         </table>
@@ -26,11 +26,10 @@
                 <th><%=t :territory_status %></th>
                 <%end%>
 
-                <th><%=t :description %> </th>
+                <th><%=t :description %>
+                </th>
 
-
-                  <th><%= t :last_worked  %></th>
-       
+                <th><%= t :last_worked  %></th>
 
                 <th><%= t :zone  %></th>
                 <th><%=t :show%></th>
@@ -46,7 +45,6 @@
                     <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_householders",:id =>territory.id %>
                     <%end%>
                 </td>
-
 
                 <td>
                     <%if territory.is_checked_in == true     %>
@@ -75,7 +73,7 @@
         </table>
 
         <div class="territory_img">
-          <%=render 'map', territory: territory, edit: 0, zone: territory.zone %>
+            <%=render 'map', territory: territory, edit: 0, zone: territory.zone %>
         </div>
 
         <br>

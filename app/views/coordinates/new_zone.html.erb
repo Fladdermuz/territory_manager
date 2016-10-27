@@ -1,17 +1,18 @@
 <div class="card">
-    <div class="card-header-top">
+    <div class="card-header card-header-top">
+        <br/>
         <h2><%=t :new_coordinate%></h2>
     </div>
 
     <div class="card-block">
 
-      <%if flash[:cord_notice]%>
-      <div class="alert alert-success" role="alert">
-          <%= flash[:cord_notice] %>
-      </div>
-      <%end%>
+        <%if flash[:cord_notice]%>
+        <div class="alert alert-success" role="alert">
+            <%= flash[:cord_notice] %>
+        </div>
+        <%end%>
 
-    <%= form_for @coordinate, html: {id: 'new_cord'} do |f| %>
+        <%= form_for @coordinate, html: {id: 'new_cord'} do |f| %>
         <div class='col-lg-10 col-xs-10'>
             <%= f.hidden_field :coordinate, id: 'coordinate' , class: 'text-field'%>
             <%= hidden_field_tag "auto_submit", @auto_submit  %>
@@ -28,14 +29,14 @@
             <br>
             <%= f.submit "#{t :add}", class: 'btn-card-nopad btn btn-primary' %>
         </div>
-            <% end %>
+        <% end %>
         <div class='col-lg-2 col-xs-2'>
             <br>
             <br>
             <%if @auto_submit == TRUE %>
-              <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new_zone',zone_id: @zone.id, auto_submit: 0 },style: 'color: red;background-color: black;', class: 'btn-card-nopad btn btn-primary' %>
+            <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new_zone',zone_id: @zone.id, auto_submit: 0 },style: 'color: red;background-color: black;', class: 'btn-card-nopad btn btn-primary' %>
             <%else%>
-              <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new_zone',zone_id: @zone.id, auto_submit: 1 }, class: 'btn-card-nopad btn btn-primary' %>
+            <%= link_to "#{t :auto_submit}", {controller: 'coordinates', action: 'new_zone',zone_id: @zone.id, auto_submit: 1 }, class: 'btn-card-nopad btn btn-primary' %>
             <%end%>
             <br>
             <%= link_to "#{t :clear_last_coordinate}",{ :controller=>"zones",:action=> "clear_last_coordinate",:id=> @zone.id}, class: 'btn-card-nopad btn btn-primary', style: 'margin-top:8px;margin-bottom:8px;' %>
@@ -44,11 +45,11 @@
 
             <% if !@zone.coordinates[1].nil? %>
             <% if @zone.coordinates.last.coordinate != @zone.coordinates.first.coordinate %>
-              <%= form_for(@coordinate) do |f| %>
-              <%@firstcoordinate=@zone.coordinates[0].coordinate%>
-              <%= f.hidden_field(:coordinate,value: @zone.coordinates[0].coordinate) %>
-              <%= f.hidden_field(:zone_id,value: @zone.id) %>
-              <%= f.submit "#{t :close_loop}", class: 'btn-card-nopad btn btn-primary', style: 'margin-top:19px;' %>
+            <%= form_for(@coordinate) do |f| %>
+            <%@firstcoordinate=@zone.coordinates[0].coordinate%>
+            <%= f.hidden_field(:coordinate,value: @zone.coordinates[0].coordinate) %>
+            <%= f.hidden_field(:zone_id,value: @zone.id) %>
+            <%= f.submit "#{t :close_loop}", class: 'btn-card-nopad btn btn-primary', style: 'margin-top:19px;' %>
             <% end %>
             <%end%>
             <%end%>
@@ -69,7 +70,8 @@
                 <br>
             </div>
             <%end%>
-             <br>     <br>
+            <br>
+            <br>
         </div>
     </div>
 </div>

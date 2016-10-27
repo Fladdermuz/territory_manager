@@ -16,6 +16,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/logout"><%=t :logoff %></a>
         </li>
+   <%else%>
+   <div class='col-lg-3'style='float:right;margin-top:-5px;'>
+       <%= render 'main/change_lang' %>
+   </div>
+
     <%end%>
 
   </ul>

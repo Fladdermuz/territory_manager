@@ -1,58 +1,11 @@
 <div class="card">
-  <div class="card-header-top">
-    <h1><%=t :edit%>: <%=  @user.username%></h1>
-  </div>
-  <div class="card-block">
+    <div class="card-header-top">
+        <h1><%=t :edit%>:
+            <%=  @user.username%></h1>
+    </div>
+    <div class="card-block">
 
+        <%=render 'form', user: @user%>
 
-
-<%= form_for(@user) do |f| %>
-
-<table class="table table-striped">
-  <tr>
-    <td><%=t :username%> </td>
-    <td><%= f.text_field :username %></td>
-  </tr>
-  <tr>
-    <td> <%=t :email %></td>
-    <td><%= f.text_field :email %></td>
-  </tr>
-  <tr>
-    <td> <%=t :first_name %></td>
-    <td><%= f.text_field :fname %></td>
-  </tr>
-  <tr>
-    <td><%=t :last_name %></td>
-    <td><%= f.text_field :lname %></td>
-  </tr>
-
- <% if  session[:role] == "admin" %>
-
-        <tr>
-         <td> <%=t :isadmin %></td>
-         <td><%= f.check_box :isadmin %></td>
-        </tr>
-  <%end%>
-
-    <tr>
-    <td><%=t :isadmin%></td>
-    <td><%= f.check_box :isadmin %></td>
-    </tr>
-  <tr>
-    <td> <%=t :mappref %> </td>
-    <td> <%= f.select(:mappref,([['satellite'], ['roadmap'],['hybrid'],['terrain']]),{:selected => @user.mappref})%> </td>
-  </tr>
-  <tr>
-    <td><%=t :lang %> </td>
-    <td><%= f.select(:sitelang,([['en'], ['es']]),{:selected => @user.sitelang})%> </td>
-  </tr>
-  <tr>
-    <td colspan="2">  <%= f.submit "#{t :update}", class: 'btn btn-primary' %> </td>
-  </tr>
-    </table>
-<% end %>
-
-
-
-</div>
+    </div>
 </div>
