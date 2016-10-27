@@ -14,4 +14,4 @@
 /.idea
 system
 public/system
-
+/config/environments/*
