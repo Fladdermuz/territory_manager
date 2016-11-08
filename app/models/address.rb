@@ -6,7 +6,12 @@ belongs_to :client
 accepts_nested_attributes_for :householders
 
 validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_id,:client_id]
+geocoded_by :full_street_address
+after_validation :geocode
 
+def full_street_address
+ "#{self.house_no} #{self.street}, #{self.city}, #{self.state}, #{self.client.country.name}"
+end
 
   def fulladdy
 
@@ -40,5 +45,5 @@ validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_i
 
   end
 
-  
+
 end

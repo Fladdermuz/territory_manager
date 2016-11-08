@@ -1,4 +1,5 @@
 en:
+  create_coords_help: "Click here to create the borders!"
   record_created: "Record Created"
   auto_submit: "Auto Submit"
   finish: "Finish"
@@ -246,7 +247,6 @@ en:
         is_coordinate_only: "Use only Coordinates, not Addresses"
         lang: "Target Language"
         zip: "Zip"
-        disable_all_google_maps: "Disable Google Maps"
       user:
         username: "User Name"
         fname: "First Name"

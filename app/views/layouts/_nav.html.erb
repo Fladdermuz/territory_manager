@@ -1,28 +1,31 @@
 <nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#">MinMan</a>
-
-  <ul class="nav nav-tabs" role="tablist"  style="margin-left:92px!important;">
-    <li class="nav-item <%=active_class("#{params[:controller]}", "main") %>">
-      <a class="nav-link <%=active_class("#{params[:controller]}", "main") %>" href="/main"><%=t :home%> <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item <%=active_class("#{params[:controller]}", "addresses") %>">
-      <a class="nav-link <%=active_class("#{params[:controller]}", "addresses") %>" href="/addresses/home"><%=t :addresses%></a>
-    </li>
-    <li class="nav-item <%=active_class("#{params[:controller]}", "territories") %>">
-      <a class="nav-link <%=active_class("#{params[:controller]}", "territories") %>" href="/territories/home"><%=t :territories%></a>
-    </li>
+    <a class="navbar-brand" href="/">MinMan</a>
 
     <%if session[:uid]%>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout"><%=t :logoff %></a>
+
+    <ul class="nav nav-tabs" role="tablist" style="margin-left:92px!important;">
+        <li class="nav-item <%=active_class(" #{params[:controller]}", " main") %>">
+            <a class="nav-link <%=active_class(" #{params[:controller]}", " main") %>" href="/main"><%=t :home%>
+                <span class="sr-only">(current)</span>
+            </a>
         </li>
-   <%else%>
-   <div class='col-lg-3'style='float:right;margin-top:-5px;'>
-       <%= render 'main/change_lang' %>
-   </div>
+        <li class="nav-item <%=active_class(" #{params[:controller]}", " addresses") %>">
+            <a class="nav-link <%=active_class(" #{params[:controller]}", " addresses") %>" href="/addresses/home"><%=t :addresses%></a>
+        </li>
+        <li class="nav-item <%=active_class(" #{params[:controller]}", " territories") %>">
+            <a class="nav-link <%=active_class(" #{params[:controller]}", " territories") %>" href="/territories/home"><%=t :territories%></a>
+        </li>
 
-    <%end%>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout"><%=t :logoff %></a>
+        </li>
+        <%else%>
+        <div class='col-lg-3' style='float:right;margin-top:-5px;'>
+            <%= render 'main/change_lang' %>
+        </div>
 
-  </ul>
+        <%end%>
+
+    </ul>
 
 </nav>

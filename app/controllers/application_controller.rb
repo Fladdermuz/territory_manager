@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def setup
 
   @u = current_user
-    if @u.client.coordinate == "38.802859, -96.208728"
+    if @u.client.coordinate == "38.802859, -96.208728" && session[:role].to_s != 'admin'
       redirect_to controller: "clients", action: "edit", id: @u.client_id
     end
 

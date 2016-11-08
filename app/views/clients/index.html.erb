@@ -1,8 +1,17 @@
 <div class="card">
-    <div class="card-header-top">
-        <h1>Clients
-            <%= link_to 'New client', new_client_path, class: 'btn btn-warning btn-right' %>
-        </h1>
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%= t :clients %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                    <%= link_to  raw("<icon class='fa fa-5x fa-plus-circle'></icon>"), new_client_path, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="card-block">
 

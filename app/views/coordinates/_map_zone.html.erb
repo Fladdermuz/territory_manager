@@ -17,7 +17,11 @@
 <div id='map_c'></div>
 
 
-
+<%if zone.zoom <= @map_layer.max_zoom %>
+   <% @zoom =  zone.zoom %>
+<%else%>
+   <% @zoom =  @map_layer.max_zoom  %>
+<%end%>
 
 <script>
 
@@ -26,7 +30,7 @@
     L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
 
 
-        var map_c = L.map('map_c').setView([<%=coordinate%>],"<%=zone.zoom%>");
+        var map_c = L.map('map_c').setView([<%=coordinate%>],"<%=@zoom%>");
         L.tileLayer('<%=@map_layer.layer_url%>', {
             attribution: 'EcuaERP',
             maxZoom: '<%=@map_layer.max_zoom%>'

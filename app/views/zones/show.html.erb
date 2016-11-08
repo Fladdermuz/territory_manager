@@ -8,8 +8,9 @@
                     </h2>
                 </td>
                 <td class="buttons">
-                    <%= link_to "", edit_zone_path(@zone), class: 'btn btn-primary btn-top btn-edit' %>
-                    <%= link_to raw(""), zones_path, class: 'btn btn-primary btn-top btn-home' %>
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"),zones_path, class: 'btn btn-primary btn-top' %>
+
+                    <%= link_to  raw("<icon class='fa fa-5x fa-edit'></icon>"),  edit_zone_path(@zone), class: 'btn btn-primary btn-top' %>
                 </td>
             </tr>
         </table>
@@ -29,8 +30,7 @@
                         <%= @zone.zone_no %>
                     </b>
                 </td>
-                <td class='button'>
-                </td>
+                <td class='button'></td>
             </tr>
             <tr>
                 <td>
@@ -47,8 +47,10 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" data-no-turbolink='true' >
+                <td colspan="2" data-no-turbolink='true'>
                     <%= link_to "#{t :coordinates}", {controller: 'coordinates', action: 'new_zone', zone_id: @zone.id}, class: 'left btn btn-primary',  data: { no_turbolink: true }%>
+                    <%=image_tag('arrow.png', class: 'arrow' )%>
+                    <%=t :create_coords_help %>
                 </td>
             </tr>
             <tr>

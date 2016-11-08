@@ -1,5 +1,4 @@
 
-
 <style>
 
     #map_drag { margin-bottom:1px;position:relative;top:0px;height:530px; width:100%; }
@@ -15,17 +14,24 @@
 
 <div id='map_drag' > </div>
 
-<tr>
-   <td colspan="2">  <%= text_field_tag 'client_coordinate', {}, {id: 'client_coordinate' , class: 'text-field-wide', name: 'client[coordinate]' }%> </td>
-</tr>
 
-  <%if center.blank? || center.length < 13 %>
+<%=form_tag({:controller=> 'clients', :action => 'refresh_map'}, :id => "mapit", method: 'post',  :remote => true) do%>
+   <%= hidden_field_tag 'coordinate'  %>
+   <%=hidden_field_tag "id", @client.id %>
+ <%end%>
+
+
+  <%if center.blank? %>
    <% center = '-0.183847, -78.469690'  %>
+  <%end%>
+
+  <%if !coordinates.nil? %>
+    <%center = coordinates %>
   <%end%>
 
   <script>
 
-      var position = document.getElementById('client_coordinate');
+      var position = document.getElementById('coordinate');
       position.value = '<%=center%>';
       var map_drag = L.map('map_drag').setView([<%= center %>],"9");
       L.tileLayer('<%=@map_layer.layer_url%>', {
@@ -74,6 +80,7 @@
       function ondragend() {
           var m = marker.getLatLng();
           position.value = m.lat + ',' + m.lng;
+          $('form#mapit').trigger('submit');
       }
 
 

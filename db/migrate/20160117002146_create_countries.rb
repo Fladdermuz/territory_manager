@@ -4,7 +4,9 @@ class CreateCountries < ActiveRecord::Migration
       t.string :name
       t.string :code
       t.string :region
-      t.attachment :flag   
+      t.attachment :flag
+      t.float :latitude
+      t.float :longitude
       t.timestamps null: false
     end
   end

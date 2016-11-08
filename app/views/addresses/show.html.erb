@@ -75,14 +75,12 @@
          <%end%>
        </td>
       <td>
-           <% if Client.find(session[:client_id]).disable_all_google_maps == true || Client.find(session[:client_id]).disable_terr_maps == true  %>
 
-            <%else%>
 
             <%@territory = @address.territory%>
             <%= render partial: "territories/address_compared_territory", locals: { :territory=> @territory } %>
 
-           <%end%>
+ 
 </td>
       </tr>
     <tr>

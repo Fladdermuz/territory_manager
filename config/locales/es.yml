@@ -1,4 +1,5 @@
  es:
+  create_coords_help: "¡Haga clic aquí para crear las fronteras!"
   record_created: "Creado con Exito"
   auto_submit: "Auto Subir"
   finish: "Terminar"
@@ -201,14 +202,14 @@
         default: "%Y-%m-%d"
         short: "%b %d"
         long: "%B %d, %Y"
-  day_names: [Sunday, Momnday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-  abbr_day_names: [Sun, Mon, Tue, Wed, Thur, Fri, Sat]
+  day_names: [Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado]
+  abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
   activerecord:
     attributes:
       client:
         name: "Nombre de Institucion"
         address: 'Direccion'
-        state: "Default Sales State or Province"
+        state: "Estado"
         city: "Ciudad"
         country_id: "País"
         coordinate: "Coordinada"
@@ -217,7 +218,6 @@
         include_territory_check_out: "Incluyen salida de territorio"
         lang: "Idioma"
         zip: "Codigo Postal"
-        disable_all_google_maps: "Dishabiltar Mapas de Google"
       map_layer:
         name: "Nombre"
         layer_url: "URL de Mapa"

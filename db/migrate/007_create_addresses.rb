@@ -13,6 +13,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.integer :territory_id
       t.integer :client_id
       t.string :coordinate
+      t.float :latitude
+      t.float :longitude
       t.string :alt_house_no
       t.string :alt_street
       t.string  :alt_city

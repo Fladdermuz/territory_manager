@@ -1,19 +1,51 @@
 class ClientsController < ApplicationController
-     before_filter :login_required, only: [:show, :index,:update, :destroy, :edit]
-     before_action :set_client, only: [:show, :edit, :update, :destroy]
+     before_filter :login_required, only: [:refresh_map,:show, :index,:update, :destroy, :edit]
+     before_action :set_client, only: [:refresh_map,:show, :edit, :update, :destroy]
      before_action :setup, only: [:index, :update]
 
 
   def index
-    @clients = Client.all
 
+    if is_admin
+    @clients = Client.all
     respond_to do |format|
       format.html # index.html.erb
      end
+    else
+     redirect_to current_user.client
+    end
+
+
+
+  end
+
+
+  def refresh_map
+
+    @coordinates = params[:coordinate]
+    @client.coordinate = @coordinates
+    @client.save
+
+    respond_to do |format|
+      format.js
+     end
+
   end
 
 
   def show
+
+
+
+    @country =  @client.country
+
+
+   if @client.coordinate.blank? || @client.coordinate == "38.802859, -96.208728"
+    @coordinates = @country.latitude.to_s + "," + @country.longitude.to_s
+   else
+    @coordinates = @client.coordinate
+   end
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -53,8 +85,8 @@ class ClientsController < ApplicationController
           @user = User.find_by(username: @username)
 
           if @user.nil?
-          else       
-           UserMailer.send_user(@user,@password).deliver_later
+          else
+           UserMailer.send_user(@user,@password).deliver_now
            session[:user] = @user
            session[:uid] = @user.id
            session[:username] = @username
@@ -106,7 +138,7 @@ class ClientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
      def client_params
-       params.require(:client).permit(:zip, :disable_terr_maps, :disable_all_google_maps, :is_coordinate_only, :coordinate, :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
+       params.require(:client).permit(:zip, :is_coordinate_only, :coordinate, :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
      end
 
 end

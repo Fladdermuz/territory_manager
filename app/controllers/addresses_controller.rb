@@ -73,9 +73,8 @@ class AddressesController < ApplicationController
 
  def what_territory
 
-   @cities = Address.where(client_id: session[:client_id]).select('distinct city')
    @zones = Zone.where(client_id: session[:client_id])
-   @territories =  Territory.where(client_id: session[:client_id], zone_id: @zone).order("territory_no+0")
+   @territories =  Territory.where(client_id: session[:client_id]).order("territory_no+0")
 
  end
 
@@ -83,7 +82,6 @@ class AddressesController < ApplicationController
 
   def what_territory_post
 
-  @cities = Address.where(client_id: session[:client_id]).select('distinct city')
   @house_no = params[:house_no]
   @street = params[:street]
   @city = params[:city].to_s
@@ -325,7 +323,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
  def address_params
-   params.require(:address).permit(:neighborhood, :house_no,:street, :apt_no, :city, :state, :zip, :call_date, :territory_id, :client_id, householders_attributes: [:fname, :lname, :address_id, :client_id, :call_date ])
+   params.require(:address).permit(:neighborhood, :house_no,:street, :latitude, :longitude, :apt_no, :city, :state, :zip, :call_date, :territory_id, :client_id, householders_attributes: [:fname, :lname, :address_id, :client_id, :call_date ])
  end
 
 end

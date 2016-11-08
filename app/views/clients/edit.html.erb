@@ -4,13 +4,16 @@
             <tr>
                 <td class="card-title no-border">
                     <h2>
-                        <%=t :edit%>
+                        <%= t :client%>
                     </h2>
                 </td>
-
+                <td class="buttons">
+                    <%= link_to  raw("<icon class='fa fa-5x fa-eye'></icon>"), @client, class: 'btn btn-primary btn-top' %>
+                </td>
             </tr>
         </table>
     </div>
+
     <div class="card-block">
         <%if @client.coordinate == "38.802859, -96.208728" || @client.coordinate.blank? %>
         <div class="alert alert-danger" role="alert"><%=t :must_have_coord %></div>

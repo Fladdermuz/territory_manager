@@ -21,16 +21,9 @@
             <tr>
                 <th><%=t :territory_number %></th>
                 <th></th>
-
-                <%if current_user.client.include_territory_check_out? %>
                 <th><%=t :territory_status %></th>
-                <%end%>
-
-                <th><%=t :description %>
-                </th>
-
+                <th><%=t :description %></th>
                 <th><%= t :last_worked  %></th>
-
                 <th><%= t :zone  %></th>
                 <th><%=t :show%></th>
                 <th><%=t :edit%></th>
@@ -41,10 +34,8 @@
                 <td><%= territory.territory_no  %></td>
                 <td>
                     <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),:action=>"view_ter_householders",:id =>territory.id %>
-                    <%if current_user.client.include_territory_check_out? %>
-                    <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_householders",:id =>territory.id %>
-                    <%end%>
-                </td>
+                     <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_householders",:id =>territory.id %>
+                 </td>
 
                 <td>
                     <%if territory.is_checked_in == true     %>
@@ -55,11 +46,8 @@
                     <%= link_to image_tag("cancel.png",:size=>"25x25",:class=>"button",:title => "#{t :check_in}"),:action=>"check_in",:id =>territory.id %>
                     <%end%>
                 </td>
-
                 <td><%=h territory.description %></td>
-                <%if current_user.client.include_territory_check_out? %>
                 <td><%=h territory.last_worked %></td>
-                <%end%>
 
                 <td>
 

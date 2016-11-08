@@ -1,0 +1,104 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map_c<%=territory.id%> {
+        margin-bottom: 30px;
+        position: relative;
+        top: 10px;
+        height: 500px;
+        bottom: 0;
+        width: 100%;
+    }
+
+
+    .css-icon {
+        width: 0;
+        height: 0;
+    }
+
+</style>
+
+<% get_map_layer ## returns @map_layer %>
+
+
+
+<div id='map_c<%=territory.id%>'></div>
+
+<script>
+
+
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
+
+
+    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=cord%>], "12");
+
+    L.tileLayer('<%=@map_layer.layer_url%>', {
+        attribution: 'EcuaERP',
+        maxZoom: '<%=@map_layer.max_zoom%>',
+
+        <%if !@map_layer.min_zoom.blank?%>,
+          min_zoom: '<%= @map_layer.min_zoom %>'
+        <%end%>
+
+        <%if !@map_layer.map_type.blank?%>,
+          type: '<%=@map_layer.map_type%>'
+        <%end%>
+
+        <%if !@map_layer.file_ext.blank?%>,
+         ext: '<%= @map_layer.file_ext %>'
+        <%end%>
+
+        <%if !@map_layer.subdomains.blank?%>,
+        subdomains: '<%=@map_layer.subdomains %>'
+         <%end%>
+
+    }).addTo(map_c<%=territory.id%>);
+
+
+    var cssIcon = L.divIcon({
+        // Specify a class name we can refer to in CSS.
+        className: 'css-icon',
+        html: '<img src=/assets/pin.png>',
+        iconSize: [60, 60]
+    });
+
+    var marker = L.marker(new L.LatLng(<%=cord%>), {
+        icon: cssIcon
+     });
+
+
+    marker.addTo(map_c<%=territory.id%>);
+
+
+
+
+
+     var line_points2 = [
+        <%territory.coordinates.each do |t| %>
+          [<%=t.coordinate%>],
+        <%end%>
+      ];
+
+        <%if territory.border_color.blank?%>
+           <%@color = 'red'%>
+         <%else%>
+           <%@color = territory.border_color %>
+        <%end%>
+
+      var polyline_options2 = {
+           color: '<%=@color%>'
+          <%if territory.fill_color? %>,
+           fill: true
+          <%end%>
+          <%if !territory.border_size.blank?%>,
+           weight: <%=territory.border_size%>
+          <%end%>
+      };
+      var polyline2 = L.polyline(line_points2, polyline_options2).addTo(map_c<%=territory.id%>);
+
+
+
+</script>

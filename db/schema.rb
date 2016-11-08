@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20160417045926) do
     t.integer  "territory_id", limit: 4
     t.integer  "client_id",    limit: 4
     t.string   "coordinate",   limit: 255
+    t.float    "latitude",     limit: 24
+    t.float    "longitude",    limit: 24
     t.string   "alt_house_no", limit: 255
     t.string   "alt_street",   limit: 255
     t.string   "alt_city",     limit: 255
@@ -34,19 +36,17 @@ ActiveRecord::Schema.define(version: 20160417045926) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string   "name",                    limit: 255
-    t.string   "address",                 limit: 255
-    t.string   "city",                    limit: 255
-    t.string   "state",                   limit: 255
-    t.string   "zip",                     limit: 255
-    t.integer  "country_id",              limit: 4
-    t.string   "language",                limit: 255
-    t.string   "coordinate",              limit: 255, default: "38.802859, -96.208728"
-    t.boolean  "disable_terr_maps",                   default: false
-    t.boolean  "disable_all_google_maps",             default: false
-    t.boolean  "is_coordinate_only",                  default: false
-    t.datetime "created_at",                                                            null: false
-    t.datetime "updated_at",                                                            null: false
+    t.string   "name",               limit: 255
+    t.string   "address",            limit: 255
+    t.string   "city",               limit: 255
+    t.string   "state",              limit: 255
+    t.string   "zip",                limit: 255
+    t.integer  "country_id",         limit: 4
+    t.string   "language",           limit: 255
+    t.string   "coordinate",         limit: 255, default: "38.802859, -96.208728"
+    t.boolean  "is_coordinate_only",             default: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
   end
 
   create_table "coordinates", force: :cascade do |t|
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 20160417045926) do
     t.string   "flag_content_type", limit: 255
     t.integer  "flag_file_size",    limit: 4
     t.datetime "flag_updated_at"
+    t.float    "latitude",          limit: 24
+    t.float    "longitude",         limit: 24
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end

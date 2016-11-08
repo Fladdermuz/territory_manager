@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
 
    def self.encrypt(pass)
    @encryptedPass = Digest::MD5.hexdigest(pass+@salt);
-   Rails.logger.info "!!!!!!!!!!!!!!!!The Password is #{@encryptedPass}"
    return @encryptedPass
    end
 

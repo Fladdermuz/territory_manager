@@ -58,7 +58,7 @@
 
         }).addTo(map_c<%=zone.id%>);
 
-     <%if edit == 1 %>
+
       var cssIcon = L.divIcon({
         // Specify a class name we can refer to in CSS.
         className: 'css-icon',
@@ -67,8 +67,10 @@
     });
 
     var marker = L.marker(new L.LatLng(<%=@coord%>), {
-        icon: cssIcon,
+        icon: cssIcon
+      <%if edit == 1 %>,
         draggable: true
+      <%end%>    
     });
 
 
@@ -76,7 +78,7 @@
     marker.bindPopup('<%=t :map_drag_marker %>');
     marker.addTo(map_c<%=zone.id%>);
 
-    <%end%>
+
 
 
    var line_points = [

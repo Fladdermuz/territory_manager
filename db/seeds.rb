@@ -30,12 +30,10 @@ response.body.each do |c|
 end
 
 
-
-
 end
 
-User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "ab1d48a0f8724f2fcec5fb9068344e6f", isadmin:1, client_id:1)
-Client.create!(name: "New", coordinate: "38.802859, -96.208728")
+User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "ab1d48a0f8724f2fcec5fb9068344e6fz", isadmin:1, client_id:1)
+Client.create!(name: "New", coordinate: "38.802859, -96.208728", country_id: 240)
 
 
 MapLayer.create(name: 'Mapnik',layer_url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',max_zoom: 18, provider: 'Open Street Maps')

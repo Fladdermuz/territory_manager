@@ -3,13 +3,12 @@
         <table class="table table-noborder table-nopadding">
             <tr>
               <td class="card-title no-border">
-                <br>
                 <h2>
                     <%=t :client%>
                 </h2>
               </td>
                 <td class="card-title no-border">
-                    <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-primary btn-top' %>
+                    <%= link_to raw("<icon class='fa fa-5x fa-edit'></icon>"), edit_client_path(@client), class: 'btn btn-primary btn-top' %>
                 </td>
             </tr>
         </table>
@@ -19,7 +18,7 @@
         <table class="table table-striped">
             <tr>
                 <td>
-                    <b>Congname:</b>
+                    <b> <%=t :name%> </b>
                 </td>
                 <td>
                     <%= @client.name %>
@@ -28,7 +27,7 @@
 
             <tr>
                 <td>
-                    <b>Address:</b>
+                    <b> <%=t :address %></b>
                 </td>
                 <td>
                     <%= @client.address %>
@@ -37,7 +36,7 @@
 
             <tr>
                 <td>
-                    <b>City:</b>
+                    <b> <%=t :city %> </b>
                 </td>
                 <td>
                     <%= @client.city %>
@@ -46,7 +45,7 @@
 
             <tr>
                 <td>
-                    <b>State:</b>
+                    <b> <%=t :state %> </b>
                 </td>
                 <td>
                     <%= @client.state %>
@@ -55,7 +54,7 @@
 
             <tr>
                 <td>
-                    <b>Zip:</b>
+                    <b> <%=t :zip %></b>
                 </td>
                 <td>
                     <%= @client.zip %>
@@ -64,7 +63,7 @@
 
             <tr>
                 <td>
-                    <b>Country:</b>
+                    <b> <%=t :country %> </b>
                 </td>
                 <td>
                     <%= @client.country.name %>
@@ -73,13 +72,31 @@
 
             <tr>
                 <td>
-                    <b>Language:</b>
+                    <b> <%=t :lang %> </b>
                 </td>
                 <td>
                     <%= @client.language %>
                 </td>
             </tr>
 
+            <tr>
+                <td id='map_it' colspan="2">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                   <%=render 'clients/map_drag', center: '', coordinates: @coordinates %>
+                </td>
+            </tr>
+
+
         </table>
     </div>
+
+
+
+
+
+
 </div>

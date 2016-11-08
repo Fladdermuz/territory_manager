@@ -1,49 +1,21 @@
-<%= stylesheet_link_tag 'main'  %>
-
-<%= image_tag "logo.jpg" %>
-
-
-<br>
-
-<div class="show">
-
-  <h4>Important Tips!</h4>
- 
-  <a href="http://www.youtube.com/watch?v=LZOANQEZZlA">The Google Image Quota and How to Avoid it.(Video) <br><img src="/images/quota.png"></a>
-  <br><br>
-
-
-  <a href="http://www.youtube.com/watch?v=HEIrJpTun0U">How to Create a Restriced user.(Video) <br></a>
-  <br><br>
-   <a href="http://www.youtube.com/watch?v=CDsCeDNvqiE"> What to do if Google Maps can't find a street.(Video) <br></a>
+<div class="card">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2 style='margin-top:8px;'>
+                        <%= t :help %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                     <%= link_to "#{t :home}", {controller: "main"}, class: 'btn btn-primary btn-home btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
 
-
-
-  <br><br><br><hr>
-  <h4> Territory Records Help <br></h4>
-  <a href="http://www.youtube.com/watch?v=exuDwSzCO1w"> How to Check out and Print Territories.(Video)</a>
-  <br><br><br>
-  <hr>
-  <h4>Householder Records Help <br></h4>
-  <a href="http://www.youtube.com/watch?v=Zhdd6Gh9Q7I"> How to Add a new Address.(Video)</a>
-  <br><br><br>
-  <hr>
-
-  <h4> Initial Setup<br></h4>
-   <a href="http://www.youtube.com/watch?v=0qVv12POF5A">Create Territories or Zones with Images You already have - Static Maps.(Video)</a>
-   <br><br>
-   <a href="http://www.youtube.com/watch?v=D8dy96ZA8L4"> How to create a new Territory with Border.(Video)</a>
-
-
-
-
-   <hr>
+    </div>
 
 </div>
-
-
-
-<br>
-<br>
- <%= render :partial => "main/bottomnav"%>

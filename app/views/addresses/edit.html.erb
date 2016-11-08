@@ -49,16 +49,7 @@
         <td> <%=  f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|c| [ c.territory_no, c.id ] },{}, {class: 'sel-field'}) %> </td>
       </tr>
 
-  <% if Client.find(session[:client_id]).disable_all_google_maps == true || Client.find(session[:client_id]).disable_terr_maps == true   %>
-
-  <%else%>
-          <tr>
-            <td><%=t :hide_map%></td>
-            <td><%= f.check_box :hide_map %></td>
-          </tr>
-  <%end%>
-
-
+ 
   <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
     <tr>
       <td><%=t :coordinate%></td>

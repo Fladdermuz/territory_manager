@@ -21,16 +21,13 @@
 
         </td>
       </tr>
-
-          <% if Client.find(session[:client_id]).disable_all_google_maps == true %>
-          <%else%>
-
+ 
           <tr>
             <td>
             <%= link_to "#{t :what_territory}", {controller: 'addresses', action: 'what_territory'}, class: 'btn btn-primary' %>
           </td>
           </tr>
-          <%end%>
+
 
 
           <tr>
@@ -46,5 +43,3 @@
       </div>
 
     </div>
-
-

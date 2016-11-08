@@ -15,8 +15,8 @@ class TerritoriesController < ApplicationController
 
     def index_zone
 
-   @zoneid = params[:zoneid]
-   @territories= Territory.where(client_id: session[:client_id], zone_id: @zoneid).order("territory_no+0") # Return only Requested street
+   @zone_id = params[:zoneid]
+   @territories= Territory.where(client_id: session[:client_id], zone_id: @zone_id).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
     respond_to do |format|
       format.html # index.html.erb
      end

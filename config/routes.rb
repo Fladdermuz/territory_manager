@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'main/change_lang' => 'main#change_lang', :as=> 'main/change_lang'
   get 'map_layers/set_layer' => 'map_layers#set_layer', :as=>  'map_layers/set_layer'
   patch 'zones/update_zoom' => 'zones#update_zoom', :as=> 'zones/update_zoom'
+  post 'clients/refresh_map' =>  'clients#refresh_map', :as=>  'clients/refresh_map'
   get 'coordinates/new_zone' => 'coordinates#new_zone', :as=> 'coordinates/new_zone'
   get 'zones/clear_last_coordinate' => 'zones#clear_last_coordinate', :as=> 'zones/clear_last_coordinate'
   get 'zones/clear_coordinates' => 'zones#clear_coordinates', :as=> 'zones/clear_coordinates'

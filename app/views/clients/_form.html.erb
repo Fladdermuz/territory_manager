@@ -146,24 +146,10 @@
         </td>
 
         <td>
-            <%= f.select("country_id", Country.all.order(:name).collect { |p| [p.name, p.id]}, {selected: 0}, {class: 'select2 text-field-wide'}) %>
+            <%= f.select("country_id", Country.all.order(:name).collect { |p| [p.name, p.id]}, {selected: client.country_id}, {class: 'select2 text-field-wide',onchange: "subMap();" }) %>
         </td>
     </tr>
 
-    <tr>
-        <td>
-            <%= f.label :disable_terr_maps %></td>
-        <td>
-            <%= f.check_box :disable_terr_maps  %>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <%= f.label :disable_all_google_maps %></td>
-        <td>
-            <%= f.check_box :disable_all_google_maps  %>
-        </td>
-    </tr>
     <tr>
         <td>
             <%= f.label :is_coordinate_only %></td>
@@ -172,15 +158,12 @@
         </td>
     </tr>
 
-    <tr>
-        <td colspan="2">
-            <%=render 'clients/map_drag', center: @client.coordinate %>
-        </td>
-    </tr>
 
     <tr>
         <td colspan="2">
-            <%= f.submit 'Create', class:  'btn btn-primary' %>
+            <%new_or_update(client)%>
+            <%= f.submit "#{@button_txt}", class:  'btn btn-primary' %>
+
         </td>
     </tr>
     <% end %>

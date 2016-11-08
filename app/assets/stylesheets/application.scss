@@ -22,6 +22,40 @@
  @import "font-awesome";
 
 
+
+ img.arrow {
+     animation-name: arrow;
+     animation-duration: 2s;
+     animation-timing-function: linear;
+     animation-iteration-count: infinite;
+     margin-top: 0;
+     margin-left: 30px;
+
+ }
+
+ @keyframes arrow {
+     0% {
+         opacity: 0.0;
+         margin-left: 400px;
+     }
+     25% {
+         opacity: 0.2;
+         margin-left: 300px;
+     }
+     50% {
+         opacity: 0.5;
+         margin-left: 100px;
+     }
+     75% {
+         opacity: 0.7;
+         margin-left: 50px;
+     }
+     100% {
+         opacity: 1.0;
+         margin-left: 10px;
+     }
+ }
+
 .btn-card-nopad{
   padding:3px;
   font-size: 12px!important;
@@ -236,7 +270,7 @@ table.table-center-btn{
 }
 
 table.table-inverse{
-  border-radius: 8px 8px;
+  margin-top: -2px;
   border: 0px;
 }
 
@@ -269,7 +303,10 @@ table.table-inverse{
   padding:8px;
 }
 
+.card-title{
 
+  h2{margin-top:7px;}
+}
 
 .txt-field{
   color:black;
@@ -307,6 +344,37 @@ img.zone{
   width:99%;
 }
 
+.notice {
+    opacity: 0.0;
+    background-color: red;
+    color: white;
+    height: 32px;
+    border-radius: 1px 1px;
+    max-width: 400px;
+    display: inline-block;
+    animation-name: errors;
+    animation-duration: 4s;
+}
+
+@keyframes errors {
+    0% {
+        opacity: 0.0;
+        margin-left: 600px;
+    }
+    25% {
+        opacity: 0.2;
+        margin-left: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1.0;
+    }
+}
 
 @media only screen and (min-width: 100px) {
 
