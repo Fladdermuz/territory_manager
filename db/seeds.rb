@@ -32,7 +32,7 @@ end
 
 end
 
-User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "ab1d48a0f8724f2fcec5fb9068344e6fz", isadmin:1, client_id:1)
+User.create!(sitelang: "en",email: "blank",fname:"Admin",lname: "User",username: "admin", password: "96e79218965eb72c92a549dd5a330112", isadmin:1, client_id:1)
 Client.create!(name: "New", coordinate: "38.802859, -96.208728", country_id: 240)
 
 

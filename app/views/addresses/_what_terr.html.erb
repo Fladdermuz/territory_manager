@@ -1,12 +1,17 @@
 <br>
 <br>
 
- 
+
 <div class="col-lg-11 col-md-11  col-sm-12 col-xs-12" style="width:100%;">
 
     <table class="table table-striped center">
         <tr>
-            <td></td>
+            <td>
+               <%@territories.each do |t| %>
+                 <%=render 'map_what', territory: t, coords: coords %>
+               <%end%>
+
+            </td>
 
         </tr>
 

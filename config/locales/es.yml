@@ -1,4 +1,5 @@
  es:
+  select_user: "Seleccione Usuario"
   create_coords_help: "¡Haga clic aquí para crear las fronteras!"
   record_created: "Creado con Exito"
   auto_submit: "Auto Subir"
@@ -83,12 +84,6 @@
   territory_reminder: "Por favor, no dé a su territorio a otros."
   edit_territory: "Editar Territorio"
   ischeckedin: "¿Está Disponible?"
-  isreserved_warning: "¡Atención! este territorio fue impreso por:"
-  isreserved_warning2: "y está a la espera de asignación."
-  remove_from_que: "Borrar de la Cola "
-  terr_que: "Territorios en Espera de Asignación"
-  none_in_queue: "Cola vacía"
-  printed_by: "Impresa por: "
   getbackup: "Obtener una Copia de Seguridad"
   new_static_territory: "Nueva estática Territorio"
   new_dynamic_territory: "Nueva Bordeado Territorio"
@@ -261,8 +256,6 @@
         color: "Color"
         border_color: "Color de Borde"
         maptype: "Tipo De Mapa"
-        isreserved: "Es Asignado?"
-        reserved_by: "Asignado a "
       zone:
         zone_no: "Numero de Zona"
         description: "Descripción"

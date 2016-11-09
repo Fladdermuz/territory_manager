@@ -86,6 +86,9 @@ class AddressesController < ApplicationController
   @street = params[:street]
   @city = params[:city].to_s
   @state = params[:state]
+
+  @cord = Geocoder.coordinates("#{@house_no}, #{@street}, #{@city},#{@state}")
+  @coords = @cord[0].to_s + ',' + @cord[1].to_s
   @zone = params[:zone1]
   @zones = Zone.where(client_id: session[:client_id])
   @territories =  Territory.where(client_id: session[:client_id], zone_id: @zone).order("territory_no+0")

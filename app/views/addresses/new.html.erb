@@ -1,126 +1,134 @@
-
 <div class="card">
-<div class="card-header-top">
+    <div class="card-header-top card-header">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%= t :newaddress %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"),addresses_path, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
 
+    <div class="card-block">
 
-  <%if flash[:warning]%>
-      <p class="notice" id="notice"> <%=flash[:warning]%> </p>
-  <%end%>
+        <%= form_for(@address) do |f| %>
+        <%= f.hidden_field(:client_id,:value => session[:client_id]) %>
+        <table class="table table-striped">
+            <tr>
+                <td><%=t :neighborhood%>
+                </td>
+                <td><%= f.text_field :neighborhood, class: 'txt-field' %>
+                </td>
+            </tr>
+            <tr>
+                <td><%=t :house_number %></td>
+                <td><%= f.text_field :house_no,class: 'txt-field' %>
+                </td>
+            </tr>
+            <tr>
+                <td><%=t :street %></td>
+                <td><%= f.text_field :street,class: 'txt-field' %></td>
+            </tr>
+            <tr>
+                <td><%=t :apartment_number %></td>
+                <td><%= f.text_field :apt_no,class: 'txt-field' %></td>
+            </tr>
+            <tr>
+                <td><%=t :city %></td>
+                <td>
+                    <%= f.text_field :city,:value => @city,class: 'txt-field' %></td>
+            </tr>
+            <tr>
+                <td><%=t :state %></td>
+                <td><%= f.text_field :state,:value =>  Client.find(session[:client_id]).state ,class: 'txt-field' %></td>
+            </tr>
+            <tr>
+                <td><%=t :zip %></td>
+                <td><%= f.text_field :zip ,class: 'txt-field' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <%=t :call_date%>
+                </td>
+                <td>
+                    <%= f.text_field :call_date, {class: 'datepicker txt-field'} %></td>
+            </tr>
+            <%if @territory.nil?%>
+            <tr>
+                <td>
+                    <%=t :territory_number %>
+                </td>
+                <td>
+                    <%=f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|p| [ p.territory_no, p.id ] }, { :include_blank => true,:selected => "" },{class: 'sel-field'}) %></td>
+            </tr>
+            <%else%>
+            <%=f.hidden_field :territory_id, value: @territory.id %>
+            <%end%>
 
-  <h1><%=t :newaddress %></h1>
-</div>
+            <tr>
+                <td colspan="2">
 
-<div class="card-block">
+                    <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <%= f.text_field :coordinate, id: 'coordinate' %>
+                    </div>
 
-<%= form_for(@address) do |f| %>
-      <%= f.hidden_field(:client_id,:value => session[:client_id]) %>
-<table class="table table-striped">
-  <tr>
-    <td><%=t :neighborhood%> </td>
-    <td><%= f.text_field :neighborhood, class: 'txt-field' %> </td>
-   </tr>
-  <tr>
-    <td><%=t :house_number %></td>
-    <td><%= f.text_field :house_no,class: 'txt-field' %> </td>
-  </tr>
-  <tr>
-    <td><%=t :street %></td>
-    <td><%= f.text_field :street,class: 'txt-field' %></td>
-    </tr>
-  <tr>
-    <td><%=t :apartment_number %></td>
-    <td><%= f.text_field :apt_no,class: 'txt-field' %></td>
-  </tr>
-  <tr>
-    <td><%=t :city %></td>
-    <td> <%= f.text_field :city,:value => @city,class: 'txt-field' %></td>
-  </tr>
-  <tr>
-    <td><%=t :state %></td>
-    <td><%= f.text_field :state,:value =>  Client.find(session[:client_id]).state ,class: 'txt-field' %></td>
-   </tr>
-  <tr>
-    <td><%=t :zip %></td>
-    <td><%= f.text_field :zip ,class: 'txt-field' %> </td>
-  </tr>
-  <tr>
-    <td> <%=t :call_date%> </td>
-    <td> <%= f.text_field :call_date, {class: 'datepicker txt-field'} %></td>
-    </tr>
-  <%if @territory.nil?%>
-  <tr>
-    <td> <%=t :territory_number %> </td>
-    <td> <%=f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|p| [ p.territory_no, p.id ] }, { :include_blank => true,:selected => "" },{class: 'sel-field'}) %></td>
-    </tr>
-  <%else%>
-      <%=f.hidden_field :territory_id, value: @territory.id %>
-      <%end%>
+                    <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <%=render partial: 'addresses/map', locals: {coordinate: @coordinate} %>
+                    </div>
+                    <%end%>
 
-  <tr>
-   <td colspan="2">
+                    <%end%>
+                </td>
+            </tr>
 
-     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-             <%= f.text_field :coordinate, id: 'coordinate' %>
-          </div>
+            <tr>
+                <td colspan="2" style="background-color: #a4beff;color:black;">
+                    <h3>
+                        <%=t :householders %>
+                    </h3>
+                </td>
+            </tr>
 
+            <tr>
+                <td colspan="2">
+                    <%= f.fields_for :householders do |ff| %>
+                    <%= ff.text_field :fname, class: 'txt-field',style: 'margin-bottom:6px;padding-left:12px;', placeholder: "#{t :first_name}" %>
+                    <%= ff.text_field :lname, class: 'txt-field', style: 'padding-left:12px;', placeholder: "#{t :last_name}" %>
+                </td>
+            </tr>
 
-     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
-         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-           <%=render partial: 'addresses/map', locals: {coordinate: @coordinate} %>
-         </div>
-     <%end%>
+            <% end %>
 
-   <%end%>
-     </td>
-    </tr>
+            <tr>
+                <td colspan="2">
+                    <%=t :hide_map%><br/>
+                    <%= f.check_box :hide_map %>
+                </td>
+            </tr>
 
-  <tr>
-    <td colspan="2" style="background-color: #a4beff;color:black;">
-      <h3> <%=t :householders %> </h3>
-    </td>
-  </tr>
+            <tr>
+                <td>
+                    <%= f.submit "#{t :create}",class: 'btn btn-primary', :confirm => "#{t :correct_territory?}" %>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <% end %>
 
+        <script type="text/javascript" language="javascript">
 
-     <tr>
-       <td colspan="2">
-      <%= f.fields_for :householders do |ff| %>
-      <%= ff.text_field :fname, class: 'txt-field',style: 'margin-bottom:6px;padding-left:12px;', placeholder: "#{t :first_name}" %>
-          <%= ff.text_field :lname, class: 'txt-field', style: 'padding-left:12px;', placeholder: "#{t :last_name}" %>
-     </td>
-    </tr>
-
-      <% end %>
-
-
-      <% if Client.find(session[:client_id]).disable_terr_maps == false  %>
-          <tr>
-            <td colspan="2">
-              <%=t :hide_map%><br />
-              <%= f.check_box :hide_map %>
-            </td>
-          </tr>
-      <% end %>
-
-
-  <tr>
-    <td>
-    <%= f.submit "#{t :create}",class: 'btn btn-primary', :confirm => "#{t :correct_territory?}" %>
-    </td>
-     <td></td>
-    </tr>
-    </table>
-    <% end %>
-
-   <script type="text/javascript" language="javascript">
-
-     document.getElementById("address_house_no").focus();
-     $(document).ready(function(){
-      $('.datepicker').datepicker({
-          language: "<%=session[:locale]%>"
-      });
-      });
-
-   </script>
-</div>
+            document.getElementById("address_house_no").focus();
+            $(document).ready(function () {
+                $('.datepicker').datepicker({language: "<%=session[:locale]%>"});
+            });
+        </script>
+    </div>
 </div>

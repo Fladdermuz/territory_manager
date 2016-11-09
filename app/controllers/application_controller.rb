@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   helper_method :is_same_client
   helper_method :is_same_client_redirect
-  helper_method :current_user2
+  helper_method :current_user
   helper_method :is_admin
   helper_method :is_client_admin
   helper_method :setup
@@ -16,10 +16,15 @@ class ApplicationController < ActionController::Base
 
   def setup
 
-  @u = current_user
-    if @u.client.coordinate == "38.802859, -96.208728" && session[:role].to_s != 'admin'
-      redirect_to controller: "clients", action: "edit", id: @u.client_id
+    if current_user.nil?
+      redirect_to controller: 'login', action: "logout"
+    else
+     @u = current_user
+      if @u.client.coordinate == "38.802859, -96.208728" && session[:role].to_s != 'admin'
+       redirect_to controller: "clients", action: "edit", id: @u.client_id
+      end
     end
+
 
   end
 
@@ -48,7 +53,11 @@ class ApplicationController < ActionController::Base
 
     def current_user
 
+     if session[:uid]
      @current_user = User.find(session[:uid])
+     end
+
+
      return @current_user
 
     end

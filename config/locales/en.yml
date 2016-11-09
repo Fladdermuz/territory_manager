@@ -1,4 +1,5 @@
 en:
+  select_user: "Select User"
   create_coords_help: "Click here to create the borders!"
   record_created: "Record Created"
   auto_submit: "Auto Submit"
@@ -101,8 +102,6 @@ en:
   territory_reminder: "Please do not give your Territory to others."
   edit_territory: "Edit Territory"
   ischeckedin: "Is Checked In?"
-  isreserved_warning: "Warning this territory was printed by :"
-  isreserved_warning2: "and is awaiting assignment."
   remove_from_que: "Remove From Printed Que"
   terr_que: "Que of Printed Territories"
   none_in_queue: "No Territories are awaiting Assignment"
@@ -269,8 +268,6 @@ en:
         color: "Colour"
         border_color: "Border Colour"
         maptype: "Map Type"
-        isreserved: "Is Reserved?"
-        reserved_by: "Reserved By"
       zone:
         zone_no: "Zone Number"
         description: "Description"

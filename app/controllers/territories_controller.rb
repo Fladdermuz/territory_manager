@@ -113,12 +113,7 @@ class TerritoriesController < ApplicationController
   end
 
   def view_ter_householders
-    #a printout of this is what is given to publishers to take out in service.
 
-
-    @territory.reserved_by = session[:username]
-    @territory.isreserved = true
-    @territory.save
     @addresses = Address.where(territory_id: @territory.id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
 
     @map = User.find_by(username: session[:username]).mappref
@@ -132,9 +127,7 @@ class TerritoriesController < ApplicationController
     #a printout of this is what is given to publishers to take out in service.
     @territory_id = params[:territory_id]
     @territory = Territory.find(@territory_id)
-    @territory.reserved_by = session[:username]
-    @territory.isreserved = true
-    @territory.save
+
     @addresses = Address.where(territory_id: @territory_id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
     @addresses2 = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
     @street = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
@@ -208,8 +201,6 @@ class TerritoriesController < ApplicationController
       @Territory.is_checked_in = false
       @D = Date.today
       @Territory.checkout_date = @D
-      @Territory.isreserved = false
-      @Territory.reserved_by = ""
       @Territory.save
 
       @History = TerritoryHistory.new
@@ -300,21 +291,7 @@ class TerritoriesController < ApplicationController
     end
 
 
-   def printedque
-      @territories = Territory.where(isreserved:TRUE, client_id: session[:client_id]).order("territory_no+0")
-   end
 
-
-  def remove_from_que
-      @terr = params[:terr]
-      @territory = Territory.find(@terr)
-      @territory.isreserved = false
-      @territory.reserved_by = ""
-      @territory.save
-      redirect_to :back
-
-
-  end
 
 def clear_coordinates
   @territory = params[:territory]
@@ -347,7 +324,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
    def territory_params
-     params.require(:territory).permit(:image, :is_dynamic, :center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
+     params.require(:territory).permit(:image, :is_dynamic, :center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkin_date, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
    end
 
 

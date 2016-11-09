@@ -119,8 +119,6 @@ ActiveRecord::Schema.define(version: 20160417045926) do
     t.string   "border_color",       limit: 255
     t.integer  "border_size",        limit: 4
     t.integer  "map_layer_id",       limit: 4
-    t.boolean  "isreserved"
-    t.string   "reserved_by",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end

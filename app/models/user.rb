@@ -18,6 +18,13 @@ class User < ActiveRecord::Base
   end
 
 
+   def full_name
+
+   "#{self.fname} #{self.lname}"
+
+   end
+
+
 
 
 

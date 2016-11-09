@@ -1,17 +1,43 @@
-<br>
 <div class="card">
- <div class="card-header-top checkout">
-   <%=t :check_out %>
+ <div class="card-header-top card-header">
+   <table class="table table-noborder table-nopadding">
+       <tr>
+           <td class="card-title no-border">
+               <h2>
+                   <%= t :check_out %>
+               </h2>
+           </td>
+           <td class="buttons">
+               <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"),territories_path, class: 'btn btn-primary btn-top' %>
+
+            </td>
+       </tr>
+   </table>
  </div>
+
 
 <div class="card-block">
 
  <%= form_tag '/territories/check_out_post' do -%>
       <table class="table table-striped">
-        <tr>
+
+       <tr>
+         <td colspan="2">
+           <%= link_to "#{t :newuser}","#",class: 'btn btn-primary', onclick: "$('#cob').toggle();$('#newuser').toggle();$('#newuser2').toggle();" %>
+         </td>
+       </tr>
+       <tr id='newuser' style="display:none;">
+         <td>  <%=t :username%>    </td>
+         <td>  <%=text_field_tag "username", nil, {class: 'text-field-wide'} %>   </td>
+       </tr>
+       <tr id='newuser2' style="display:none;">
+         <td>  <%=t :email%>    </td>
+         <td>  <%=text_field_tag "email", nil, {class: 'text-field-wide'} %>   </td>
+       </tr>
+        <tr id='cob'>
           <td><%=t :checked_out_by %></td>
           <td>
-            <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id, is_recipient: FALSE, is_applicant: FALSE).order('f_name ASC'), "id", "full_name"), class: 'text-field-wide',prompt: "#{t :select_user}"  %>
+            <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id).order('fname ASC'), "id", "full_name"), class: 'text-field-wide', prompt: "#{t :select_user}"  %>
           </td>
         </tr>
         <%= hidden_field_tag "id", @id %>

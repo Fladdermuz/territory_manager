@@ -8,6 +8,7 @@ class CreateTerritories < ActiveRecord::Migration
       t.integer :zone_id
       t.date :last_worked, :default => nil
       t.date  :checkout_date
+      t.date  :checkin_date
       t.integer :checked_out_by
       t.boolean :is_checked_in, default: TRUE
       t.integer :client_id
@@ -18,8 +19,6 @@ class CreateTerritories < ActiveRecord::Migration
       t.string :border_color
       t.integer :border_size
       t.integer :map_layer_id
-      t.boolean :isreserved
-      t.string :reserved_by
       t.timestamps null: false
 
 

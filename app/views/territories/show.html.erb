@@ -35,30 +35,24 @@
                     <%=t :territory_status%>
                     :
 
-                    <% if @territory.is_checked_in == true %>
+                    <% if @territory.is_checked_in?%>
                     <%=t :available%>
-                    <%end%>
-                    <% if @territory.is_checked_in == false %>
+                    <%else%>
                     <%=t :unavailable%>
-                    <%end%>
-                </td>
-                <td>
-                    <% if @territory.is_checked_in == false %>
-
                     <%=t :checked_out_by %>:
                     <%=h @territory.get_checked_out_by %>
                     <%end%>
+                </td>
+                <td>
+
+
+
                 </td>
 
             </tr>
         </table>
 
-        <% if @territory.isreserved %>
-        <%=t :isreserved_warning%>
-        <%= @territory.reserved_by %>
-        <%=t :isreserved_warning2%>
-
-        <%end%>
+ 
     </div>
     <div class="card-block">
 
