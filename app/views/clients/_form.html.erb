@@ -1,13 +1,11 @@
 <table class="table table-striped">
 
     <% if @client.errors.any? %>
-
     <% @client.errors.full_messages.each do |message| %>
     <div class="alert alert-danger" role="alert">
         <%= message %>
     </div>
     <% end %>
-
     <% end %>
 
     <%= form_for(@client) do |f| %>
@@ -55,8 +53,9 @@
             <%= ff.label :sitelang %>
         </td>
         <td>
-            <%= select_tag "user_sitelang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {name: "user_sitelang",id: "user_sitelang",   :class=>'text-field-wide'  } %>
-        </td>
+            <%= ff.select :sitelang, [["#{t :english}", 'en'], ["#{t :spanish}", 'es']], {selected: session[:locale]},{ :class=>'text-field-wide' } %>
+
+         </td>
     </tr>
     <tr>
         <td class="form-td">
@@ -134,7 +133,7 @@
         <td>
             <%= f.label :lang %></td>
         <td>
-            <%= select_tag "lang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "lang",   :class=>'text-field-wide'  } %>
+            <%= select_tag "language", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "language",   :class=>'text-field-wide'  } %>
 
         </td>
     </tr>
@@ -155,6 +154,8 @@
             <%= f.label :is_coordinate_only %></td>
         <td>
             <%= f.check_box :is_coordinate_only  %>
+            <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :cord_only_help %>'>
+            </icon>
         </td>
     </tr>
 

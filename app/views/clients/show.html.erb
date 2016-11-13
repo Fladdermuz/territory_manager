@@ -94,9 +94,9 @@
         </table>
     </div>
 
-
-
-
+    <%if show_msg('client_cord')%>
+    <%=render 'layouts/warn_map', msg: "#{t :warn_map}", msg_name: 'client_cord' %>
+    <%end%>
 
 
 </div>

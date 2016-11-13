@@ -33,7 +33,7 @@
 
       var position = document.getElementById('coordinate');
       position.value = '<%=center%>';
-      var map_drag = L.map('map_drag').setView([<%= center %>],"9");
+      var map_drag = L.map('map_drag').setView([<%= center %>],"12");
       L.tileLayer('<%=@map_layer.layer_url%>', {
           attribution: 'EcuaERP',
           maxZoom: '<%=@map_layer.max_zoom%>'

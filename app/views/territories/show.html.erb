@@ -52,7 +52,7 @@
             </tr>
         </table>
 
- 
+
     </div>
     <div class="card-block">
 
@@ -102,6 +102,17 @@
                     <%= @territory.addresses.count %>
                 </td>
             </tr>
+
+            <% if !@territory.center_coordinate.nil? %>
+            <tr>
+                <td colspan="2" data-no-turbolink='true'>
+                    <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territory_id => @territory.id}, class: 'btn btn-primary', data: { no_turbolink: true } %>
+                    <%=image_tag('arrow.png', class: 'arrow' )%>
+                    <%=t :create_coords_help %>
+                </td>
+              </tr>
+                <% end %>
+
             <tr>
                 <td colspan="2">
                     <%= render 'map', territory: @territory, edit: 0, zone: @territory.zone  %>
@@ -112,12 +123,7 @@
                     <%=t :last_worked%></td>
                 <td><%= @territory.last_worked %></td>
             </tr>
-            <% if !@territory.center_coordinate.nil? %>
-            <tr>
-                <td colspan="2" data-no-turbolink='true'>
-                    <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territory_id => @territory.id}, class: 'btn btn-primary', data: { no_turbolink: true } %>
-                </td>
-                <% end %>
+
             </table>
         </div>
     </div>

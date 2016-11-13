@@ -4,7 +4,6 @@ class CreateTerritories < ActiveRecord::Migration
       t.string :territory_no
       t.text :description
       t.text :notes
-      t.attachment :image
       t.integer :zone_id
       t.date :last_worked, :default => nil
       t.date  :checkout_date

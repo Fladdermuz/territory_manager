@@ -1,12 +1,12 @@
 class ZonesController < ApplicationController
 
-   before_action :set_zone, only: [:clear_coordinates, :clear_last_coordinate, :edit, :destroy, :update_zoom, :update, :show]
+   before_action :set_zone, only: [:clear_coordinates, :clear_last_coordinate, :edit, :destroy, :update, :show]
    before_action :check_client, only: [:edit, :show, :update, :destroy]
    before_action :setup
 
   def index
 
- 
+
     @zones = Zone.where(client_id: current_user.client_id)
 
     respond_to do |format|
@@ -15,18 +15,6 @@ class ZonesController < ApplicationController
   end
 
 
-
- def update_zoom
-
-   @zone.zoom = params[:zone][:zoom]
-   @zone.save
-   respond_to do |format|
-       flash[:zone_notice] = 'Zone was successfully updated.'
-       format.html { redirect_to controller: 'coordinates', action: 'new_zone', zone_id: @zone.id}
-   end
-
-
- end
 
 
 

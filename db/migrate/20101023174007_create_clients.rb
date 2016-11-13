@@ -7,8 +7,10 @@ class CreateClients < ActiveRecord::Migration
       t.string :state
       t.string :zip
       t.integer :country_id
+      t.float :latitude
+      t.float :longitude
       t.string :language
-      t.string :coordinate, default: "38.802859, -96.208728"
+      t.string :coordinate
       t.boolean :is_coordinate_only, default: FALSE
       t.timestamps null: false
     end

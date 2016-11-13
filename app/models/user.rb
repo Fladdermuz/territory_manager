@@ -2,6 +2,7 @@ require 'digest/md5'
 class User < ActiveRecord::Base
    @salt = "1914"
    belongs_to :client
+   has_many :warning_messages
    validates_uniqueness_of :username
    validates_presence_of :email
    validates_presence_of :fname
@@ -13,7 +14,9 @@ class User < ActiveRecord::Base
 
   def before_create_items
 
-    self.password = User.encrypt(self.password)
+    if self.username != 'admin'
+     self.password = User.encrypt(self.password)
+    end
 
   end
 

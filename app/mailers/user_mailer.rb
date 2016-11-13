@@ -12,6 +12,7 @@ class UserMailer < ApplicationMailer
     @username = @loc.translate :username
     @password = @loc.translate :password
     @your = @loc.translate :your
-    mail to: "#{@email}"
+    @subject = @loc.translate :new_user_subject
+    mail(to: "#{@email}", subject: "#{@subject}")
   end
 end

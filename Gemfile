@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 #ruby "2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '~> 5.0'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
@@ -13,13 +13,13 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'geocoder'
 
+gem 'paperclip'
+
 gem 'therubyracer', platforms: :ruby
 
 gem 'bootstrap-datepicker-rails'
 
 gem 'uglifier', '~> 1.3.0'
-
-gem 'passenger'
 
 gem 'select2-rails'
 
@@ -32,8 +32,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
-gem 'paperclip'
 
 gem "font-awesome-rails"
 

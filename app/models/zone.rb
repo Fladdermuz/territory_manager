@@ -9,9 +9,7 @@ class Zone < ActiveRecord::Base
   validates_presence_of :center_coordinate
   validates_presence_of :client_id
   validates_presence_of :zone_no
-
-  has_attached_file :image, styles: {thumb: "40x40#", zone: "200x200>" }, :use_timestamp => false, default_url: "/images/clients/:style/missing.png"
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  validates_presence_of :map_layer_id
 
   def get_recipient_count
    @count = 0

@@ -1,4 +1,13 @@
 en:
+  hide: "Hide"
+  coord_tip: "Tip! To draw clear lines, zoom in to the Maximum amount possible! Set the zoom below to 8 during the border creation process!"
+  updated: "Updated"
+  close: "Close"
+  warn_map_terr: "Make sure to move the marker to the CENTER of the territory!"
+  warn_map_zone: "Make sure to move the marker to the CENTER of the zone!"
+  warn_map: "Make sure to move the marker to your city or any other center point of where you plan to make territories."
+  new_user_subject: "New User Information"
+  cord_only_help: "This forces the user to manualy drag the map icon to create addresses in the system. This is good for places outside the United States and Europe where the Street Map can not find addresses"
   select_user: "Select User"
   create_coords_help: "Click here to create the borders!"
   record_created: "Record Created"
@@ -287,9 +296,17 @@ en:
     models:
       client:
         attributes:
+          address:
+            blank: ": can't be blank! "
           coordinate:
             blank: ": can't be blank! "
           name:
+            blank: ": can't be blank! "
+          city:
+            blank: ": can't be blank! "
+          state:
+            blank: ": can't be blank! "
+          country_id:
             blank: ": can't be blank! "
       user:
         attributes:
@@ -298,4 +315,14 @@ en:
           fname:
             blank: ": can't be blank! "
           email:
+            blank: ": can't be blank! "
+      zone:
+        attributes:
+          map_layer_id:
+            blank: ": can't be blank! "
+          zone_no:
+            blank: ": can't be blank! "
+          client_id:
+            blank: ": can't be blank! "
+          center_coordinate:
             blank: ": can't be blank! "

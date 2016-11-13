@@ -119,10 +119,10 @@
           draggable: false
       });
 
-     <%if edit == 0 %>
+
       marker<%=z.id%>.bindPopup('Zone <%=z.zone_no%>');
       marker<%=z.id%>.addTo(map_c<%=territory.id%>);
-     <%end%>
+
 
      var line_points = [
         <%z.coordinates.each do |c| %>
@@ -171,7 +171,7 @@
           <%end%>
       };
       var polyline2 = L.polyline(line_points2, polyline_options2).addTo(map_c<%=territory.id%>);
-      
+
 
 
     <%if edit == 1 %>

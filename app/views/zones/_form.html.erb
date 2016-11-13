@@ -1,14 +1,25 @@
-<%if flash[:notice] %>
-<div class="alert alert-danger" role="alert">
-    <%= flash[:zone_notice] %>
-</div>
-<%end%>
+<% if @zone.errors.any? %>
 
+<% @zone.errors.full_messages.each do |message| %>
+<div class="alert alert-danger" role="alert">
+    <%= message %>
+</div>
+<% end %>
+
+<% end %>
 <%= form_for(@zone) do |f| %>
 <%= f.hidden_field(:client_id,value:  current_user.client_id) %>
 <%= f.hidden_field :center_coordinate , class: 'text-field-wide' %></td>
 
 <table class='table table-striped'>
+
+<tr>
+    <td colspan="2">
+
+        <%=render 'map', zone: @zone, edit: 1 %>
+
+    </td>
+</tr>
 <tr>
     <td>
         <b>
@@ -31,14 +42,6 @@
 
 <tr>
     <td>
-        <b><%= f.label :image%>
-        </b>
-    </td>
-    <td><%= f.file_field :image %>
-    </td>
-</tr>
-<tr>
-    <td>
         <b><%=f.label :city %>
         </b>
     </td>
@@ -51,7 +54,7 @@
         </b>
     </td>
     <td><%= f.text_field :state, class: 'text-field-wide' %></td>
-</tr> 
+</tr>
 
 <tr>
     <td>
@@ -65,11 +68,10 @@
 </tr>
 
 <%if @zone.new_record? %>
- <%@def_border = '#F30000' %>
+<%@def_border = '#F30000' %>
 <%else%>
 <%@def_border =  @zone.border_color %>
 <%end%>
-
 
 <tr>
     <td>
@@ -78,7 +80,7 @@
         </b>
     </td>
     <td>
-      <%= f.check_box :fill_color %>
+        <%= f.check_box :fill_color %>
     </td>
 </tr>
 <tr>
@@ -93,16 +95,16 @@
 <tr>
     <td>
         <b>
-            <%=f.label :border_size%>
+            <%= f.label :border_size %>
         </b>
     </td>
     <td><%= f.select :border_size, { "1" => "1","5" => "5","10" => "10","15" => "15","20" => "20"},{},{class: 'text-field-wide'} %>
     </td>
 </tr>
+
 <tr>
     <td colspan="2">
-        <%= f.hidden_field(:is_dynamic,value:  1) %>
-        <% new_or_update(@zone)%>
+        <% new_or_update(@zone) %>
         <%= f.submit "#{@button_txt}", class: 'btn btn-primary' %>
     </td>
 </tr>

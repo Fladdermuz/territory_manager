@@ -16,8 +16,9 @@
     </div>
     <div class="card-block">
         <%=render 'form' %>
-
-        <div class='col-lg-12 col-xs-12' style='padding:4px;'>
-            <%=render 'map', zone: @zone, edit: 1 %>
-        </div>
     </div>
+
+
+    <%if show_msg('zone_cord')%>
+     <%= render 'layouts/warn_map', msg: "#{t :warn_map_zone}", msg_name: 'zone_cord' %>
+    <%end%>

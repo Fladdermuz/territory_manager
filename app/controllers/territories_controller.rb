@@ -1,6 +1,6 @@
 class TerritoriesController < ApplicationController
    before_filter :login_required,:isadminuser
-   before_filter :set_territory, only: [:show, :edit, :update, :destroy,:view_all_ter_householders,:view_ter_householders]
+   before_filter :set_territory, only: [:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_householders,:view_ter_householders]
    before_action :setup
 
    # GET /territories
@@ -69,12 +69,10 @@ class TerritoriesController < ApplicationController
     respond_to do |format|
       if @territory.save
 
-        if request.referer == "http://localhost:3000/territories/new_dynamic" || request.referer == "http://ministrymanager2414.org/territories/new_dynamic"
-        format.html { redirect_to :controller=>"coordinates",:action=>"new",:territoryid=>@territory.id }
-        else
+
         flash[:tnotice] = 'Territory was successfully created.'
         format.html { redirect_to(@territory) }
-        end
+
 
       else
         format.html { render :action => "new" }
@@ -82,8 +80,10 @@ class TerritoriesController < ApplicationController
     end
   end
 
-  # PUT /territories/1
-  # PUT /territories/1.xml
+
+
+
+
   def update
 
     respond_to do |format|
@@ -96,8 +96,7 @@ class TerritoriesController < ApplicationController
     end
   end
 
-  # DELETE /territories/1
-  # DELETE /territories/1.xml
+
   def destroy
     @territory = Territory.find_by(id: params[:id],client_id: session[:client_id])
 
@@ -212,7 +211,7 @@ class TerritoriesController < ApplicationController
        redirect_to :controller =>"territories", :action => 'show',id: @t
 
     else
-   @t =  params[:territory_id]
+      @t =  params[:territory_id]
 
     end
 
@@ -294,25 +293,26 @@ class TerritoriesController < ApplicationController
 
 
 def clear_coordinates
-  @territory = params[:territory]
-  @Coordinates = Coordinate.where(territory_id: @territory)
+
+  @Coordinates = Coordinate.where(territory_id: @territory.id)
 
   @Coordinates.each do |coord|
      coord.delete
   end
 
-  redirect_to :controller=>"coordinates",:action => "new",:territoryid=>@territory
+  redirect_to :controller=>"coordinates",:action => "new",:territory_id=> @territory.id
 
 end
 
 def clear_last_coordinate
-  @territory = params[:territory]
-  @Coordinates = Coordinate.where(territory_id: @territory).order("id ASC")
+
+  @Coordinates = Coordinate.where(territory_id: @territory.id).order("id ASC")
   @Count = @Coordinates.count -1
-  @Coordinates.last.delete
+
+  @Coordinates.last.delete unless @Coordinates.count < 1
 
 
-  redirect_to :controller=>"coordinates",:action => "new",:territoryid=>@territory
+  redirect_to :controller=>"coordinates",:action => "new",:territory_id=> @territory.id
 
 end
 
@@ -324,7 +324,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
    def territory_params
-     params.require(:territory).permit(:image, :is_dynamic, :center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkin_date, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
+     params.require(:territory).permit(:center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkin_date, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
    end
 
 

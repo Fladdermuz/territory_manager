@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "territory_manager@cegestor.org"
+  default from: "system@cegestor.org"
   layout 'mailer'
 end

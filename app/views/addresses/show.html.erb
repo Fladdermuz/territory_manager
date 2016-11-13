@@ -1,95 +1,107 @@
-
-
 <div class="card">
-  <div class="card-header-top">
+    <div class="card-header card-header-top">
 
-    <h1><%=t :address%></h1>
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
 
-      <%if params[:notice] %>
-       <p id="notice" class="notice"> <%= params[:notice] %> </p>
-      <%end%>
+                    <h2>
+                        <%=t :address%>
+                    </h2>
 
+                </td>
 
+                <%if params[:notice] %>
+                <td>
+                    <p id="notice" class="notice">
+                        <%= params[:notice] %>
+                    </p>
+                </td>
+                <%end%>
 
-  </div>
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
 
-  <div class="card-block">
+    </div>
 
-  <table class="table table-striped">
+    <div class="card-block">
 
-    <tr>
-      <td><%=t :neighborhood %></td>
-      <td><%= @address.neighborhood %> </td>
-    </tr>
-    <tr>
-      <td> <%=t :house_number %></td>
-      <td> <%= @address.house_no %> </td>
-    </tr>
-    <tr>
-      <td><%=t :street %></td>
-      <td><%= link_to("#{@address.street}",:controller=>"addresses",:action=>"index_street",:street => @address.street) %></td>
-    </tr>
-     <tr>
-       <td> <%=t :apartment_number %></td>
-       <td> <%=h @address.apt_no %></td>
-     </tr>
-    <tr>
-      <td><%=t :city %></td>
-      <td><%= @address.city %></td>
-      </tr>
-    <tr>
-      <td><%=t :state %></td>
-      <TD><%=h @address.state %></TD>
-      </tr>
-    <tr>
-      <td><%=t :zip %></td>
-      <td><%= @address.zip %></td>
-    </tr>
-    <tr>
-      <td><%=t :call_date %></td>
-      <td><%= @address.call_date %></td>
-   </tr>
-    <tr>
-      <td><%=t :territory_number %></td>
-      <td><%= @address.territory.territory_no %></td>
-      </tr>
-    <tr>
-      <td><%=t :householders %></td>
-      <td>
+        <table class="table table-striped">
 
-        <%@address.householders.each do |hh| %>
-         <%if !hh.blank? %>
+            <tr>
+                <td><%=t :neighborhood %></td>
+                <td><%= @address.neighborhood %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <%=t :house_number %></td>
+                <td>
+                    <%= @address.house_no %>
+                </td>
+            </tr>
+            <tr>
+                <td><%=t :street %></td>
+                <td><%= link_to("#{@address.street}",:controller=>"addresses",:action=>"index_street",:street => @address.street) %></td>
+            </tr>
+            <tr>
+                <td>
+                    <%=t :apartment_number %></td>
+                <td>
+                    <%=h @address.apt_no %></td>
+            </tr>
+            <tr>
+                <td><%=t :city %></td>
+                <td><%= @address.city %></td>
+            </tr>
+            <tr>
+                <td><%=t :state %></td>
+                <TD><%=h @address.state %></TD>
+            </tr>
+            <tr>
+                <td><%=t :zip %></td>
+                <td><%= @address.zip %></td>
+            </tr>
+            <tr>
+                <td><%=t :call_date %></td>
+                <td><%= @address.call_date %></td>
+            </tr>
+            <tr>
+                <td><%=t :territory_number %></td>
+                <td><%= @address.territory.territory_no %></td>
+            </tr>
+            <tr>
+                <td><%=t :householders %></td>
+                <td>
 
-             <%= link_to "#{hh.fullname}",:controller => "householders", action: 'show',id: hh.id %><br>
+                    <%@address.householders.each do |hh| %>
+                    <%if !hh.blank? %>
 
-         <%end%>
-       <%end%>
-       <%= link_to image_tag("householderadd.png",:title=>"#{t :add_householder_to_address}"),:controller=>'householders',action: 'new', :addressID => @address.id %>
-       </td>
-    </tr>
-    <tr>
-      <td>
-        <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
-         <%=t :coordinate %>
-         <%=@address.coordinate%>
-         <%end%>
-       </td>
-      <td>
+                    <%= link_to "#{hh.fullname}",:controller => "householders", action: 'show',id: hh.id %><br>
 
+                    <%end%>
+                    <%end%>
+                    <%= link_to image_tag("householderadd.png",:title=>"#{t :add_householder_to_address}"),:controller=>'householders',action: 'new', :addressID => @address.id %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
+                    <%=t :coordinate %>
+                    <%=@address.coordinate%>
+                    <%end%>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <%= link_to image_tag('edit.png'), edit_address_path(@address) %>
+                </td>
+            </tr>
+        </table>
 
-            <%@territory = @address.territory%>
-            <%= render partial: "territories/address_compared_territory", locals: { :territory=> @territory } %>
-
- 
-</td>
-      </tr>
-    <tr>
-      <td colspan="2">
-        <%= link_to image_tag('edit.png'), edit_address_path(@address) %>
-        </td>
-      </tr>
-    </table>
-
-
- </div>
- </div>
+    </div>
+</div>

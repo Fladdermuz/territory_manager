@@ -18,11 +18,11 @@ class LoginController < ApplicationController
         @user = User.find_by(username: @uname)
         session[:uid] = @user.id
         session[:username] = @uname
-
+        session[:map_layer_id] = 1
         if @user.isadmin
           session[:role] = "admin"
         end
- 
+
 
         session[:client_id] = @user.client_id # Store the users client in session
         session[:locale] = @user.sitelang

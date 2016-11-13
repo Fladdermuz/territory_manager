@@ -1,0 +1,32 @@
+<div class="modal fade" id="warn_map">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">X</span>
+        </button>
+        <icon class='fa fa-4x fa-question-circle'></icon>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%=msg%>
+        </p>
+      </div>
+      <div class="modal-footer">
+
+        <%= form_for(WarningMessage.new, url: '/warning_messages/hide_message', remote: true) do |f| %>
+         <%=f.hidden_field :user_id, value: session[:uid] %>
+         <%=f.hidden_field :msg_name, value: msg_name %>
+         <%= f.hidden_field :hide, value: TRUE %>
+         <%= f.submit "#{t :hide}", class: 'btn btn-primary', style: 'float:left' %>
+        <%end%>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+$('#warn_map').modal();
+</script>

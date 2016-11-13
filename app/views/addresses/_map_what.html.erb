@@ -33,7 +33,7 @@
     L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
 
 
-    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=territory.center_coordinate%>], "12");
+    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=territory.center_coordinate%>], "14");
 
     L.tileLayer('<%=@map_layer.layer_url%>', {
         attribution: 'EcuaERP',
@@ -65,18 +65,18 @@
         iconSize: [60, 60]
     });
 
-    var marker = L.marker(new L.LatLng(<%=coords%>), {
+    var marker<%=territory.id%> = L.marker(new L.LatLng(<%=coords%>), {
         icon: cssIcon
      });
 
 
-    marker.addTo(map_c<%=territory.id%>);
+    marker<%=territory.id%>.addTo(map_c<%=territory.id%>);
 
 
 
 
 
-     var line_points2 = [
+     var line_points<%=territory.id%> = [
         <%territory.coordinates.each do |t| %>
           [<%=t.coordinate%>],
         <%end%>
@@ -88,7 +88,7 @@
            <%@color = territory.border_color %>
         <%end%>
 
-      var polyline_options2 = {
+      var polyline_options<%=territory.id%> = {
            color: '<%=@color%>'
           <%if territory.fill_color? %>,
            fill: true
@@ -97,7 +97,7 @@
            weight: <%=territory.border_size%>
           <%end%>
       };
-      var polyline2 = L.polyline(line_points2, polyline_options2).addTo(map_c<%=territory.id%>);
+      var polyline<%=territory.id%> = L.polyline(line_points<%=territory.id%>, polyline_options<%=territory.id%>).addTo(map_c<%=territory.id%>);
 
 
 

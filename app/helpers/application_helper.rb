@@ -66,4 +66,38 @@ module ApplicationHelper
   end
 
 
+  def show_msg(msg_name)
+
+   @show = FALSE
+
+
+   case msg_name
+   when 'client_cord'
+     @warn = WarningMessage.find_by(user_id: current_user.id, msg_name: 'client_cord', hide: TRUE)
+     if @warn.nil?
+       @show = TRUE
+     end
+   when 'zone_cord'
+     @warn = WarningMessage.find_by(user_id: current_user.id, msg_name: 'zone_cord', hide: TRUE)
+     if @warn.nil?
+       @show = TRUE
+     end
+   when 'terr_cord'
+     @warn = WarningMessage.find_by(user_id: current_user.id, msg_name: 'terr_cord', hide: TRUE)
+     if @warn.nil?
+       @show = TRUE
+     end
+   when 'coord_tip'
+     @warn = WarningMessage.find_by(user_id: current_user.id, msg_name: 'coord_tip', hide: TRUE)
+     if @warn.nil?
+       @show = TRUE
+     end
+   end
+
+
+   return @show
+
+  end
+
+
 end

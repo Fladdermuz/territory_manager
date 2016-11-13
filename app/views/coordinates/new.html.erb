@@ -44,7 +44,7 @@
 
             <% if !@territory.coordinates[1].nil? %>
             <% if @territory.coordinates.last.coordinate != @territory.coordinates.first.coordinate %>
-            <%= form_for(@coordinate, remote: true) do |f| %>
+            <%= form_for(@coordinate) do |f| %>
             <%@firstcoordinate=@territory.coordinates[0].coordinate%>
             <%= f.hidden_field(:coordinate,value:   @territory.coordinates[0].coordinate) %>
             <%= f.hidden_field(:territory_id,value: @territory.id) %>
@@ -55,19 +55,10 @@
 
         </div>
 
-        <div class='col-lg-12 col-xs-12'>
-            <%= form_for(@territory, url: '/territories/update_zoom') do |f| %>
-            <%= f.hidden_field(:client_id,value:  current_user.client_id) %>
-            <%= hidden_field_tag :id,  @territory.id %>
-
-            <div class='col-lg-10 col-xs-10'>
-                <%= f.select(:zoom,([['1','12'], ['2','13'],['3','14'],['4','15'],['5','16'],['6','17'],['7','18'],['8','19']]),{include_blank: "#{t :zoom}"}, {class: 'text-field-wide' } )%>
-            </div>
-            <div class='col-lg-2 col-xs-2'>
-                <%= f.submit "#{t :update}", class: 'btn btn-primary', style: 'margin-top:3px;' %>
-            </div>
-            <%end%>
-
-        </div>
+       
     </div>
 </div>
+
+<%if show_msg('coord_tip')%>
+<%= render 'layouts/warn_map', msg: "#{t :coord_tip}", msg_name: 'coord_tip' %>
+<%end%>

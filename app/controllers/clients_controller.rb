@@ -40,10 +40,18 @@ class ClientsController < ApplicationController
     @country =  @client.country
 
 
-   if @client.coordinate.blank? || @client.coordinate == "38.802859, -96.208728"
-    @coordinates = @country.latitude.to_s + "," + @country.longitude.to_s
-   else
-    @coordinates = @client.coordinate
+   if @client.latitude.blank? && @client.longitude.blank?
+      @coordinates = @country.latitude.to_s + "," + @country.longitude.to_s
+    else
+
+     if @client.latitude.blank? && @client.longitude.blank?
+      @coordinates = @client.coordinate
+     else
+      @coordinates = @client.latitude.to_s + ',' + @client.longitude.to_s
+     end
+
+
+
    end
 
 
@@ -138,7 +146,7 @@ class ClientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
      def client_params
-       params.require(:client).permit(:zip, :is_coordinate_only, :coordinate, :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
+       params.require(:client).permit(:zip, :is_coordinate_only, :latitude, :longitude, :coordinate, :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :sitelang, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
      end
 
 end

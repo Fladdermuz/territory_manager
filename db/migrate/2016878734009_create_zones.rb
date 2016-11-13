@@ -3,7 +3,6 @@ class CreateZones < ActiveRecord::Migration
     create_table :zones do |t|
       t.string :zone_no
       t.text :description
-      t.attachment :image
       t.integer :client_id
       t.string :center_coordinate
       t.integer :zoom

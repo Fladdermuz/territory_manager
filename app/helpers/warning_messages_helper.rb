@@ -1,0 +1,2 @@
+module WarningMessagesHelper
+end

@@ -1,4 +1,13 @@
  es:
+  hide: "Ocultar" 
+  coord_tip: "¡Consejo! Para dibujar líneas claras, enfocar el mapa a la cantidad máxima. ¡Ajustar el enfoce abajo a 8 durante el proceso de creación de la frontera!"
+  updated: "Actualizado"
+  close: "Cerrar"
+  warn_map_zone: "Asegúrese de mover el marcador a centro de la zona!"
+  warn_map_terr: "Asegúrese de mover el marcador a centro del territorio!"
+  warn_map: "Asegúrese de mover el marcador a su ciudad o cualquier otro punto central donde usted planea hacer territorios."
+  new_user_subject: "Nuevo Usuario"
+  cord_only_help: "Esto obliga al usuario a arrastrar manualmente el icono del mapa para crear direcciones en el sistema. Esto es bueno para los lugares fuera de los Estados Unidos y Europa donde el mapa de la calle no puede encontrar direcciones"
   select_user: "Seleccione Usuario"
   create_coords_help: "¡Haga clic aquí para crear las fronteras!"
   record_created: "Creado con Exito"
@@ -275,15 +284,33 @@
       models:
         client:
           attributes:
+            address:
+              blank: ": no puede ser blanco "
             coordinate:
               blank: ": no puede ser blanco "
             name:
               blank: ": no puede ser blanco "
+            city:
+              blank: ": no puede ser blanco "
+            state:
+              blank: ": no puede ser blanco "
+            country_id:
+              blank: ": no puede ser blanco "
         user:
           attributes:
             client_id:
-              blank: ": can't be blank! "
+              blank: ": no puede ser blanco "
             fname:
-              blank: ": can't be blank! "
+              blank: ": no puede ser blanco "
             email:
-              blank: ": can't be blank! "
+              blank: ": no puede ser blanco "
+        zone:
+          attributes:
+            map_layer_id:
+              blank: ": no puede ser blanco "
+            zone_no:
+              blank: ": no puede ser blanco "
+            client_id:
+              blank: ": no puede ser blanco "
+            center_coordinate:
+              blank: ": no puede ser blanco "
