@@ -1,15 +1,23 @@
-<div class="card" style="max-width: 50%;margin: 0 auto;margin-top: 4%;">
-  <div class="card-header-top">
-    <%= image_tag "logo.jpg", class: 'logo' %>
-  </div>
+<div class="card">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%=t :householders %>
+                    </h2>
+                </td>
 
-<div class="card-block">
- <table class="table">
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), {controller: 'main'}, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
+ <table class="table table-striped">
    <tr>
      <td>  <%=render 'search'  %> </td>
-   </tr>
-   <tr>
-     <td><%= link_to "#{t :new_householder_button}",{controller: 'householders', action: 'new'}, class: 'btn btn-primary'%> </td>
    </tr>
    <tr>
      <td>  <%= link_to "#{t :all_householders}",{controller: 'householders', action: 'index'}, class: 'btn btn-primary'%> </td>

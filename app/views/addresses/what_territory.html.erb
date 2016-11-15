@@ -10,12 +10,11 @@
     <td>
 
       <%= form_tag('/addresses/what_territory_post', remote: true) %>
-      <%=t :house_number%> <%=text_field_tag 'house_no',nil,{:class=>'txt-field'} %>
+      <%=t :house_number%> <%=text_field_tag 'house_no',nil,{:class=>'text-field-wide'} %>
     </td>
-    <td> <%=t :street %> <%=text_field_tag 'street', nil, {class: 'txt-field'} %> </td>
-    <td> <%=t :city %> <%= text_field_tag "city", nil,{ class: 'txt-field'} %> </td>
-    <td> <%=t :state %> <%=text_field_tag 'state', @state , class: 'txt-field'%> </td>
-    <td> <%=t :zone %><%=collection_select(:zone1,nil, Zone.where(client_id:  session[:client_id]).order('zone_no'),:id, :zone_no,{},{class: 'sel-field'}) %> </td>
+    <td> <%=t :street %> <%=text_field_tag 'street', nil, {class: 'text-field-wide'} %> </td>
+    <td> <%=t :city %> <%= text_field_tag "city", nil,{ class: 'text-field-wide'} %> </td>
+    <td> <%=t :state %> <%=text_field_tag 'state', @state , class: 'text-field-wide'%> </td>
     <td style="padding-top:18px;padding-bottom: 0px;"> <%= submit_tag "#{t :search}", class: 'btn btn-primary' %></td>
     </td>
   </tr>
@@ -26,7 +25,7 @@
 
 
 
-<%=render partial: 'what_terr', locals: {zones: @zones, coords: nil,house_no: @house_no, street: @street,city: @city, state: @state, zone: @zone} %>
+<%=render partial: 'what_terr', locals: {  coords: nil,house_no: @house_no, street: @street,city: @city, state: @state} %>
 </div>
 
 </div>

@@ -2,7 +2,7 @@ class AddressesController < ApplicationController
 
 
  before_filter :login_required
- before_action :set_address, only: [:show, :edit, :update, :destroy]
+ before_action :set_address, only: [:refresh_map,:show, :edit, :update, :destroy]
  before_action :setup
 
 
@@ -37,13 +37,10 @@ class AddressesController < ApplicationController
 
     def index_terr
 
-    @territory = params[:territory_id]
+     @territory_id = params[:territory_id]
 
-    if !@territory.nil?
-       session[:terr] = @territory
-    end
 
-    @addresses = Address.where(client_id: session[:client_id], territory_id: session[:terr]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
+     @addresses = Address.where(client_id: session[:client_id], territory_id: @territory_id).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
 
     respond_to do |format|
       format.html # index.html.erb
@@ -74,7 +71,7 @@ class AddressesController < ApplicationController
  def what_territory
 
    @zones = Zone.where(client_id: session[:client_id])
-   @territories =  Territory.where(client_id: session[:client_id]).order("territory_no+0")
+   @territories = nil
 
  end
 
@@ -87,11 +84,25 @@ class AddressesController < ApplicationController
   @city = params[:city].to_s
   @state = params[:state]
 
+  @house_no = '259'
+  @street = 'Laurel Lane'
+  @city = 'Carrollton'
+  @state = 'Ga'
+
   @cord = Geocoder.coordinates("#{@house_no}, #{@street}, #{@city},#{@state}")
   @coords = @cord[0].to_s + ',' + @cord[1].to_s
-  @zone = params[:zone1]
-  @zones = Zone.where(client_id: session[:client_id])
-  @territories =  Territory.where(client_id: session[:client_id], zone_id: @zone).order("territory_no+0")
+
+  @terr_hash = Hash.new(0)
+
+  @territories_unsorted =  Territory.where(client_id: session[:client_id]).order("territory_no+0")
+
+  @territories_unsorted.each do |t|
+   @terr_hash[t.id] = Geocoder::Calculations.distance_between(@coords, t.center_coordinate)
+  end
+
+
+  @territories = @terr_hash.sort_by { |key, value| value }
+
 
   respond_to do |format|
 
@@ -114,6 +125,13 @@ class AddressesController < ApplicationController
   def show
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 13
+
+     if @address.coordinate.blank?
+       @coordinates = @address.latitude.to_s + "," + @address.longitude.to_s
+     else
+       @coordinates = @address.coordinate
+     end
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -190,7 +208,7 @@ end
     respond_to do |format|
 
       if @address.save
-         format.html { redirect_to controller: 'addresses', action: 'show',id: @address.id, notice: "#{t :address_created}" }
+         format.html { redirect_to controller: 'addresses', action: 'show',id: @address.id }
 
       else
          format.html { render :action => "new" }
@@ -202,8 +220,21 @@ end
     end
   end
 
-  # PUT /addresses/1
-  # PUT /addresses/1.xml
+
+    def refresh_map
+
+      @coordinates = params[:coordinate]
+      @address.coordinate = @coordinates
+      @address.save
+
+      respond_to do |format|
+        format.js
+       end
+
+    end
+
+
+
 
   def update
 
@@ -241,7 +272,7 @@ end
 
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to controller: 'addresses' }
      end
   end
 
@@ -255,24 +286,6 @@ end
 
 
 
-
-  def edit_alt
-    @address = Address.find_by(id: params[:aid], client_id: session[:client_id])
-  end
-
-
-
-  def remove_alt
-
-      @address = Address.find_by(id: params[:aid],client_id: session[:client_id])
-      @address.alt_city = nil
-      @address.alt_house_no = nil
-      @address.alt_street = nil
-      @address.save
-      flash[:notice] = "#{t :removed_alt_address}"
-      redirect_to :back
-
-  end
 
 
 

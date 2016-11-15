@@ -1,0 +1,33 @@
+<% @territories = Territory.where(client_id: session[:client_id]) %>
+<%= select_tag "ind_terr", options_from_collection_for_select(@territories, "id", "territory_no"), include_blank: true, style: 'font-size:10px;color:black;width:100%;', prompt: "#{t :territory}" %>
+
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#ind_terr').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+
+
+                window.location = "/addresses/index_terr?territory_id=" + url; // redirect
+
+            }
+            return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $("#ind_terr").select2({
+        theme: "bootstrap"
+    });
+
+</script>

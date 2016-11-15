@@ -1,86 +1,35 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header-top">
-    <h1><%=t :edit_address %></h1>
-  </div>
+    <div class="card-header card-header-top">
 
-  <div class="card-block">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
 
+                    <h2>
+                        <%=t :edit_address%>
+                    </h2>
 
-   <%= form_for(@address) do |f| %>
+                </td>
 
-    <table class="table table-striped">
-      <tr>
-        <td><%=t :neighborhood %> </td>
-        <td><%= f.text_field :neighborhood, class: 'txt-field' %></td>
-      </tr>
-      <tr>
-        <td><%=t :house_number %></td>
-        <td><%= f.text_field :house_no, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td><%=t :street%></td>
-        <td><%= f.text_field :street, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td><%=t :apartment_number%></td>
-        <td><%= f.text_field :apt_no, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td><%=t :city%> </td>
-        <td><%= f.text_field :city, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td><%=t :state%></td>
-        <td><%= f.text_field :state, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td> <%=t :zip%> </td>
-        <td><%= f.text_field :zip, class: 'txt-field'  %></td>
-      </tr>
-      <tr>
-        <td><%=t :call_date%></td>
-        <td><%= f.text_field :call_date, class: 'datepicker txt-field'  %></td>
-      </tr>
-      <tr>
-        <td> <%=t :territory_number%> </td>
-        <td> <%=  f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|c| [ c.territory_no, c.id ] },{}, {class: 'sel-field'}) %> </td>
-      </tr>
+                <td class="buttons">
 
- 
-  <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
-    <tr>
-      <td><%=t :coordinate%></td>
-      <td><%= f.text_field :coordinate %></td>
-    </tr>
-  <%end%>
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
 
+                </td>
+            </tr>
+        </table>
 
+    </div>
 
-   <tr>
-     <td><%= f.submit "#{t :update}", class: 'btn btn-primary' %></td>
-     <td></td>
-   </tr>
-<% end %>
-</table>
+    <div class="card-block">
 
-<table class="table table-bordered">
-  <tr>
-    <td><%= link_to image_tag('view.png'), @address %></td>
-    <td><%= link_to "#{t :google_alt}",:action=> "edit_alt",:aid=> @address.id %></td>
-    <td><%= link_to "#{t :google_alt_remove}",:action=> "remove_alt",:aid=> @address.id %></td>
-  </tr>
-    </table>
+     <%=render 'form', address: @address %>
 
-</div>
+    </div>
 
 </div>
 <script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            language: "<%=session[:locale]%>"
-        });
+    $(document).ready(function () {
+        $('.datepicker').datepicker({language: "<%=session[:locale]%>"});
     });
 </script>

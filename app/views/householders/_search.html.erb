@@ -1,4 +1,4 @@
-<% @householders = Householder.where(client_id: session[:client_id]) %>
+<% @householders = Householder.where(client_id: current_user.client_id) %>
 <%= select_tag "hh", options_from_collection_for_select(@householders, "id", "fullname"), include_blank: true, class: 'search', prompt: "#{t :search}" %>
 
 

@@ -21,23 +21,24 @@
 
     </style>
 
-    <div class="card-header-top card-header-top">
+    <div class="card-header card-header-top">
         <table class="table table-noborder table-nopadding">
             <tr>
-                <td class="card-title">
+              <td class="card-title no-border">
+
                     <h2>
-                        <%=t :territory %>
+                        <%=t :territory %> # <%=@territory.territory_no%>
                     </h2>
                 </td>
-                <td class='button'>
-                  <%= link_to "", territories_path, class: 'right btn btn-primary btn-home btn-top' %>
+                <td class='buttons'>
+                  <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), @territory, class: 'btn btn-primary btn-top' %>
                 </td>
             </tr>
         </table>
     </div>
 
     <div class="card-block">
-
+        <br />
         <% get_map_layer ## returns @map_layer %>
         <%= render 'map_layers/set_layer_terr',territory_id: @territory.id %>
          <br>
@@ -48,23 +49,19 @@
 
             L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
 
-            <%  @cord = @territory.center_coordinate %>
+            <% @cord = @territory.center_coordinate %>
 
             var map_c = L.map('map_c').setView([<%=@cord%>], "<%=@territory.zoom%>");
 
             L.tileLayer('<%=@map_layer.layer_url%>', {
-                attribution: 'EcuaERP',
+                attribution: 'OSM',
                 maxZoom: '<%=@map_layer.max_zoom%>',
-
                 <%if !@map_layer.min_zoom.blank?%>,
                 min_zoom: '<%= @map_layer.min_zoom %>' <%end%>
-
                 <%if !@map_layer.map_type.blank?%>,
                 type: '<%=@map_layer.map_type%>' <%end%>
-
                 <%if !@map_layer.file_ext.blank?%>,
                 ext: '<%= @map_layer.file_ext %>' <%end%>
-
                 <%if !@map_layer.subdomains.blank?%>,
                 subdomains: '<%=@map_layer.subdomains %>' <%end%>
 
@@ -79,10 +76,15 @@
                 iconSize: [60, 60]
             });
 
-            var marker<%=a.id%> = L.marker(new L.LatLng(<%=a.coordinate%>), {icon: cssIcon<%=a.id%>});
+            <%if current_user.client.is_coordinate_only? || !a.coordinate.blank? %>
+             var marker<%=a.id%> = L.marker(new L.LatLng(<%=a.coordinate%>), {icon: cssIcon<%=a.id%>});
+            <%else%>
+             <%@coord = a.latitude.to_s + ',' + a.longitude.to_s %>
+             var marker<%=a.id%> = L.marker(new L.LatLng(<%=@coord%>), {icon: cssIcon<%=a.id%>});
+            <%end%>
 
-            marker<%=a.id%>.on('dragend', ondragend);
-            marker<%=a.id%>.bindPopup('<%=t :address%> : <%=a.house_no%> <%=a.street%><br><%if a.users.any?%><%=a.users[0].full_name%><%end%>');
+
+            marker<%=a.id%>.bindPopup('<%=t :address%> : <%=a.house_no%> <%=a.street%><br><%if a.householders.any?%><%=a.householders[0].fullname%><%end%>');
             marker<%=a.id%>.addTo(map_c);
             <%end%>
 

@@ -19,7 +19,7 @@
     }
 
 </style>
-
+<h2 class='distance'> <%=t :miles%> <%=distance.round(2)%> </h2>
 <% get_map_layer ## returns @map_layer %>
 
 
@@ -33,7 +33,7 @@
     L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
 
 
-    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=territory.center_coordinate%>], "14");
+    var map_c<%=territory.id%> = L.map('map_c<%=territory.id%>').setView([<%=territory.center_coordinate%>], "12");
 
     L.tileLayer('<%=@map_layer.layer_url%>', {
         attribution: 'EcuaERP',
@@ -70,7 +70,19 @@
      });
 
 
+     var cssIcon2 = L.divIcon({
+         // Specify a class name we can refer to in CSS.
+         className: 'css-icon',
+         html: "<h3 class='icon-span'>T</h3>" ,
+         iconSize: [60, 60]
+     });
+
+     var marker2<%=territory.id%> = L.marker(new L.LatLng(<%=territory.center_coordinate%>), {
+         icon: cssIcon2
+      });
+
     marker<%=territory.id%>.addTo(map_c<%=territory.id%>);
+    marker2<%=territory.id%>.addTo(map_c<%=territory.id%>);
 
 
 

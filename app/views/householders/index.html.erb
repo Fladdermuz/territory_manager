@@ -1,48 +1,49 @@
-<br>
-<br>
-
 <div class="card">
-  <div class="card-header-top">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%=t :householders %>
+                    </h2>
+                </td>
 
-    <h1> <%= t :householders %>
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), {controller: 'main'}, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
-     </h1>
-  </div>
-  <div class="card-block">
+        <table class="table table-striped">
+            <tr>
+                <th><%=t :first_name%></th>
+                <th><%=t :last_name%></th>
+                <th><%=t :notes%></th>
+                <th ><%=t :phone%></th>
+                <th><%=t :call_date%></th>             
+                <th></th>
+            </tr>
 
+            <% @householders.each do |householder| %>
+            <tr>
+                <td><%= householder.fname %></td>
+                <td><%= householder.lname %></td>
+                <td><%= householder.notes %></td>
+                <td><%= householder.phone %></td>
+                <td><%= householder.call_date %></td>
+                <td><%= link_to image_tag('view.png', size: '23x23'), householder.address %></td>
+            </tr>
+            <% end %>
+        </table>
 
-  <table class="table table-striped">
-  <tr>
-    <th class="fname"><%=t :first_name%></th>
-    <th class="lname"><%=t :last_name%></th>
-    <th class="notes"><%=t :notes%></th>
-    <th class="phone"><%=t :phone%></th>
+        <%@householders.each do |hh| %>
+        <%=render 'householders/modal', householder: hh, hsource: 'addy', address_id: hh.address_id %>
+        <%end%>
+        <div class="digg_pagination">
+            <%=  will_paginate @householders,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
+        </div>
 
-    <th class="calldate"><%=t :call_date%></th>
-    <th class="edit"> </th>
-    <th class="edit"> </th>
-    <th class="edit"> </th>
-  </tr>
-
-<% @householders.each do |householder| %>
-  <tr>
-    <td class="fname"><%= householder.fname %></td>
-    <td class="lname"><%= householder.lname %></td>
-    <td class="notes"><%= householder.notes %></td>
-    <td class="phone"><%= householder.phone %></td>
-
-    <td class="calldate"><%= householder.call_date %></td>
-    <td class="edit"><%= link_to image_tag('view.png', size: '23x23'), householder %></td>
-    <td class="edit"><%= link_to image_tag('edit.png',size: '23x23'), edit_householder_path(householder) %></td>
-    <td class="edit"><%=link_to image_tag('trash.png', size: '23x23'), householder, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-
-  <div class="digg_pagination">
-  <%=  will_paginate @householders,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
-  </div>
-
-</div>
+    </div>
 </div>

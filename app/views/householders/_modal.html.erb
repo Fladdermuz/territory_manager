@@ -1,0 +1,25 @@
+<%if householder.new_record?%>
+<%@id = 'hh_new'%>
+<%else%>
+<%@id = 'hh_' + householder.id.to_s %>
+<%end%>
+
+<div class="modal fade" id="<%=@id%>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only"> <%=t :close%> </span>
+        </button>
+        <h4 class="modal-title">
+         <%=new_or_update(householder)%>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <%=render 'householders/form', householder: householder, hsource: hsource, address_id: address_id %>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

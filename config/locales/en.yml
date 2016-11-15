@@ -1,4 +1,5 @@
 en:
+  miles: "Miles"
   hide: "Hide"
   coord_tip: "Tip! To draw clear lines, zoom in to the Maximum amount possible! Set the zoom below to 8 during the border creation process!"
   updated: "Updated"
@@ -160,12 +161,6 @@ en:
   search: "Search"
   first_name_only: "First Name (Only use if thats all you know) "
   select_terr: "Select Territory"
-  google_alt: "Add alternate address for Google Maps"
-  google_alt_remove: "Remove alternate address for Google Maps"
-  removed_alt_address: "Removed Atlternate Address"
-  althouse: "Alternate House Number"
-  altstreet: "Alternate Street"
-  altcity: "Alternate City"
   address_not_found: "Address not found"
   correct_territory?: "Please Make sure you added this to the correct Territory."
   dont_be_daft: "You did not select a Territory! You must select a Territory!"

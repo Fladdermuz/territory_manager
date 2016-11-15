@@ -1,76 +1,98 @@
-<br>
-<br>
-
 <div class="card">
-<div class="card-header-top">
-<%if flash[:notice]%>
-<%= flash[:notice]%> <br>
-<%end%>
- <b><%=t :first_name %> :</b>
-  <%=h @householder.fname %>
-</p>
-
-<p>
-  <b><%=t :last_name %>:</b>
-  <%=h @householder.lname %>
-</p>
-</div>
-
-  <div class="card-block">
-  <table class="table table-striped">
-    <tr>
-      <td> <%=t :notes %> </td>
-    </tr>
-    <tr>
-      <td><%= @householder.notes %></td>
-     </tr>
-     <tr>
-       <td><%=t :phone %></td>
-      </tr>
-    <tr>
-       <td><%= @householder.phone %> </td>
-     </tr>
-
- <tr>
-  <td>
-  
- <% if !@householder.address.nil? %>
-  <%=t :address%>:
-  <%  if @address.apt_no == ""%>
-<%= link_to("#{@address.house_no + " " + @address.street}",:controller=>"addresses",:action=>"index_house_number",:house => @householder.address.house_no,:street=>@householder.address.street) %>
-<%else%>
-  <%= link_to("#{@address.house_no + " Apt#(" + @address.apt_no + ") " + @address.street}",:controller=>"addresses",:action=>"index_house_number",:house => @householder.address.house_no,:street=>@householder.address.street,:apt=> @householder.address.apt_no) %>
-  <%  end %>
-<%end%>
-
-
-<% if @householder.address.nil? %>
-<b><%=t :address%>:</b>
-<%=t :has_no_address  %>
-<%end%>
-</td>
-   </tr>
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%= t :householder %>
+                    </h2>
+                </td>
 
 
 
-<tr>
-  <td> <%=t :call_date%></td>
-  <tr>
-    <td> <%=h @householder.call_date %>  </td>
-</tr>
+                <td class="buttons">
+                  <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), householders_path, class: 'btn btn-primary btn-top2' %>
+                  <%= link_to raw("<icon class='fa fa-5x fa-map-o'></icon>"),{controller: 'addresses', action: 'show', id: @householder.address_id}, class: 'btn btn-primary btn-top2' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
-   
-   <tr>
-     <td><%=t :assign_new_address %></td>
-     </tr>
-    <tr>
-      <td></td>
-    </tr>
-</table>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                  <b>  <%=t :first_name %> </b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <%=h @householder.fname %>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                      <b>    <%=t :last_name %></b>
+                  </td>
+                </tr>
+                <tr>
+                <td>
+                    <%=h @householder.lname %>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                      <b>    <%=t :notes %> </b>
+                </td>
+            </tr>
+            <tr>
+                <td><%= @householder.notes %></td>
+            </tr>
+            <tr>
+                <td>
+                      <b>  <%=t :phone %>  </b> </td>
+            </tr>
+            <tr>
+                <td><%= @householder.phone %>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+
+                    <% if !@householder.address.nil? %>
+                      <b>    <%=t :address%> </b>
+                    <%  if @address.apt_no == ""%>
+                    <%= link_to("#{@address.house_no + " " + @address.street}",:controller=>"addresses",:action=>"index_house_number",:house => @householder.address.house_no,:street=>@householder.address.street) %>
+                    <%else%>
+                    <%= link_to("#{@address.house_no + " Apt#(" + @address.apt_no + ") " + @address.street}",:controller=>"addresses",:action=>"index_house_number",:house => @householder.address.house_no,:street=>@householder.address.street,:apt=>
+                    @householder.address.apt_no) %>
+                    <%  end %>
+                    <%end%>
+
+                    <% if @householder.address.nil? %>
+                    <b><%=t :address%>:</b>
+                    <%=t :has_no_address  %>
+                    <%end%>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                      <b>    <%=t :call_date%> </b>
+                      </td>
+                <tr>
+                    <td>
+                        <%=h @householder.call_date %>
+                    </td>
+                </tr>
 
 
+            </table>
 
-
- </div>
+        </div>
     </div>
 </div>

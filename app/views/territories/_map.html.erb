@@ -108,20 +108,7 @@
 
       <%Zone.where(client_id: current_user.client_id).each do |z| %>
 
-      var cssIcon<%=z.id%> = L.divIcon({
-          className: 'css-icon',
-          html: "<span class='icon-span'>Z#:<%=z.zone_no%></span>",
-          iconSize: [60, 60]
-      });
-
-      var marker<%=z.id%> = L.marker(new L.LatLng(<%=z.center_coordinate%>), {
-          icon: cssIcon<%=z.id%>,
-          draggable: false
-      });
-
-
-      marker<%=z.id%>.bindPopup('Zone <%=z.zone_no%>');
-      marker<%=z.id%>.addTo(map_c<%=territory.id%>);
+   
 
 
      var line_points = [

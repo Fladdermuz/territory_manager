@@ -11,16 +11,11 @@
 
                 </td>
 
-                <%if params[:notice] %>
-                <td>
-                    <p id="notice" class="notice">
-                        <%= params[:notice] %>
-                    </p>
-                </td>
-                <%end%>
-
                 <td class="buttons">
-                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
+
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top2' %>
+                    <%= link_to raw("<icon class='fa fa-5x fa-edit'></icon>"), edit_address_path(@address), class: 'btn btn-primary btn-top2' %>
+
                 </td>
             </tr>
         </table>
@@ -29,24 +24,26 @@
 
     <div class="card-block">
 
+        <%=render 'householders/modal', householder: Householder.new, hsource: 'addy', address_id: @address.id %>
+
         <table class="table table-striped">
 
             <tr>
                 <td><%=t :neighborhood %></td>
                 <td><%= @address.neighborhood %>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <%=t :house_number %></td>
                 <td>
                     <%= @address.house_no %>
                 </td>
-            </tr>
-            <tr>
                 <td><%=t :street %></td>
                 <td><%= link_to("#{@address.street}",:controller=>"addresses",:action=>"index_street",:street => @address.street) %></td>
+                <td style="text-align: right;"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), @address, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+
             </tr>
+          </table>
+           <table class="table table-striped">
             <tr>
                 <td>
                     <%=t :apartment_number %></td>
@@ -74,34 +71,51 @@
                 <td><%= @address.territory.territory_no %></td>
             </tr>
             <tr>
-                <td><%=t :householders %></td>
-                <td>
-
-                    <%@address.householders.each do |hh| %>
-                    <%if !hh.blank? %>
-
-                    <%= link_to "#{hh.fullname}",:controller => "householders", action: 'show',id: hh.id %><br>
-
-                    <%end%>
-                    <%end%>
-                    <%= link_to image_tag("householderadd.png",:title=>"#{t :add_householder_to_address}"),:controller=>'householders',action: 'new', :addressID => @address.id %>
+                <td colspan="2"><%=t :householders %>
+                    <%= link_to  image_tag("householderadd.png",:class=>"button",:size=>"36x36"), '#', "data-toggle" => "modal", 'data-target' => "#hh_new" %>
                 </td>
             </tr>
+            <%@address.householders.each do |hh| %>
+            <%if !hh.blank? %>
             <tr>
                 <td>
-                    <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
-                    <%=t :coordinate %>
-                    <%=@address.coordinate%>
-                    <%end%>
+                    <%= link_to "#{hh.fullname}",:controller => "householders", action: 'show',id: hh.id %>
                 </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <%= link_to image_tag('edit.png'), edit_address_path(@address) %>
+                <td>
+                    <%= link_to image_tag("trash.png",:size =>"30x30",:class=>"trash", style: 'margin-left:9px;float:right'), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
+                    <%= link_to  image_tag("edit.png",:class=>"button",:size=>"30x30", style: 'float:right;'), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
                 </td>
-            </tr>
-        </table>
 
-    </div>
+            </tr>
+
+            <%end%>
+            <%end%>
+        </td>
+    </tr>
+
+    <tr>
+        <td id='map_it' colspan="2">
+        </td>
+    </tr>
+    <td colspan="2">
+       <%=render 'addresses/map_drag', center: '', coordinates: @coordinates, territory: @address.territory %>
+    </td>
+  </tr>
+
+    <tr>
+        <td>
+            <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
+            <%=t :coordinate %>
+            <%=@address.coordinate%>
+            <%end%>
+        </td>
+        <td></td>
+    </tr>
+
+</table>
+
+<%@address.householders.each do |hh| %>
+<%=render 'householders/modal', householder: hh, hsource: 'addy', address_id: hh.address_id %>
+<%end%>
+</div>
 </div>

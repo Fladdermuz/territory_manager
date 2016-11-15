@@ -1,14 +1,20 @@
-<br>
-<br>
 
-<div class="card">
-  <div class="card-header-top">
-    <h1> <%= t :address_list %> </h1>
-  </div>
-
-  <tr class="card-block">
-
-
+    <div class="card">
+        <div class="card-header card-header-top">
+            <table class="table table-noborder table-nopadding">
+                <tr>
+                    <td class="card-title no-border">
+                        <h2>
+                            <%= t :address_list %>
+                        </h2>
+                    </td>
+                    <td class="buttons">
+                        <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
+                     </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-block">
 
 
 <table class="table table-striped">
@@ -34,7 +40,7 @@
     <td><%=h address.territory.territory_no %>
     <%= link_to("#{t :view}",:controller => 'territories',:action => 'show',id: address.territory_id) %>
     </td>
-   
+
     <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
     <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_address_path(address) %></td>
     <td><%= link_to image_tag("householderadd.png",:class=>"button",:size=>"36x36",:title=>"#{t :add}"),
@@ -46,11 +52,15 @@
 
   <% for hh in address.householders %>
     <tr>
-      <td colspan="9">
+
+      <td colspan="8">
       <%= link_to image_tag("householder2.png",:size =>"38x38",:class => "img",
       :onmouseover => "this.src='/images/householder3.png'",
       :onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show',id: hh.id %>
       <%=link_to hh.fname + " " + hh.lname,:controller =>'householders',:action => 'show',id: hh.id %></td>
+      <td>
+        <%=link_to image_tag('edit.png',:size=>"30x30"), edit_householder_path(hh) %>
+      </td>
       <td style="text-align: right;" colspan="1"> <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %></td>
    </tr>
   <% end %>

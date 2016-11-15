@@ -8,8 +8,8 @@
                     </h2>
                 </td>
                 <td class="buttons">
-                    <%= link_to "", {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn btn-primary btn-edit btn-top' %>
-                    <%= link_to "", territories_path, class: 'btn btn-primary btn-home btn-top' %>
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), territories_path, class: 'btn btn-primary btn-home btn-top2' %>
+                    <%= link_to raw("<icon class='fa fa-5x fa-edit'></icon>"), {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn btn-primary btn-edit btn-top2' %>
                 </td>
             </tr>
         </table>
@@ -43,15 +43,10 @@
                     <%=h @territory.get_checked_out_by %>
                     <%end%>
                 </td>
-                <td>
-
-
-
-                </td>
+                <td></td>
 
             </tr>
         </table>
-
 
     </div>
     <div class="card-block">
@@ -65,7 +60,7 @@
                 <td>
                     <div style='float:right;'>
 
-                        <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}-#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_householders", :id =>@territory.id %>
+                        <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}-#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
                         <div style='width:20px;display:inline-block;'></div>
 
                         <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:id =>@territory.id%>
@@ -110,8 +105,8 @@
                     <%=image_tag('arrow.png', class: 'arrow' )%>
                     <%=t :create_coords_help %>
                 </td>
-              </tr>
-                <% end %>
+            </tr>
+            <% end %>
 
             <tr>
                 <td colspan="2">
@@ -124,6 +119,6 @@
                 <td><%= @territory.last_worked %></td>
             </tr>
 
-            </table>
-        </div>
+        </table>
     </div>
+</div>

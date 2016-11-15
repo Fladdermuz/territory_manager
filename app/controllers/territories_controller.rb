@@ -1,6 +1,6 @@
 class TerritoriesController < ApplicationController
    before_filter :login_required,:isadminuser
-   before_filter :set_territory, only: [:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_householders,:view_ter_householders]
+   before_filter :set_territory, only: [:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
    before_action :setup
 
    # GET /territories
@@ -164,14 +164,14 @@ class TerritoriesController < ApplicationController
   end
 
 
-  def view_all_ter_householders
+  def view_all_ter_pins
     #a printout of this is what is given to publishers to take out in service.
     @addresses = Address.where(territory_id: @territory.id, client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
   end
 
 
 
-  def view_all_ter_householders_with_phones
+  def view_all_ter_pins_with_phones
     #a printout of this is what is given to publishers to take out in service.
     @territory_id = params[:territory_id]
     @addresses = Address.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,LENGTH(house_no),house_no")

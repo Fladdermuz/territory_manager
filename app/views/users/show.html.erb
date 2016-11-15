@@ -1,48 +1,77 @@
 <div class="card">
-  <div class="card-header-top card-header">
-    <h2> <%=t :username%>: <%= @user.username %> </h2>
-  </div>
-  <div class="card-block">
+    <div class="card-header card-header-top">
 
-<table class="table table-striped">
-  <tr>
-  <td><b><%=t :client%></b></td>
-  <td><%= @user.client.name%></td>
- </tr>
-    <tr>
-    <td><b><%=t :email%></b></td>
-    <td><%= @user.email %></td>
-    </tr>
-  <tr>
-    <td><b><%=t :first_name%></b></td>
-    <td><%= @user.fname %></td>
-  </tr>
-  <tr>
-    <td><b><%=t :last_name%></b></td>
-    <td><%= @user.lname %></td>
-  </tr>
+        <table class="table table-noborder table-nopadding">
+            <td class="card-title no-border">
+                <h2>
+                    <%=t :username%>:
+                    <%= @user.username %>
+                </h2>
 
-<% if  session[:role] == "admin" %>
- <tr>
-   <td> <b><%=t :isadmin%></b></td>
-   <td><%= @user.isadmin %></td>
-</tr>
-<%end%>
+            </td>
+            <td class='buttons'>
+                <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), users_path, class: 'btn btn-primary btn-top' %>
+            </td>
+        </tr>
+    </table>
+</div>
 
-  <tr>
-    <td><b><%=t :isadmin%></b></td>
-    <td><%= @user.isadmin %></td>
-  </tr>
-  <tr>
-    <td><b><%=t :mappref%></b></td>
-    <td><%= @user.mappref %></td>
-  </tr>
-  <tr>
-    <td><b><%=t :lang%></b></td>
-    <td><%= @user.sitelang %></td>
-</tr>
-</table>
+<div class="card-block">
 
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <b><%=t :client%></b>
+            </td>
+            <td><%= @user.client.name%></td>
+        </tr>
+        <tr>
+            <td>
+                <b><%=t :email%></b>
+            </td>
+            <td><%= @user.email %></td>
+        </tr>
+        <tr>
+            <td>
+                <b><%=t :first_name%></b>
+            </td>
+            <td><%= @user.fname %></td>
+        </tr>
+        <tr>
+            <td>
+                <b><%=t :last_name%></b>
+            </td>
+            <td><%= @user.lname %></td>
+        </tr>
+
+        <% if  session[:role] == "admin" %>
+        <tr>
+            <td>
+                <b><%=t :isadmin%></b>
+            </td>
+            <td><%= @user.isadmin %></td>
+        </tr>
+        <%end%>
+
+        <tr>
+            <td>
+                <b><%=t :isadmin%></b>
+            </td>
+            <td><%= @user.isadmin %></td>
+        </tr>
+        <tr>
+            <td>
+                <b><%=t :mappref%></b>
+            </td>
+            <td><%= @user.mappref %></td>
+        </tr>
+        <tr>
+            <td>
+                <b><%=t :lang%></b>
+            </td>
+            <td><%= @user.sitelang %></td>
+        </tr>
+    </table>
 
 </div>
 </div>

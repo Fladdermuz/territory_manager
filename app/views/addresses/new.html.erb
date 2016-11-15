@@ -22,34 +22,34 @@
             <tr>
                 <td><%=t :neighborhood%>
                 </td>
-                <td><%= f.text_field :neighborhood, class: 'txt-field' %>
+                <td><%= f.text_field :neighborhood, class: 'text-field-wide' %>
                 </td>
             </tr>
             <tr>
                 <td><%=t :house_number %></td>
-                <td><%= f.text_field :house_no,class: 'txt-field' %>
+                <td><%= f.text_field :house_no,class: 'text-field-wide' %>
                 </td>
             </tr>
             <tr>
                 <td><%=t :street %></td>
-                <td><%= f.text_field :street,class: 'txt-field' %></td>
+                <td><%= f.text_field :street,class: 'text-field-wide' %></td>
             </tr>
             <tr>
                 <td><%=t :apartment_number %></td>
-                <td><%= f.text_field :apt_no,class: 'txt-field' %></td>
+                <td><%= f.text_field :apt_no,class: 'text-field-wide' %></td>
             </tr>
             <tr>
                 <td><%=t :city %></td>
                 <td>
-                    <%= f.text_field :city,:value => @city,class: 'txt-field' %></td>
+                    <%= f.text_field :city,:value => @city,class: 'text-field-wide' %></td>
             </tr>
             <tr>
                 <td><%=t :state %></td>
-                <td><%= f.text_field :state,:value =>  Client.find(session[:client_id]).state ,class: 'txt-field' %></td>
+                <td><%= f.text_field :state,:value =>  Client.find(session[:client_id]).state ,class: 'text-field-wide' %></td>
             </tr>
             <tr>
                 <td><%=t :zip %></td>
-                <td><%= f.text_field :zip ,class: 'txt-field' %>
+                <td><%= f.text_field :zip ,class: 'text-field-wide' %>
                 </td>
             </tr>
             <tr>
@@ -57,7 +57,7 @@
                     <%=t :call_date%>
                 </td>
                 <td>
-                    <%= f.text_field :call_date, {class: 'datepicker txt-field'} %></td>
+                    <%= f.text_field :call_date, {class: 'datepicker text-field-wide'} %></td>
             </tr>
             <%if @territory.nil?%>
             <tr>
@@ -100,13 +100,14 @@
             <tr>
                 <td colspan="2">
                     <%= f.fields_for :householders do |ff| %>
-                    <%= ff.text_field :fname, class: 'txt-field',style: 'margin-bottom:6px;padding-left:12px;', placeholder: "#{t :first_name}" %>
-                    <%= ff.text_field :lname, class: 'txt-field', style: 'padding-left:12px;', placeholder: "#{t :last_name}" %>
+                    <%= ff.hidden_field :client_id, value: current_user.client_id %>
+                    <%= ff.text_field :fname, class: 'text-field-wide',style: 'margin-bottom:6px;padding-left:12px;', placeholder: "#{t :first_name}" %>
+                    <%= ff.text_field :lname, class: 'text-field-wide', style: 'padding-left:12px;', placeholder: "#{t :last_name}" %>
                 </td>
             </tr>
 
             <% end %>
-     
+
 
             <tr>
                 <td>

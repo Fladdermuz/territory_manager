@@ -78,7 +78,7 @@ class ZonesController < ApplicationController
   def update
 
     respond_to do |format|
-      if @zone.update_attributes(zone_params)
+      if @zone.update(zone_params)
         @msg = "#{t :zone}" + "#{t :record_updated}"
         flash[:zone_notice] = @msg
         format.html { redirect_to(@zone) }

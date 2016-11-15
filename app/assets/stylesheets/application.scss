@@ -21,7 +21,12 @@
  @import "bootstrap";
  @import "font-awesome";
 
-
+.icon-span{
+  border-radius: 12px 12px;
+  background-color: white;
+  color: red;
+  padding:22px;
+}
 
  img.arrow {
      animation-name: arrow;
@@ -32,6 +37,10 @@
      margin-left: 30px;
 
  }
+
+h2.distance{
+  color: red;
+}
 
  @keyframes arrow {
      0% {
@@ -308,7 +317,7 @@ table.table-inverse{
   h2{margin-top:7px;}
 }
 
-.txt-field{
+.text-field-wide{
   color:black;
   border-radius: 8px 8px;
   min-height: 34px;
@@ -358,8 +367,8 @@ img.zone{
 
 .btn-top2 {
     height: 78px;
-    min-width: 16%;
-    max-width: 16%;
+    min-width: 19%;
+    max-width: 19%;
     margin-bottom: 0;
     border-top-right-radius: 4px 4px;
     font-size: 10px;

@@ -1,76 +1,93 @@
 <div class="card">
-  <div class="card-header-top">
-    <h1> <%= t :address_list %> </h1>
-  </div>
-  <div class="card-block">
+    <div class="card-header card-header-top">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
 
+                    <h2><%=t :address_list %>
+                    </h2>
 
-<table class="table table-striped">
-  <tr>
-    <th><%=t :house_number %></th>
-    <th><%=t :street %></th>
-    <th><%=t :apartment_number %></th>
-    <th><%=t :city %></th>
-    <th><%=t :call_date %></th>
-    <th><%=t :territory_number %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+                </td>
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), {controller: 'main'}, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
 
+        <% for address in @addresses %>
+        <%=render 'householders/modal', householder: Householder.new, hsource: 'index_terr', address_id: address.id %>
 
-<% for address in @addresses %>
+        <table class="table table-striped">
+            <tr>
+                <th><%=t :house_number %></th>
+                <th><%=t :street %></th>
+                <th><%=t :apartment_number %></th>
+                <th><%=t :city %></th>
+                <th><%=t :call_date %></th>
+                <th><%=t :territory_number %></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
 
-  <tr>
-    <td><%= address.house_no %></td>
-    <td><%= address.street %></td>
-    <td> <%= address.apt_no %> </td>
-    <td><%= address.city %></td>
-    <td>
-      <%if !address.call_date.blank?%>
-        <%=address.call_date.strftime('%a/%d/%b/%Y') %>
-      <%end%>
-    </td>
-    <td><%= address.territory.territory_no %>
-    <%= link_to("#{t :view}",:controller => 'territories', :action => 'show', id: address.territory_id) %>
-    </td>
-   
-    <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
-    <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_address_path(address) %></td>
-    <td><%= link_to image_tag("householderadd.png",:class=>"button",:size=>"36x36",:title=>"#{t :add}"),
-            :controller=>"householders",:action=>"new",:addressID => address.id  %></td>
-    <td style="text-align: right;"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), address, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
+            <tr>
+                <td><%= address.house_no %></td>
+                <td><%= address.street %></td>
+                <td>
+                    <%= address.apt_no %>
+                </td>
+                <td><%= address.city %></td>
+                <td>
+                    <%if !address.call_date.blank?%>
+                    <%=address.call_date.strftime('%a/%d/%b/%Y') %>
+                    <%end%>
+                </td>
+                <td><%= address.territory.territory_no %>
+                    <%= link_to("#{t :view}",:controller => 'territories', :action => 'show', id: address.territory_id) %>
+                </td>
 
-  </tr>
+                <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
+                <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_address_path(address) %></td>
+                <td>
+                    <%= link_to  image_tag("householderadd.png",:class=>"button",:size=>"36x36"), '#', "data-toggle" => "modal", 'data-target' => "#hh_new" %>
 
+                </td>
+                <td style="text-align: right;"><%= link_to image_tag("trash.png",:class=>"button",:size=>"36x36",:title=>"#{t :delete}"), address, :confirm => "#{t :are_you_sure}", :method => :delete %></td>
 
-  <% for hh in address.householders %>
-    <tr>
-      <td colspan="9">
-       <%= link_to image_tag("householder2.png",:size =>"38x38",:class => "img",
-      :onmouseover => "this.src='/images/householder3.png'",
-      :onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show', id: hh.id %>
-       <%=link_to hh.fname + " " + hh.lname,:controller =>'householders',:action => 'show',id: hh.id %>
-       </td>
-       <td style="text-align: right;width:55px;">
-        <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash",:title=>"#{t :delete}"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
-       </td>
-      </tr>
-  <% end %>
+            </tr>
 
-<% end %>
+            <% for hh in address.householders %>
+            <tr>
+                <td colspan="8">
+                    <%= link_to image_tag("householder2.png",:size =>"38x38",:class => "img", :onmouseover => "this.src='/images/householder3.png'", :onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show', id: hh.id %>
+                    <%=link_to hh.fname + " " + hh.lname,:controller =>'householders',:action => 'show',id: hh.id %>
+                </td>
+                <td>
+                    <%= link_to  image_tag("edit.png",:class=>"button",:size=>"30x30"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                </td>
 
-</table>
+                <td style="text-align: right;width:55px;">
+                    <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash",:title=>"#{t :delete}"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
+                </td>
+            </tr>
+            <% end %>
 
-<%= link_to "#{t :back}",:controller => "/addresses", :action => "home" %>
-| <%= link_to "#{t :new}",:controller => "/addresses", :action => "new" %>
+        </table>
 
+        <%address.householders.each do |hh| %>
+        <%=render 'householders/modal', householder: hh, hsource: 'index_terr', address_id: hh.address_id %>
+        <%end%>
+
+        <% end %>
+
+    </div>
 </div>
-</div>
 
-  <% if @street.nil?%>
-   <div class="digg_pagination">
-   <%=  will_paginate @addresses,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
-   </div>
-  <%end%>
+<% if @street.nil?%>
+<div class="digg_pagination">
+    <%=  will_paginate @addresses,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>
+</div>
+<%end%>

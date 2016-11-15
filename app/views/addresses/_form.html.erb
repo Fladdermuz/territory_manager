@@ -1,0 +1,61 @@
+<%= form_for(@address) do |f| %>
+
+<table class="table table-striped">
+    <tr>
+        <td><%=t :neighborhood %>
+        </td>
+        <td><%= f.text_field :neighborhood, class: 'text-field-wide' %></td>
+    </tr>
+    <tr>
+        <td><%=t :house_number %></td>
+        <td><%= f.text_field :house_no, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td><%=t :street%></td>
+        <td><%= f.text_field :street, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td><%=t :apartment_number%></td>
+        <td><%= f.text_field :apt_no, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td><%=t :city%>
+        </td>
+        <td><%= f.text_field :city, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td><%=t :state%></td>
+        <td><%= f.text_field :state, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td>
+            <%=t :zip%>
+        </td>
+        <td><%= f.text_field :zip, class: 'text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td><%=t :call_date%></td>
+        <td><%= f.text_field :call_date, class: 'datepicker text-field-wide'  %></td>
+    </tr>
+    <tr>
+        <td>
+            <%=t :territory_number%>
+        </td>
+        <td>
+            <%=  f.select(:territory_id, Territory.where(client_id: session[:client_id]).order("territory_no+0").collect {|c| [ c.territory_no, c.id ] },{}, {class: 'sel-field'}) %>
+        </td>
+    </tr>
+
+    <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
+    <tr>
+        <td><%=t :coordinate%></td>
+        <td><%= f.text_field :coordinate %></td>
+    </tr>
+    <%end%>
+
+    <tr>
+        <td><%= f.submit "#{t :update}", class: 'btn btn-primary' %></td>
+        <td></td>
+    </tr>
+    <% end %>
+</table>

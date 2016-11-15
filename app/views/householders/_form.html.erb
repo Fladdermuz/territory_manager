@@ -1,0 +1,49 @@
+<%= form_for(householder) do |f| %>
+
+<table class='table table-striped'>
+    <tr>
+        <td><%=t :first_name %></td>
+        <td>
+            <%= f.text_field :fname, class: 'text-field-wide' %>
+        </td>
+    </tr>
+
+    <tr>
+        <td><%=t :last_name %></td>
+        <td>
+            <%= f.text_field :lname, class: 'text-field-wide' %>
+        </td>
+    </tr>
+
+    <tr>
+        <td><%=t :notes %></td><br/>
+        <td>
+            <%= f.text_area :notes, class: 'text-area-wide' %></td>
+    </tr>
+    <tr>
+        <td><%=t :phone %></td><br/>
+        <td>
+            <%= f.text_field :phone, class: 'text-field-wide' %></td>
+    </tr>
+    <tr>
+
+        <tr>
+            <td><%=t :call_date %></td>
+            <td>
+                <%= f.date_select :call_date, :include_blank => true,:use_month_numbers => true, :order => [:month,:day,:year], class: 'text-field-wide' %></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <%= f.submit "#{t :update}" , class: 'btn btn-primary'%>
+            </td>
+        </tr>
+
+        <%=hidden_field_tag 'hsource', hsource %>
+        <%if householder.new_record?%>
+        <%=f.hidden_field :address_id, value: address_id %>
+        <%=f.hidden_field :client_id, value: current_user.client_id%>
+
+        <%end%>
+        <% end %>
+    </table>

@@ -1,5 +1,6 @@
  es:
-  hide: "Ocultar" 
+  miles: "Millas"
+  hide: "Ocultar"
   coord_tip: "¡Consejo! Para dibujar líneas claras, enfocar el mapa a la cantidad máxima. ¡Ajustar el enfoce abajo a 8 durante el proceso de creación de la frontera!"
   updated: "Actualizado"
   close: "Cerrar"

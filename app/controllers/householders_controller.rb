@@ -2,7 +2,7 @@ class HouseholdersController < ApplicationController
   before_action :set_householder, only: [:show, :edit, :update, :destroy]
   before_filter :login_required
   before_action :setup
-  
+
   def index
 
     @householders= Householder.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order('fname ASC,lname ASC')
@@ -12,8 +12,7 @@ class HouseholdersController < ApplicationController
      end
   end
 
-  # GET /householders/1
-  # GET /householders/1.xml
+
   def show
 
     if !@householder.address_id.nil?
@@ -25,50 +24,53 @@ class HouseholdersController < ApplicationController
      end
   end
 
-  # GET /householders/new
-  # GET /householders/new.xml
-  def new
 
-    @householder = Householder.new
-    @addressID = params[:addressID]
-    if !@addressID.nil?
-    @address = Address.find_by(id: @addressID, client_id: session[:client_id])
-    end
 
-    respond_to do |format|
-      format.html # new.html.erb
-     end
-  end
 
-  # GET /householders/1/edit
-  def edit
-
-  end
-
-  # POST /householders
-  # POST /householders.xml
   def create
+
+    @hsource = params[:hsource]
+
     @householder = Householder.new(householder_params)
     @client = Client.find(session[:client_id])
     respond_to do |format|
       if @householder.save
+
         flash[:notice] = t :creation_success
-        format.html { redirect_to(@householder) }
+
+        case @hsource
+        when 'index_terr'
+         format.html { redirect_to controller: 'addresses', action: 'index_terr', territory_id: @householder.address.territory_id }
+       when 'addy'
+         format.html { redirect_to @householder.address }
+        end
+
+
        else
         format.html { render :action => "new" }
       end
     end
   end
 
-  # PUT /householders/1
-  # PUT /householders/1.xml
+
+
   def update
-    @householder = Householder.find(params[:id],:conditions => "client_id = '#{session[:client_id]}'")
 
     respond_to do |format|
-      if @householder.update_attributes(params[:householder])
-        flash[:notice] = 'Householder was successfully updated.'
-        format.html { redirect_to(@householder) }
+
+
+      if @householder.update(householder_params)
+
+        @hsource = params[:hsource]
+
+        case @hsource
+        when 'index_terr'
+         format.html { redirect_to controller: 'addresses', action: 'index_terr', territory_id: @householder.address.territory_id }
+        when 'addy'
+         format.html { redirect_to @householder.address }
+        end
+
+
        else
         format.html { render :action => "edit" }
        end
@@ -78,12 +80,10 @@ class HouseholdersController < ApplicationController
   # DELETE /householders/1
   # DELETE /householders/1.xml
   def destroy
-    @householder = Householder.find(params[:id])
     @householder.destroy
 
     respond_to do |format|
       format.html { redirect_to(:back) }
-      format.xml  { head :ok }
     end
   end
 
@@ -121,6 +121,6 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def householder_params
-    params.require(:householder).permit(:fname, :lname,:notes, :phone, :address_id, :call_date)
+    params.require(:householder).permit(:client_id, :fname, :lname,:notes, :phone, :address_id, :call_date)
   end
 end

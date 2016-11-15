@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update(user_params)
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to(@user) }
        else
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
 
  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:username, :password, :fname, :lane, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
+    params.require(:user).permit(:username, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
   end
 
 
