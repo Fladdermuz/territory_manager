@@ -20,7 +20,6 @@
 
  <%= form_tag '/territories/check_out_post' do -%>
       <table class="table table-striped">
-
        <tr>
          <td colspan="2">
            <%= link_to "#{t :newuser}","#",class: 'btn btn-primary', onclick: "$('#cob').toggle();$('#newuser').toggle();$('#newuser2').toggle();" %>
@@ -40,7 +39,7 @@
             <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id).order('fname ASC'), "id", "full_name"), class: 'text-field-wide', prompt: "#{t :select_user}"  %>
           </td>
         </tr>
-        <%= hidden_field_tag "id", @id %>
+        <%= hidden_field_tag "id", @territory.id %>
         <tr>
           <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
         </tr>

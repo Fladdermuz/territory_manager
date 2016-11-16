@@ -63,9 +63,10 @@
                         <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :addresses}-#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
                         <div style='width:20px;display:inline-block;'></div>
 
-                        <%= link_to image_tag("ok.png",:size=>"35x35",:class=>"button",:title => "#{t :check_out}"),controller: 'territories' ,:action=>"check_out",:id =>@territory.id%>
-                        <%if @territory.is_checked_in == false     %>
-                        <%= link_to image_tag("cancel.png",:size=>"35x35",:class=>"button",:title => "#{t :check_in}"),{controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, :confirm => "#{t :check_in_sure}"%>
+                        <%if @territory.is_checked_in?    %>
+                        <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+                        <%else%>
+                        <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_out",:id =>@territory.id}, class: 'btn btn-primary'%>
                         <%end%>
 
                     </div>

@@ -1,6 +1,9 @@
 require 'digest/md5'
 
 class LoginController < ApplicationController
+
+  layout "home"
+
   def index
     @user = User.new
   end

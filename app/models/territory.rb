@@ -10,7 +10,19 @@ class Territory < ActiveRecord::Base
   before_destroy :ensure_no_children
   validates_presence_of :zone_id
 
- 
+
+  def get_checked_out_by
+
+   @user = User.find_by(id: self.checked_out_by)
+   if @user.nil?
+     ""
+   else
+     "#{@user.full_name}"
+   end
+
+
+  end
+
 
   def ensure_no_children
      unless self.addresses.count < 1

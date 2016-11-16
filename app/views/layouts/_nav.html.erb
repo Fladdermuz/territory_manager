@@ -1,7 +1,8 @@
+
+    <%if session[:uid]%>
 <nav class="navbar navbar-light bg-faded">
     <a class="navbar-brand" href="/">MinMan</a>
 
-    <%if session[:uid]%>
 
     <ul class="nav nav-tabs" role="tablist" style="margin-left:92px!important;">
         <li class="nav-item <%=active_class(" #{params[:controller]}", " main") %>">
@@ -19,13 +20,8 @@
         <li class="nav-item">
             <a class="nav-link" href="/logout"><%=t :logoff %></a>
         </li>
-        <%else%>
-        <div class='col-lg-3' style='float:right;margin-top:-5px;'>
-            <%= render 'main/change_lang' %>
-        </div>
-
-        <%end%>
 
     </ul>
 
 </nav>
+      <%end%>

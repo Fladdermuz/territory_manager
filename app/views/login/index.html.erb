@@ -1,48 +1,39 @@
-<br>
-<br>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
-<div class="login">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <%= form_for @user, url: "login/login" do |f| %>
-            <table class="table table-noborder">
-                <tr>
-                    <td>
-                        <%=t :username %>
-                        <%= f.text_field :username, class: 'text-field-wide' %>
-                    </td>
-                </tr>
-                <tr>
-                    <td><%=t :password %>&nbsp;&nbsp;<%= f.password_field :password, class: 'text-field-wide'  %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <%= f.submit "Login", class: 'btn btn-warning' %></td>
-                </tr>
-            </table>
-            <% end %>
-
-        </div>
-
-        <div class="card-block">
-            <table class="table">
-                <tr>
-                    <td>
-
-                        <A HREF="http://www.youtube.com/watch?v=nGUAdQa7o8U"></A>
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }%>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+<div class='col-lg-3 landing-icon'>
+   <%=image_tag('icon-map.png') %>
 </div>
+
+<div class='col-lg-3 landing-icon'>
+   <%=image_tag('icon-map.png') %>
+</div>
+
+<div class='col-lg-3 landing-icon'>
+   <%=image_tag('icon-map.png') %>
+</div>
+
+<div class='col-lg-3 landing-icon'>
+   <%=image_tag('icon-map.png') %>
+</div>
+
+
+        <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }%>
+
+   </div>

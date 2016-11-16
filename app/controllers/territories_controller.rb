@@ -1,10 +1,9 @@
 class TerritoriesController < ApplicationController
    before_filter :login_required,:isadminuser
-   before_filter :set_territory, only: [:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
+   before_filter :set_territory, only: [:check_in, :check_out, :check_out_post,:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
    before_action :setup
 
-   # GET /territories
-  # GET /territories.xml
+
   def index
     @territories= Territory.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
     respond_to do |format|
@@ -15,12 +14,14 @@ class TerritoriesController < ApplicationController
 
     def index_zone
 
-   @zone_id = params[:zoneid]
-   @territories= Territory.where(client_id: session[:client_id], zone_id: @zone_id).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
-    respond_to do |format|
-      format.html # index.html.erb
-     end
-  end
+      @zone_id = params[:zoneid]
+      @territories= Territory.where(client_id: session[:client_id], zone_id: @zone_id).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
+
+      respond_to do |format|
+        format.html # index.html.erb
+      end
+
+    end
 
 
 
@@ -56,13 +57,12 @@ class TerritoriesController < ApplicationController
   end
 
 
-  # GET /territories/1/edit
   def edit
 
   end
 
-  # POST /territories
-  # POST /territories.xml
+
+
   def create
     @territory = Territory.new(territory_params)
 
@@ -180,7 +180,7 @@ class TerritoriesController < ApplicationController
 
 
    def check_out
-     @t =  params[:territory_id]
+
    end
 
 
@@ -190,28 +190,24 @@ class TerritoriesController < ApplicationController
       if params[:cob]
       flash[:tnotice] = "#{t :checked_out_success}"
       @by = params[:cob]
-      @t =  params[:territory_id]
-
-      @Territory = Territory.find_by(id: @t, client_id: session[:client_id])
 
 
-
-      @Territory.checked_out_by = @by
-      @Territory.is_checked_in = false
+      @territory.checked_out_by = @by
+      @territory.is_checked_in = false
       @D = Date.today
-      @Territory.checkout_date = @D
-      @Territory.save
+      @territory.checkout_date = @D
+      @territory.save
 
       @History = TerritoryHistory.new
-      @History.territory_id = @t
+      @History.territory_id = @territory.id
       @History.check_out_date =   @D
       @History.client_id = session[:client_id]
       @History.checked_out_by = @by
       @History.save
-       redirect_to :controller =>"territories", :action => 'show',id: @t
+       redirect_to :controller =>"territories", :action => 'show',id: @territory.id
 
     else
-      @t =  params[:territory_id]
+      @t =  params[:id]
 
     end
 
@@ -221,20 +217,19 @@ class TerritoriesController < ApplicationController
     def check_in
 
       flash[:tnotice] = "#{t :checked_in_success}"
-      @t =  params[:territory_id]
-      @Territory = Territory.find_by(id: @t, client_id: session[:client_id])
-      @Territory.is_checked_in = true
-      @Territory.last_worked = Date.today
-      @Territory.checked_out_by = "Last Worked BY:" + @Territory.checked_out_by.to_s
-      @Territory.save!
 
-      @History = TerritoryHistory.where(territory_id: @t, client_id: session[:client_id])
+      @territory.is_checked_in = true
+      @territory.last_worked = Date.today
+      @territory.checked_out_by = "Last Worked BY:" + @territory.checked_out_by.to_s
+      @territory.save!
+
+      @History = TerritoryHistory.where(territory_id: @territory.id, client_id: session[:client_id])
       if !@History[0].check_in_date.blank?
         @History[0].check_in_date = Date.today
         @History[0].save
       end
 
-      redirect_to :controller =>"territories", action: 'show', id: @t
+      redirect_to :controller =>"territories", action: 'show', id: @territory.id
 
 
     end

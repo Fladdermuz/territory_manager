@@ -9,6 +9,14 @@ module ApplicationHelper
   end
 
 
+ def get_latlong(obj)
+
+ @coord = obj.latitude.to_s + ',' + obj.longitude.to_s
+
+ end
+
+
+
   def is_client_admin
   @is_client_admin = FALSE
 

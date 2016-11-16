@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <td colspan="2"><%=t :householders %>
-                    <%= link_to  image_tag("householderadd.png",:class=>"button",:size=>"36x36"), '#', "data-toggle" => "modal", 'data-target' => "#hh_new" %>
+                    <%= link_to  image_tag("householderadd.png",style: 'float:right;',:class=>"button",:size=>"36x36"), '#', "data-toggle" => "modal", 'data-target' => "#hh_new" %>
                 </td>
             </tr>
             <%@address.householders.each do |hh| %>
