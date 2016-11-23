@@ -1,0 +1,15 @@
+<%= select_tag "terrs", options_from_collection_for_select(Territory.where(id:territories), "id", "territory_no"), include_blank: true,class: 'text-field-wide', prompt: "#{t :step4_not} #{t :please_choose_one}" %>
+
+<script>
+    $(function(){
+        // bind change event to select
+        $('#terrs').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+               window.location = '/coordinates/new?territory_id=' + url; // redirect
+            }
+            return false;
+        });
+    });
+
+</script>

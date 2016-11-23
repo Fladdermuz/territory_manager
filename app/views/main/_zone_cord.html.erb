@@ -1,0 +1,15 @@
+<%= select_tag "zones", options_from_collection_for_select(Zone.where(id:zones), "id", "zone_no"), include_blank: true,class: 'text-field-wide', prompt: "#{t :step2_not} #{t :please_choose_one}" %>
+
+<script>
+    $(function(){
+        // bind change event to select
+        $('#zones').bind('change', function () {
+            var url = $(this).val();
+            if (url) {
+               window.location = '/coordinates/new_zone?zone_id=' + url; // redirect
+            }
+            return false;
+        });
+    });
+
+</script>
