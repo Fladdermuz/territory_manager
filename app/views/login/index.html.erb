@@ -17,23 +17,26 @@
 <br/>
 <br/>
 
-<div class='col-lg-3 landing-icon'>
-   <%=image_tag('icon-map.png') %>
+
+<div class='col-lg-4 landing-icon'>
+    <%=image_tag('icon-map.png') %>
+    <h4 class='landing'>
+        <%=t :create_bordered_territories %>
+    </h4>
 </div>
 
-<div class='col-lg-3 landing-icon'>
-   <%=image_tag('icon-map.png') %>
+<div class='col-lg-4 landing-icon'>
+    <%=image_tag('icon-hh.png') %>
+    <h4 class='landing'>
+        <%=t :add_hh%>
+    </h4>
 </div>
 
-<div class='col-lg-3 landing-icon'>
-   <%=image_tag('icon-map.png') %>
+<div class='col-lg-4 landing-icon'>
+    <%=image_tag('icon-book.png') %>
+    <h4 class='landing'>
+        <%=t :assign_terrs%>
+    </h4>
 </div>
 
-<div class='col-lg-3 landing-icon'>
-   <%=image_tag('icon-map.png') %>
 </div>
-
-
-        <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }%>
-
-   </div>

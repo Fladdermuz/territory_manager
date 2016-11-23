@@ -11,6 +11,19 @@ class Territory < ActiveRecord::Base
   validates_presence_of :zone_id
 
 
+  def self.no_cords(client_id)
+
+  @territories_without = Array.new
+  Territory.where(client_id: client_id).each do |t|
+   if t.coordinates.count < 1
+    @territories_without.push(t.id)
+   end
+  end
+
+   return  @territories_without
+
+  end
+
   def get_checked_out_by
 
    @user = User.find_by(id: self.checked_out_by)

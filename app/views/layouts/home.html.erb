@@ -33,7 +33,7 @@
                 </tr>
             </table>
             <% end %>
-
+         <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }, class: 'btn btn-primary new_acct'%>
         </header>
         <%= yield %>
 

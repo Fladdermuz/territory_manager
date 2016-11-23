@@ -1,10 +1,18 @@
 
 <div class="card">
-  <div class="card-header-top">
-
-    <h1> <%= t :territories %>
-
-    </h1>
+  <div class="card-header card-header-top">
+    <table class="table table-noborder table-nopadding">
+        <tr>
+            <td class="card-title no-border">
+                <h2 >
+                    <%= t :territories %>
+                </h2>
+            </td>
+            <td class="buttons">
+                <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), territories_home_path, class: 'btn btn-primary btn-home btn-top' %>
+             </td>
+        </tr>
+    </table>
   </div>
   <div class="card-block">
 

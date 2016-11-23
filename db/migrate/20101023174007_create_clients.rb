@@ -10,7 +10,7 @@ class CreateClients < ActiveRecord::Migration
       t.float :latitude
       t.float :longitude
       t.string :language
-      t.string :coordinate
+      t.string :center_coordinate
       t.boolean :is_coordinate_only, default: FALSE
       t.timestamps null: false
     end

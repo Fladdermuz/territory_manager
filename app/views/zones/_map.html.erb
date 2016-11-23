@@ -17,8 +17,9 @@
 <div id='map_c<%=zone.id%>'></div>
 
 <%if zone.new_record?%>
-<%@coord = current_user.client.coordinate %>
+<%@coord = get_best_coord(current_user.client) %>
 <%@zoom = 12 %>
+
 <%else%>
 <%@coord = zone.center_coordinate %>
 <%@zoom = zone.zoom %>
@@ -70,7 +71,7 @@
         icon: cssIcon
       <%if edit == 1 %>,
         draggable: true
-      <%end%>    
+      <%end%>
     });
 
 

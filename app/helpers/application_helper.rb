@@ -9,6 +9,28 @@ module ApplicationHelper
   end
 
 
+
+ def get_best_coord(obj)
+
+  @coord = ''
+  if obj.center_coordinate.blank?
+
+    if !obj.latitude.blank? && !obj.longitude.blank?
+     @coord = obj.latitude.to_s + ',' + obj.longitude.to_s
+    end
+
+  else
+
+   @coord = obj.center_coordinate
+
+  end
+
+  return @coord
+
+ end
+
+
+
  def get_latlong(obj)
 
  @coord = obj.latitude.to_s + ',' + obj.longitude.to_s

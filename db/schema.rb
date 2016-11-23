@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.float    "latitude",           limit: 24
     t.float    "longitude",          limit: 24
     t.string   "language"
-    t.string   "coordinate"
+    t.string   "center_coordinate"
     t.boolean  "is_coordinate_only",            default: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false

@@ -8,13 +8,105 @@
                     </h2>
                 </td>
                 <td class="buttons">
-                     <%= link_to "#{t :home}", {controller: "main"}, class: 'btn btn-primary btn-home btn-top' %>
+                    <%= link_to "#{t :home}", {controller: "main"}, class: 'btn btn-primary btn-home btn-top' %>
                 </td>
             </tr>
         </table>
     </div>
     <div class="card-block">
 
+        <table class='table table-striped'>
+            <tr>
+                <td>
+                    <%if @zones.count > 0 %>
+                    <h5 class='tag'>
+                        <%= t :step1_done  %>
+                    </h5>
+                    <%else%>
+                    <%=link_to "#{t :step1_not}", {controller: "zones", action: "new"}, class: 'btn btn-warning help-btn' %>
+                    <%end%>
+
+                </td>
+                <td style='width:10%;'>
+                    <%if @zones.count > 0 %>
+                    <icon class='fa fa-5x fa-check-circle'></icon>
+                    <%else%>
+                    <icon class='fa fa-5x fa-times-circle-o'></icon>
+                    <%end%>
+                </td>
+            </tr>
+            <%if @zones.count > 0 %>
+            <tr>
+                <td>
+                    <%if @zones_no_cords.count < 1 %>
+                    <h5 class='tag'>
+                        <%= t :step2_done  %>
+                    </h5>
+                    <%else%>
+                    <br>
+                    <%=render 'main/zone_cord', zones: @zones_no_cords %>
+                    <%end%>
+
+                </td>
+                <td style='width:10%;'>
+                    <%if @zones.count > 0 %>
+                    <icon class='fa fa-5x fa-check-circle'></icon>
+                    <%else%>
+                    <icon class='fa fa-5x fa-times-circle-o'></icon>
+                    <%end%>
+                </td>
+            </tr>
+            <%end%>
+
+            <%if @zones.count > 0  %>
+            <tr>
+                <td>
+                    <%if @territories.count > 0 %>
+                    <h5 class='tag'>
+                        <%= t :step3_done  %>
+                    </h5>
+                    <%else%>
+                    <%= t :step3_not%>
+                    <%=render 'territories/new_from_zone'%>
+                    <%end%>
+
+                </td>
+                <td style='width:10%;'>
+                    <%if @territories.count > 0 %>
+                    <icon class='fa fa-5x fa-check-circle'></icon>
+                    <%else%>
+                    <icon class='fa fa-5x fa-times-circle-o'></icon>
+                    <%end%>
+                </td>
+            </tr>
+            <%if @territories.count > 0 %>
+            <tr>
+                <td>
+                    <%if @territories_no_cords.count < 1 %>
+                    <h5 class='tag'>
+                        <%= t :step4_done  %>
+                    </h5>
+
+                    <%else%>
+
+                    <%=render 'main/terr_cord', territories: @territories_no_cords %>
+
+
+                    <%end%>
+
+                </td>
+                <td style='width:10%;'>
+                    <%if @zones.count > 0 %>
+                    <icon class='fa fa-5x fa-check-circle'></icon>
+                    <%else%>
+                    <icon class='fa fa-5x fa-times-circle-o'></icon>
+                    <%end%>
+                </td>
+            </tr>
+            <%end%>
+            <%end%>
+
+        </table>
 
     </div>
 

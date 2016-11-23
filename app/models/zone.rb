@@ -11,6 +11,24 @@ class Zone < ActiveRecord::Base
   validates_presence_of :zone_no
   validates_presence_of :map_layer_id
 
+
+
+  def self.no_cords(client_id)
+
+  @zones_without = Array.new
+  Zone.where(client_id: client_id).each do |z|
+   if z.coordinates.count < 1
+    @zones_without.push(z.id)
+   end
+  end
+
+ return  @zones_without
+
+  end
+
+
+
+
   def get_recipient_count
    @count = 0
    self.territories.each do |t|

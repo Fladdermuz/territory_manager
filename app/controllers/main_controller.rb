@@ -4,11 +4,20 @@ class MainController < ApplicationController
 
 
   def index
-    @territories = Territory.where(client_id: session[:client_id],is_checked_in: TRUE).order('checkout_date ASC').limit(8)
+    @territories = Territory.where(client_id: current_user.client_id).order('checkout_date ASC').limit(8)
+    @zones = Zone.where(client_id: current_user.client_id)
 
   end
 
   def help
+
+   @zones = Zone.where(client_id: current_user.client_id)
+
+   @zones_no_cords = Zone.no_cords(current_user.client_id)
+   @territories_no_cords = Territory.no_cords(current_user.client_id)
+
+   @territories = Territory.where(client_id: current_user.client_id)
+
 
   end
 
