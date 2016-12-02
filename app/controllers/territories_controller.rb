@@ -1,6 +1,6 @@
 class TerritoriesController < ApplicationController
-   before_filter :login_required,:isadminuser
-   before_filter :set_territory, only: [:check_in, :check_out, :check_out_post,:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
+   before_filter :login_required, :isadminuser
+   before_filter :set_territory, only: [:check_in,:check_out_new_user, :check_out, :check_out_post,:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
    before_action :setup
 
 
@@ -39,22 +39,6 @@ class TerritoriesController < ApplicationController
     end
   end
 
-    def new_dynamic
-    @territory = Territory.new
-
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
-
-  def new_dynamic_centered
-    @territory = Territory.new
-    respond_to do |format|
-      format.html # new.html.erb
-    end
-  end
 
 
   def edit
@@ -75,7 +59,8 @@ class TerritoriesController < ApplicationController
 
 
       else
-        format.html { render :action => "new" }
+        @zone = @territory.zone
+        format.html { render :action => "new"}
       end
     end
   end
@@ -161,7 +146,7 @@ class TerritoriesController < ApplicationController
     if @map == "satellite"
     @zoom = 18
     end
-  end
+    end
 
 
   def view_all_ter_pins
@@ -180,36 +165,87 @@ class TerritoriesController < ApplicationController
 
 
    def check_out
-
+    @user = User.new
+    session[:referrer] = request.referrer
    end
+
+
+    def check_out_new_user
+
+      @user = User.new
+      @user.username = params[:username]
+      @user.fname = params[:fname]
+      @user.lname = params[:lname]
+      @user.email = params[:email]
+      @user.can_manage_hh = params[:can_manage_hh]
+      @user.isadmin = params[:is_admin]
+      @user.client_id = current_user.client_id
+      @encryptedPass = Digest::MD5.hexdigest(params[:username]+'1914');
+      @user.password = @encryptedPass
+
+
+      respond_to do |format|
+        if @user.save
+
+          @territory.user_id = @user.id
+          @territory.is_checked_in = false
+          @D = Date.today
+          @territory.checkout_date = @D
+          @territory.check_back_in = params[:checkin_date2]
+
+          if @territory.save
+            UserMailer.send_terr(@user,@territory).deliver_now
+          end
+
+          @History = TerritoryHistory.new
+          @History.territory_id = @territory.id
+          @History.check_out_date =   @D
+          @History.client_id = session[:client_id]
+          @History.user_id = @user_id
+          @History.save
+
+          format.html { redirect_to  session[:referrer] }
+        else
+          @errors = @user.errors
+          format.html { render :check_out }
+        end
+      end
+
+    end
 
 
 
     def check_out_post
+      require 'chronic'
 
       if params[:cob]
       flash[:tnotice] = "#{t :checked_out_success}"
-      @by = params[:cob]
+      @user_id = params[:cob]
 
-
-      @territory.checked_out_by = @by
+      @territory.user_id = @user_id
       @territory.is_checked_in = false
       @D = Date.today
       @territory.checkout_date = @D
-      @territory.save
+      @t = Chronic.parse(params[:checkin_date].to_s, :guess => true)
+
+      @territory.checkin_date = @t.to_date
+
+      if @territory.save
+        UserMailer.send_terr(@territory.user,@territory).deliver_now
+      end
 
       @History = TerritoryHistory.new
       @History.territory_id = @territory.id
       @History.check_out_date =   @D
       @History.client_id = session[:client_id]
-      @History.checked_out_by = @by
+      @History.user_id = @user_id
       @History.save
-       redirect_to :controller =>"territories", :action => 'show',id: @territory.id
+      redirect_to  session[:referrer]
 
-    else
-      @t =  params[:id]
+      else
+       @t =  params[:id]
 
-    end
+      end
 
     end
 
@@ -220,13 +256,13 @@ class TerritoriesController < ApplicationController
 
       @territory.is_checked_in = true
       @territory.last_worked = Date.today
-      @territory.checked_out_by = "Last Worked BY:" + @territory.checked_out_by.to_s
+      @territory.user_id = "Last Worked BY:" + @territory.user_id.to_s
       @territory.save!
 
       @History = TerritoryHistory.where(territory_id: @territory.id, client_id: session[:client_id])
-      if !@History[0].check_in_date.blank?
-        @History[0].check_in_date = Date.today
-        @History[0].save
+      if !@History[0].nil? && !@History[0].check_in_date.blank?
+         @History[0].check_in_date = Date.today
+         @History[0].save
       end
 
       redirect_to :controller =>"territories", action: 'show', id: @territory.id
@@ -257,7 +293,7 @@ class TerritoriesController < ApplicationController
     end
 
     def report_cob
-      @territories = Territory.where("checked_out_by != '' and is_checked_in = false AND client_id = '#{session[:client_id]}'").order("checked_out_by")
+      @territories = Territory.where("user_id != '' and is_checked_in = false AND client_id = '#{session[:client_id]}'").order("user_id")
 
     end
 
@@ -270,14 +306,9 @@ class TerritoriesController < ApplicationController
 
     def report_last_worked
       @territories = Territory.where("last_worked != '' AND client_id = '#{session[:client_id]}'").order("last_worked ASC")
-
     end
 
 
-
-    def view_ter_image
-      @imgurl = params[:imgurl]
-    end
 
 
     def notfound
@@ -319,7 +350,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
    def territory_params
-     params.require(:territory).permit(:center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkin_date, :checkout_date, :checked_out_by, :is_checked_in, :client_id)
+     params.require(:territory).permit(:check_back_in, :view_key, :center_coordinate,:zoom, :fill_color, :border_color,:map_layer_id, :territory_no, :descrip,:notes, :image, :zone_id, :last_worked, :border_size, :checkin_date, :checkout_date, :user_id, :is_checked_in, :client_id)
    end
 
 

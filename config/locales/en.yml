@@ -1,4 +1,9 @@
 en:
+  terr_message1: "You have been assigned a new Territory. Click here to view it."
+  is_admin_help: "This means the User Has all priveledges on the System! Use with Caution!"
+  can_manage_hh_help: "This means the User in NOT an admin and can only add householders to the territories they have been assigned. They can not check in or check out territories."
+  can_manage_hh: "Can Manage Householders"
+  check_back_in: "Check Back in Automatically On"
   step1_not: "Set Up a Zone!"
   step1_done: "Great, you have at least 1 Zone"
   step2_not: "Create Borders for your Zone!"
@@ -10,7 +15,7 @@ en:
   please_choose_one: "Please Choose One ..."
   create_bordered_territories: "Create Bordered Territories!"
   add_hh: "Add and Manage Householders"
-  assign_terrs: "Manage Users and Assign Territories"
+  assign_terrs: "Manage Users and Territories"
   miles: "Miles"
   hide: "Hide"
   coord_tip: "Tip! To draw clear lines, zoom in to the Maximum amount possible!"
@@ -102,7 +107,7 @@ en:
   check_in: "Check In"
   checked_in: "Checked In"
   checked_out: "Checked Out"
-  checked_out_by: "Checked Out By"
+  user_id: "Checked Out By"
   report: "Report"
   history: "History"
   manage_histories: "Manage Histories"
@@ -275,7 +280,7 @@ en:
         zone_id: "Zone"
         last_worked: "Last Census"
         check_out_date: "Check Out Date"
-        checked_out_by: "Checked Out By"
+        user_id: "Checked Out By"
         is_checked_in: "Checked In?"
         client_id: "Client"
         is_dynamic: "Is Dynamic?"
@@ -317,11 +322,19 @@ en:
             blank: ": can't be blank! "
       user:
         attributes:
+          username:
+            blank: ": can't be blank! "
           client_id:
             blank: ": can't be blank! "
           fname:
             blank: ": can't be blank! "
           email:
+            blank: ": can't be blank! "
+      territory:
+        attributes:
+          center_coordinate:
+            blank: ": can't be blank! You must move the map pin!"
+          zone_id:
             blank: ": can't be blank! "
       zone:
         attributes:

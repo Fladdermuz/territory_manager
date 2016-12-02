@@ -1,6 +1,6 @@
 class HouseholdersController < ApplicationController
   before_action :set_householder, only: [:show, :edit, :update, :destroy]
-  before_filter :login_required
+  before_action :login_required
   before_action :setup
 
   def index

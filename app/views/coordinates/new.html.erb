@@ -6,9 +6,9 @@
     <div class="card-block">
 
         <%if flash[:cord_notice]%>
-        <div class="notice alert alert-success" role="alert">
+        <p class="notice" role="alert">
             <%= flash[:cord_notice] %>
-        </div>
+        </p>
         <%end%>
 
         <%= form_for @coordinate, html: {id: 'new_cord'} do |f| %>
@@ -55,7 +55,7 @@
 
         </div>
 
-       
+
     </div>
 </div>
 

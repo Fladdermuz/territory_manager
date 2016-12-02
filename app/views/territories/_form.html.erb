@@ -1,10 +1,11 @@
 
-<%if flash[:notice] %>
+<% if @territory.errors.any? %>
+<% @territory.errors.full_messages.each do |message| %>
 <div class="alert alert-danger" role="alert">
-     <%= flash[:notice] %>
+    <%= message %>
 </div>
-<%end%>
-
+<% end %>
+<% end %>
 <%= form_for(territory) do |f| %>
 <%= f.hidden_field :center_coordinate  %>
 <%= f.hidden_field :zone_id, value: zone.id %>

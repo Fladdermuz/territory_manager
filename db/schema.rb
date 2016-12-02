@@ -107,7 +107,9 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.date     "last_worked"
     t.date     "checkout_date"
     t.date     "checkin_date"
-    t.integer  "checked_out_by"
+    t.integer  "user_id"
+    t.date     "check_back_in"
+    t.string   "view_key"
     t.boolean  "is_checked_in",                   default: true
     t.integer  "client_id"
     t.boolean  "is_dynamic"
@@ -125,7 +127,7 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.integer  "territory_id"
     t.date     "check_out_date"
     t.date     "check_in_date"
-    t.string   "checked_out_by"
+    t.string   "user_id"
     t.integer  "client_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -139,11 +141,12 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.string   "fname"
     t.string   "lname"
     t.boolean  "isadmin"
+    t.boolean  "can_manage_hh"
     t.string   "mappref"
     t.date     "lastlogin"
     t.string   "sitelang"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "warning_messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

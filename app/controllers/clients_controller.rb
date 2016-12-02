@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-     before_filter :login_required, only: [:refresh_map,:show, :index,:update, :destroy, :edit]
+     before_action :login_required, only: [:refresh_map,:show, :index,:update, :destroy, :edit]
      before_action :set_client, only: [:refresh_map,:show, :edit, :update, :destroy]
      before_action :setup, only: [:index, :update]
 

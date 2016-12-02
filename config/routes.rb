@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'quick_view/home'
+
+  get 'quick_view/view_terr'
+
   post 'warning_messages/hide_message'
   get 'main/change_lang' => 'main#change_lang', :as=> 'main/change_lang'
   get 'map_layers/set_layer' => 'map_layers#set_layer', :as=>  'map_layers/set_layer'
@@ -21,8 +25,6 @@ Rails.application.routes.draw do
   get 'territories/home' => 'territories#home', :as=> 'territories/home'
   get 'addresses/index_house_number' => 'addresses#index_house_number', :as=> 'addresses/index_house_number'
   get 'addresses/index_street' => 'addresses#index_street', :as=> 'addresses/index_street'
-  get 'territories/new_dynamic' => 'territories#new_dynamic', :as=> 'territories/new_dynamic'
-  get 'territories/new_dynamic_centered' => 'territories#new_dynamic_centered', :as=> 'territories/new_dynamic_centered'
   get 'territories/clear_last_coordinate' => 'territories#clear_last_coordinate', :as=> 'territories/clear_last_coordinate'
   get 'territories/clear_coordinates' => 'territories#clear_coordinates', :as=> 'territories/clear_coordinates'
   get 'territories/printedque' => 'territories#printedque', :as=> 'territories/printedque'
@@ -32,7 +34,6 @@ Rails.application.routes.draw do
   get 'territories/report_cob' => 'territories#report_cob', :as=> 'territories/report_cob'
   get 'territories/report_co_date' => 'territories#report_co_date', :as=> 'territories/report_co_date'
   get 'territories/report_last_worked' => 'territories#report_last_worked', :as=> 'territories/report_last_worked'
-  get 'territories/view_ter_image' => 'territories#view_ter_image', :as=> 'territories/view_ter_image'
   get 'territories/index_zone' => 'territories#index_zone', :as=> 'territories/index_zone'
   get 'territories/view_all_ter_pins_with_phones' => 'territories#view_all_ter_pins_with_phones', :as=> 'territories/view_all_ter_pins_with_phones'
   get 'territories/check_in' => 'territories#check_in', :as=> 'territories/check_in'
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
   get 'territory_histories/report' => 'territory_histories#report', :as=> 'territory_histories/report'
   get 'upload/cleanup' => 'upload#cleanup', :as=> 'upload/cleanup'
   post 'territories/check_out_post' => 'territories#check_out_post', :as=> 'territories/check_out_post'
+  post 'territories/check_out_new_user' => 'territories#check_out_new_user', :as=> 'territories/check_out_new_user'
   post 'addresses/what_territory_post' => 'addresses#what_territory_post', :as=> 'addresses/what_territory_post'
   post 'login/login' => 'login#login', :as=> 'login/login'
   get 'logout' => 'login#logout', :as=> :logout

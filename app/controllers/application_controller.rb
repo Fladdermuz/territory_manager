@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  before_filter :set_locale
+  before_action :set_locale
   helper_method :is_same_client
   helper_method :is_same_client_redirect
   helper_method :current_user

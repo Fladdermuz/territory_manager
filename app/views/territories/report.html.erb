@@ -22,7 +22,7 @@
     <tr>
     <th>#</th>
     <th><%=link_to("#{t :territory_status}","report_status") %></th>
-    <th><%=link_to("#{t :checked_out_by}","report_cob") %></th>
+    <th><%=link_to("#{t :user_id}","report_cob") %></th>
     <th><%=t :descriptiontion %> </th>
     <th><%=link_to("#{t :checked_out}","report_co_date") %></th>
     <th><%=link_to("#{t :last_worked}","report_last_worked") %></th>
@@ -56,7 +56,7 @@
     <td>
 
      <%if territory.is_checked_in == false %>
-       <%=territory.checked_out_by%>
+       <%=territory.user_id%>
      <%end%>
 
     </td>

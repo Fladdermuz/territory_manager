@@ -1,4 +1,9 @@
  es:
+  terr_message1: "Le han asignado un nuevo Territorio. Haga clic aquí para verlo."
+  is_admin_help: "¡Esto significa que el Usuario Tiene todos los privilegios en el Sistema! ¡Use con la Precaución!"
+  can_manage_hh_help: "Esto significa que el Usuario no es un administrador y sólo puede añadir amos de casa a los territorios asignados a el. No se pueden registrar o comprobar territorios."
+  can_manage_hh: "Puede Editar Amos de Casa"
+  check_back_in: "Vuelva automáticamente en"
   step1_not: "Establecer una zona!"
   step1_done: "Genial, tienes al menos 1 zona!"
   step2_not: "Crear las fronteras para su zona!"
@@ -10,7 +15,7 @@
   please_choose_one: "Escoje uno porfis ..."
   create_bordered_territories: "Crear territorios con fronteras!"
   add_hh: "Agregar y administrar amos de casa"
-  assign_terrs: "Administrar usuarios y asignar territorios"
+  assign_terrs: "Administrar usuarios y territorios"
   miles: "Millas"
   hide: "Ocultar"
   coord_tip: "¡Consejo! Para dibujar líneas claras, enfocar el mapa a la cantidad máxima."
@@ -84,7 +89,7 @@
   check_in: "Regresar"
   checked_in: "Disponible"
   checked_out: "En Uso"
-  checked_out_by: "Sacado por"
+  user_id: "Sacado por"
   report: "Informe"
   history: "Historia"
   manage_histories: "Administrar Historias"
@@ -270,7 +275,7 @@
         zone_id: "Zona"
         last_worked: "Último Censo"
         check_out_date: "Fecha de Asignación"
-        checked_out_by: "Asignado a"
+        user_id: "Asignado a"
         is_checked_in: "No Asignado?"
         client_id: "Cliente"
         center_coordinate: "Coordenada Central"
@@ -311,11 +316,19 @@
               blank: ": no puede ser blanco "
         user:
           attributes:
+            username:
+              blank: ": no puede ser blanco "
             client_id:
               blank: ": no puede ser blanco "
             fname:
               blank: ": no puede ser blanco "
             email:
+              blank: ": no puede ser blanco "
+        territory:
+          attributes:
+            center_coordinate:
+              blank: ": no puede ser blanco! Tiene que mover el marcador del Mapa!"
+            zone_id:
               blank: ": no puede ser blanco "
         zone:
           attributes:

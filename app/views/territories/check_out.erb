@@ -1,56 +1,161 @@
 <div class="card">
- <div class="card-header-top card-header">
-   <table class="table table-noborder table-nopadding">
-       <tr>
-           <td class="card-title no-border">
-               <h2>
-                   <%= t :check_out %>
-               </h2>
-           </td>
-           <td class="buttons">
-               <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"),territories_path, class: 'btn btn-primary btn-top' %>
+    <div class="card-header-top card-header">
+        <table class="table table-noborder table-nopadding">
+            <tr>
+                <td class="card-title no-border">
+                    <h2>
+                        <%= t :check_out %>
+                    </h2>
+                </td>
+                <td class="buttons">
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"),territories_path, class: 'btn btn-primary btn-top' %>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            </td>
-       </tr>
-   </table>
- </div>
+    <div class="card-block">
+        <br>
+        <ul class="nav nav-tabs"  id='ch' role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#checkout" role="tab"><%=t :check_out %></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#checkout_new" role="tab"><%=t :check_out%>
+                    -
+                    <%=t :newuser %></a>
+            </li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="checkout" role="tabpanel">
+                <br>
+                <%= form_tag '/territories/check_out_post' do -%>
+                <table class="table table-striped">
+                    <tr>
+                        <td><%=t :user_id %></td>
+                        <td>
+                            <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id).order('fname ASC'), "id", "full_name"), class: 'text-field-wide', prompt: "#{t :select_user}"  %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%=t :check_back_in %>
+                        </td>
+                        <td>
+                            <%=  text_field_tag 'checkin_date', nil, {class: 'datepicker text-field-wide'} %></td>
+                    </td>
+                </tr>
+                <%= hidden_field_tag "id", @territory.id %>
+                <tr>
+                    <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
+                </tr>
+            </table>
+            <% end -%>
+
+        </div>
+        <div class="tab-pane" id="checkout_new" role="tabpanel">
+
+            <br>
 
 
-<div class="card-block">
+            <%if @user.errors.any? %>
+            <% @user.errors.full_messages.each do |message| %>
+            <div class="alert alert-danger" role="alert">
+                <%= message %>
+            </div>
+            <% end %>
+            <script>
+              $(function () {
+                $('#ch a:last').tab('show')
+              })
+            </script>
+            <%end%>
 
- <%= form_tag '/territories/check_out_post' do -%>
-      <table class="table table-striped">
-       <tr>
-         <td colspan="2">
-           <%= link_to "#{t :newuser}","#",class: 'btn btn-primary', onclick: "$('#cob').toggle();$('#newuser').toggle();$('#newuser2').toggle();" %>
-         </td>
-       </tr>
-       <tr id='newuser' style="display:none;">
-         <td>  <%=t :username%>    </td>
-         <td>  <%=text_field_tag "username", nil, {class: 'text-field-wide'} %>   </td>
-       </tr>
-       <tr id='newuser2' style="display:none;">
-         <td>  <%=t :email%>    </td>
-         <td>  <%=text_field_tag "email", nil, {class: 'text-field-wide'} %>   </td>
-       </tr>
-        <tr id='cob'>
-          <td><%=t :checked_out_by %></td>
-          <td>
-            <%= select_tag "cob", options_from_collection_for_select(User.where(client_id: current_user.client_id).order('fname ASC'), "id", "full_name"), class: 'text-field-wide', prompt: "#{t :select_user}"  %>
-          </td>
-        </tr>
-        <%= hidden_field_tag "id", @territory.id %>
-        <tr>
-          <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
-        </tr>
-      </table>
+            <%= form_tag '/territories/check_out_new_user' do -%>
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <%=t :username%>
+                    </td>
+                    <td>
+                        <%=text_field_tag "username", nil, {class: 'text-field-wide'} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%=t :first_name%>
+                    </td>
+                    <td>
+                        <%=text_field_tag "fname", nil, {class: 'text-field-wide'} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%=t :last_name%>
+                    </td>
+                    <td>
+                        <%=text_field_tag "lname", nil, {class: 'text-field-wide'} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%=t :email%>
+                    </td>
+                    <td>
+                        <%=text_field_tag "email", nil, {class: 'text-field-wide'} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%=t :is_admin %>
+                    </td>
+                    <td>
+                      <%= check_box_tag :is_admin %>
+                      <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :is_admin_help %>'>
+                      </icon>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <%=t :can_manage_hh %>
+                    </td>
+                    <td>
+                      <%= check_box_tag :can_manage_hh  %>
+                      <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :can_manage_hh_help %>'>
+                      </icon>
+                    </td>
+                </tr>
 
- <% end -%>
+                <tr>
+                    <td>
+                        <%=t :check_back_in %>
+                    </td>
+                    <td>
+                        <%=  text_field_tag 'checkin_date2',nil, {class: 'datepicker text-field-wide'} %></td>
+                </td>
+            </tr>
+            <%= hidden_field_tag "id", @territory.id %>
+            <tr>
+                <td colspan="2"><%= submit_tag "#{t :check_out}", :class => 'btn btn-primary'%></td>
+            </tr>
+        </table>
 
- </div>
-  </div>
+        <% end -%>
 
+    </div>
 
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript" language="javascript">
+$(document).ready(function () {
+    $('.datepicker').datepicker({language: "<%=current_user.sitelang%>"});
+});
+</script>
 
 </div>

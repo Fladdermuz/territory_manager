@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-     before_filter :login_required,:isadminuser
+     before_action :login_required,:isadminuser
 
   # GET /users
   # GET /users.xml
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
 
  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:username, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
+    params.require(:user).permit(:username, :can_manage_hh, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
   end
 
 

@@ -1,14 +1,34 @@
 class Territory < ActiveRecord::Base
 
-
+  belongs_to :user
   belongs_to  :zone
   has_many :addresses
   has_many :coordinates, :dependent => :delete_all
   has_many :territory_histories
   belongs_to :client
+  before_update :create_key
   has_many :territory_images
   before_destroy :ensure_no_children
   validates_presence_of :zone_id
+  validates_presence_of :center_coordinate
+
+ def create_key
+
+  @checked = self.is_checked_in_was
+  @now_checked = self.is_checked_in
+
+  if @checked && !@now_checked
+    self.view_key = Territory.encrypt(self.user_id.to_s+self.checkout_date.to_s)
+  end
+
+
+ end
+
+
+ def self.encrypt(key)
+   @encrypted  = Digest::MD5.hexdigest(key);
+   return @encrypted
+ end
 
 
   def self.no_cords(client_id)
@@ -24,9 +44,9 @@ class Territory < ActiveRecord::Base
 
   end
 
-  def get_checked_out_by
+  def get_user_id
 
-   @user = User.find_by(id: self.checked_out_by)
+   @user = User.find_by(id: self.user_id)
    if @user.nil?
      ""
    else

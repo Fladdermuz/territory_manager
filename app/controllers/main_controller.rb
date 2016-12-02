@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-   before_filter :login_required, only: [:index]
+   before_action :login_required, only: [:index]
    before_action :setup, only: [:index]
 
 

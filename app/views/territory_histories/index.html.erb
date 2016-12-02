@@ -11,7 +11,7 @@
     <th><%=t :territory      %></th>
     <th><%=t :check_out_date %></th>
     <th ><%=t :check_in_date  %></th>
-    <th><%=t :checked_out_by %></th>
+    <th><%=t :user_id %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,7 +25,7 @@
     <td><%= territory_history.territory.territory_no %></td>
     <td><%= territory_history.check_out_date %></td>
     <td><%= territory_history.check_in_date %></td>
-    <td><%= territory_history.checked_out_by %></td>
+    <td><%= territory_history.user_id %></td>
     <td><%= link_to image_tag('view.png', size: '33x33'), territory_history %></td>
     <td><%= link_to image_tag('edit.png',size: '33x33'), edit_territory_history_path(territory_history) %></td>
     <td><%=link_to image_tag('trash.png',size: '33x33'), territory_history, :confirm => "#{t :are_you_sure}", :method => :delete %></td>

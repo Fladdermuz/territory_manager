@@ -4,8 +4,10 @@ class User < ActiveRecord::Base
    belongs_to :client
    has_many :warning_messages
    validates_uniqueness_of :username
+   validates_presence_of :username
    validates_presence_of :email
    validates_presence_of :fname
+   validates_presence_of :client_id
    validates_presence_of :username
    before_create :before_create_items
 
@@ -32,8 +34,8 @@ class User < ActiveRecord::Base
 
 
    def self.encrypt(pass)
-   @encryptedPass = Digest::MD5.hexdigest(pass+@salt);
-   return @encryptedPass
+    @encryptedPass = Digest::MD5.hexdigest(pass+@salt);
+    return @encryptedPass
    end
 
 
@@ -41,22 +43,20 @@ class User < ActiveRecord::Base
 
    def self.authenticate(username, pass)
 
-
     @u = User.find_by(username: username)
-    if @u.nil?
-    Rails.logger.info "No Matching username was found"
-    else
-       @time = Time.now
-       @u.lastlogin = @time
-       @u.save
-    end
-  return nil if @u.nil?
-  return @u if User.encrypt(pass) == @u.password
+      if @u.nil?
+       Rails.logger.info "No Matching username was found"
+      else
+        @time = Time.now
+        @u.lastlogin = @time
+        @u.save
+      end
+       return nil if @u.nil?
+       return @u if User.encrypt(pass) == @u.password
 
-
-  @isGood = User.encrypt(pass) == @u.password
-  nil
-end
+       @isGood = User.encrypt(pass) == @u.password
+       nil
+   end
 
 
 

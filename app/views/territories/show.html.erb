@@ -39,8 +39,8 @@
                     <%=t :available%>
                     <%else%>
                     <%=t :unavailable%>
-                    <%=t :checked_out_by %>:
-                    <%=h @territory.get_checked_out_by %>
+                    <%=t :user_id %>:
+                    <%=h @territory.get_user_id %>
                     <%end%>
                 </td>
                 <td></td>
@@ -64,9 +64,9 @@
                         <div style='width:20px;display:inline-block;'></div>
 
                         <%if @territory.is_checked_in?    %>
-                        <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+                        <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id =>@territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
                         <%else%>
-                        <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_out",:id =>@territory.id}, class: 'btn btn-primary'%>
+                        <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, class: 'btn btn-primary'%>
                         <%end%>
 
                     </div>

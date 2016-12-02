@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp
 /.idea
+/application.env
 system
 public/system
 /config/environments/*

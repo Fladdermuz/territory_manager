@@ -1,6 +1,6 @@
 class TerritoryHistoriesController < ApplicationController
-    before_filter :login_required
-    before_filter :isadminuser
+    before_action :login_required
+    before_action :isadminuser
     before_action :set_territory_history, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -79,7 +79,7 @@ class TerritoryHistoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
     def territory_history_params
-      params.require(:territory_history).permit(:check_out_date, :check_in_date, :checked_out_by, :territory_id, :client_id)
+      params.require(:territory_history).permit(:check_out_date, :check_in_date, :user_id, :territory_id, :client_id)
     end
 
 

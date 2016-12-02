@@ -1,5 +1,5 @@
 class CoordinatesController < ApplicationController
-  before_filter :set_coordinate, only: [:destroy]
+  before_action :set_coordinate, only: [:destroy]
   before_action :setup
 
   def new

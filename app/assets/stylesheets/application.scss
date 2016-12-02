@@ -24,7 +24,10 @@
 
  .landing-icon{
    text-align: center;
+   text-transform: uppercase;
    }
+
+
 
 a.new_acct{
   margin: auto;
@@ -258,18 +261,7 @@ table.table-noborder{
  }
 
 th a{color:white;}
-
-.datepicker-days{
-  width:400px;
-}
-
-.datepicker{
-  width:200px;
-}
-
-.table-condensed{
-  width:200px;
-}
+ 
 
 img.logo{
   width:99%;
@@ -383,6 +375,14 @@ table.table-center-btn{
 .card-header{
   background-color: #3871c0;
   color: white;
+}
+
+table{
+  tr{
+    td:first-child{
+      font-weight: bolder;
+    }
+  }
 }
 
 table.table-inverse{

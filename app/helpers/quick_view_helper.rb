@@ -1,0 +1,2 @@
+module QuickViewHelper
+end

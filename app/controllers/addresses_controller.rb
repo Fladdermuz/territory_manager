@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
 
 
- before_filter :login_required
+ before_action :login_required
  before_action :set_address, only: [:refresh_map,:show, :edit, :update, :destroy]
  before_action :setup
 

@@ -8,7 +8,9 @@ class CreateTerritories < ActiveRecord::Migration
       t.date :last_worked, :default => nil
       t.date  :checkout_date
       t.date  :checkin_date
-      t.integer :checked_out_by
+      t.integer :user_id
+      t.date :check_back_in
+      t.string :view_key
       t.boolean :is_checked_in, default: TRUE
       t.integer :client_id
       t.boolean :is_dynamic

@@ -15,4 +15,18 @@ class UserMailer < ApplicationMailer
     @subject = @loc.translate :new_user_subject
     mail(to: "#{@email}", subject: "#{@subject}")
   end
+
+
+  def send_terr(user,terr)
+    @user = user
+    @email = user.email
+    @full_name = user.full_name
+    @locale = user.sitelang
+    @loc = I18n
+    @loc.locale =  @locale
+    @url = ENV['site_root'] + '/quick_view?key=' + terr.view_key
+    @message1 = @loc.translate :terr_message1
+    mail(to: "#{@email}", subject: "#{@subject}")
+  end
+
 end
