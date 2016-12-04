@@ -24,7 +24,7 @@ class UserMailer < ApplicationMailer
     @locale = user.sitelang
     @loc = I18n
     @loc.locale =  @locale
-    @url = ENV['site_root'] + '/quick_view?key=' + terr.view_key
+    @url = 'http://127.0.0.1:3000' + '/quick_view/view_terr?key=' + terr.view_key
     @message1 = @loc.translate :terr_message1
     mail(to: "#{@email}", subject: "#{@subject}")
   end

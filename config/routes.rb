@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   get 'householders/home' => 'householders#home', :as=> 'householders/home'
   get 'householders/search' => 'householders#search', :as=> 'householders/search'
   get 'territories/home' => 'territories#home', :as=> 'territories/home'
-  get 'addresses/index_house_number' => 'addresses#index_house_number', :as=> 'addresses/index_house_number'
   get 'addresses/index_street' => 'addresses#index_street', :as=> 'addresses/index_street'
   get 'territories/clear_last_coordinate' => 'territories#clear_last_coordinate', :as=> 'territories/clear_last_coordinate'
   get 'territories/clear_coordinates' => 'territories#clear_coordinates', :as=> 'territories/clear_coordinates'
@@ -40,7 +39,6 @@ Rails.application.routes.draw do
   get 'territories/check_out' => 'territories#check_out', :as=> 'territories/check_out'
   get 'territories/view_all_ter_pins' => 'territories#view_all_ter_pins', :as=> 'territories/view_all_ter_pins'
   get 'territories/remove_from_que' => 'territories#remove_from_que', :as=> 'territories/remove_from_que'
-  get 'territories/view_ter_householders' => 'territories#view_ter_householders', :as=> 'territories/view_ter_householders'
   get 'territories/view_ter_householders_with_phones' => 'territories#view_ter_householders_with_phones', :as=> 'territories/view_ter_householders_with_phones'
   get 'territories/view_ter_householders_coords' => 'territories#view_ter_householders_coords', :as=> 'territories/view_ter_householders_coords'
   get 'territory_histories/report' => 'territory_histories#report', :as=> 'territory_histories/report'
@@ -55,7 +53,7 @@ Rails.application.routes.draw do
   resources :addresses
   resources :clients
   resources :coordinates
-  resources :householders,  only: [:show, :update, :create, :destroy, :index]
+  resources :householders,  only: [:update, :create, :destroy, :index]
   resources :login
   resources :main
   resources :territories

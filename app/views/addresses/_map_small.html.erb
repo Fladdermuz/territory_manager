@@ -1,6 +1,6 @@
 <style>
     body { margin:0; padding:0; }
-    #map_c<%=address.id%> { margin-bottom:30px;position:relative;top:10px; height:200px; bottom:0; width:100%; }
+    #map_c<%=address.id%> { margin-bottom:30px;position:relative;top:10px; height:300px; bottom:0; width:100%; }
 </style>
 
 
@@ -14,7 +14,7 @@
 
 
 <%if address.coordinate.blank? %>
-<%= get_latlong(address)%>
+<% get_latlong(address)%>
 <%else%>
 <%@coord = address.coordinate%>
 <%end%>

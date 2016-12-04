@@ -38,33 +38,15 @@ class AddressesController < ApplicationController
     def index_terr
 
      @territory_id = params[:territory_id]
-
-
+     @territory = Territory.find(@territory_id)
      @addresses = Address.where(client_id: session[:client_id], territory_id: @territory_id).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no") # Return only Requested street
 
-    respond_to do |format|
-      format.html # index.html.erb
+      respond_to do |format|
+        format.html # index.html.erb
+      end
+
     end
-  end
 
-
-
-
-  def index_house_number
-    @house = params[:house]
-    @street = params[:street]
-    @apt = params[:apt]
-    if @apt.nil?
-      @apt = "%"
-    end
-    @addresses = Address.where("house_no = '#{@house}' and street = '#{@street}' and apt_no LIKE '#{@apt}' AND client_id = '#{session[:client_id]}'") # Return only Requested street
-
-    respond_to do |format|
-      format.html # index.html.erb
-     end
-
-
-  end
 
 
 

@@ -22,8 +22,12 @@ class LoginController < ApplicationController
         session[:uid] = @user.id
         session[:username] = @uname
         session[:map_layer_id] = 1
+
         if @user.isadmin
           session[:role] = "admin"
+        end
+        if @user.can_manage_hh
+          session[:role] = "hh_admin"
         end
 
 

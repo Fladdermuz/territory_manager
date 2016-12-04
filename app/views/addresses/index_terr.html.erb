@@ -6,6 +6,10 @@
                     <h2>
                         <%= t :address_list %>
                     </h2>
+                    <%=t :territory%>
+                    -
+                    <%=@territory.territory_no%>
+
                 </td>
                 <td class="buttons">
                     <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
@@ -32,12 +36,13 @@
                 <th></th>
 
             </tr>
+
             <tr>
                 <td>
                     <% if !address.coordinate.nil? && Client.find(session[:client_id]).is_coordinate_only == true%>
-                     <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
+                    <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
                     <%else%>
-                     <%=h address.house_no %>
+                    <%=h address.house_no %>
                     <%end%>
                 </td>
                 <td>
@@ -58,15 +63,28 @@
                 </td>
             </tr>
 
+            <tr>
+                <td colspan="10">
+                    <%= render "addresses/map_small", territory: address.territory, address: address   %>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <h4>
+                        <%=t :householders%>
+                        @
+                        <%=address.house_no%>,
+                        <%=address.street%>
+                    </h4>
+                </td>
+            </tr>
             <%  address.householders.each do |hh| %>
             <tr>
                 <td colspan="8">
-                    <%=link_to image_tag("householder2.png",:size =>"38x38"),:controller =>'householders',:action => 'show',id: hh.id %>
-                    <%=link_to hh.fname,:controller =>'householders',:action => 'show', id: hh.id %>
+                    <%= link_to image_tag("householder.png",:class=>"button"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                    <%= link_to "#{hh.fname}", '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
                 </td>
-                <td>
-                    <%= link_to  image_tag("edit.png",:class=>"button",:size=>"30x30"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
-                </td>
+                <td></td>
 
                 <td>
                     <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>

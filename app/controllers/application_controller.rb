@@ -20,9 +20,19 @@ class ApplicationController < ActionController::Base
       redirect_to controller: 'login', action: "logout"
     else
      @u = current_user
+
       if @u.client.center_coordinate == "38.802859, -96.208728" && session[:role].to_s != 'admin'
        redirect_to controller: "clients", action: "edit", id: @u.client_id
+     else
+
+         if session[:role].to_s == 'admin' && current_user.email == 'blank'
+          redirect_to controller: "users", action: "edit", id: current_user.id
+         end
+
       end
+
+
+
     end
 
 

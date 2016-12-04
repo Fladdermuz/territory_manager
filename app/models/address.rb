@@ -3,12 +3,12 @@ class Address < ActiveRecord::Base
 belongs_to :territory
 has_many :householders, :dependent => :delete_all
 belongs_to :client
-accepts_nested_attributes_for :householders
+accepts_nested_attributes_for :householders, reject_if: proc { |attributes| attributes['fname'].blank? }
 
 validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_id,:client_id]
 geocoded_by :full_street_address
 after_validation :geocode
- 
+
 
 
 def full_street_address

@@ -11,6 +11,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
+gem 'wicked_pdf'
+
+gem 'wkhtmltopdf-binary'
+
 gem 'chronic'
 
 gem 'dotenv-rails', :groups => [:development, :test]

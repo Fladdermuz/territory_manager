@@ -96,16 +96,7 @@ class TerritoriesController < ApplicationController
     end
   end
 
-  def view_ter_householders
-
-    @addresses = Address.where(territory_id: @territory.id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-
-    @map = User.find_by(username: session[:username]).mappref
-    @zoom = 15
-    if @map == "satellite"
-
-    end
-  end
+ 
 
     def view_ter_householders_coords
     #a printout of this is what is given to publishers to take out in service.
@@ -194,7 +185,9 @@ class TerritoriesController < ApplicationController
           @territory.check_back_in = params[:checkin_date2]
 
           if @territory.save
+            if !@territory.user.isadmin && !@territory.user.can_manage_hh
             UserMailer.send_terr(@user,@territory).deliver_now
+            end
           end
 
           @History = TerritoryHistory.new
@@ -221,7 +214,7 @@ class TerritoriesController < ApplicationController
       if params[:cob]
       flash[:tnotice] = "#{t :checked_out_success}"
       @user_id = params[:cob]
-
+      @user = User.find_by(id: @user_id)
       @territory.user_id = @user_id
       @territory.is_checked_in = false
       @D = Date.today
@@ -231,7 +224,11 @@ class TerritoriesController < ApplicationController
       @territory.checkin_date = @t.to_date
 
       if @territory.save
-        UserMailer.send_terr(@territory.user,@territory).deliver_now
+
+        if !@territory.user.isadmin && !@territory.user.can_manage_hh
+         UserMailer.send_terr(@user,@territory).deliver_now
+        end
+
       end
 
       @History = TerritoryHistory.new

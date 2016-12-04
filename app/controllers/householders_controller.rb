@@ -12,20 +12,7 @@ class HouseholdersController < ApplicationController
      end
   end
 
-
-  def show
-
-    if !@householder.address_id.nil?
-      @address = Address.find_by(id: @householder.address_id, client_id: session[:client_id])
-    end
-
-    respond_to do |format|
-      format.html # show.html.erb
-     end
-  end
-
-
-
+ 
 
   def create
 

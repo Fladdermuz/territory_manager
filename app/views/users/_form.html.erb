@@ -1,6 +1,13 @@
+<%if @user.email == 'blank'%>
+ <p class='notice'>
+   Please Fix your Email!
+ </p>
+<%end%>
+
+
 <%= form_for(@user) do |f| %>
 <br />
- 
+
 <table class='table table-striped'>
 
     <tr>
