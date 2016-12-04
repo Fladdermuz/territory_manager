@@ -17,7 +17,7 @@ gem 'wkhtmltopdf-binary'
 
 gem 'chronic'
 
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails'
 
 gem 'geocoder'
 

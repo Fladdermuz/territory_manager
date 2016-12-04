@@ -13,10 +13,10 @@
 
 
 
-<%if address.coordinate.blank? %>
+<%if address.center_coordinate.blank? %>
 <% get_latlong(address)%>
 <%else%>
-<%@coord = address.coordinate%>
+<%@coord = address.center_coordinate%>
 <%end%>
 
 

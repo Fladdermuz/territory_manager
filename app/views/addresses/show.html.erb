@@ -106,7 +106,7 @@
         <td>
             <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
             <%=t :coordinate %>
-            <%=@address.coordinate%>
+            <%=@address.center_coordinate%>
             <%end%>
         </td>
         <td></td>

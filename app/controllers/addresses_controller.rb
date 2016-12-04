@@ -108,10 +108,10 @@ class AddressesController < ApplicationController
     @map = User.find_by(username: session[:username]).mappref
     @zoom = 13
 
-     if @address.coordinate.blank?
+     if @address.center_coordinate.blank?
        @coordinates = @address.latitude.to_s + "," + @address.longitude.to_s
      else
-       @coordinates = @address.coordinate
+       @coordinates = @address.center_coordinate
      end
 
 
@@ -148,7 +148,7 @@ def show_all_cords
   @street = params[:street]
   @address = params[:address]
   @map = User.find_by(username: session[:username]).mappref
-  @addresses = Address.where(client_id: session[:client_id], address_id: @address, street: @street).where.not(coordinate: '')
+  @addresses = Address.where(client_id: session[:client_id], address_id: @address, street: @street).where.not(center_coordinate: '')
        respond_to do |format|
       format.html # new.html.erb
      end
@@ -206,7 +206,7 @@ end
     def refresh_map
 
       @coordinates = params[:coordinate]
-      @address.coordinate = @coordinates
+      @address.center_coordinate = @coordinates
       @address.save
 
       respond_to do |format|
@@ -321,7 +321,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
  def address_params
-   params.require(:address).permit(:neighborhood, :house_no,:street, :latitude, :longitude, :apt_no, :city, :state, :zip, :call_date, :territory_id, :client_id, householders_attributes: [:fname, :lname, :address_id, :client_id, :call_date ])
+   params.require(:address).permit(:neighborhood, :center_coordinate, :house_no,:street, :latitude, :longitude, :apt_no, :city, :state, :zip, :call_date, :territory_id, :client_id, householders_attributes: [:fname, :lname, :address_id, :client_id, :call_date ])
  end
 
 end

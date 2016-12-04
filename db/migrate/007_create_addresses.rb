@@ -12,7 +12,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.date :call_date
       t.integer :territory_id
       t.integer :client_id
-      t.string :coordinate
+      t.string :center_coordinate
       t.float :latitude
       t.float :longitude
       t.string :alt_house_no

@@ -19,19 +19,19 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.string   "apt_no"
     t.string   "city"
     t.string   "state"
-    t.boolean  "hide_map",                default: false
+    t.boolean  "hide_map",                     default: false
     t.integer  "zip"
     t.date     "call_date"
     t.integer  "territory_id"
     t.integer  "client_id"
-    t.string   "coordinate"
-    t.float    "latitude",     limit: 24
-    t.float    "longitude",    limit: 24
+    t.string   "center_coordinate"
+    t.float    "latitude",          limit: 24
+    t.float    "longitude",         limit: 24
     t.string   "alt_house_no"
     t.string   "alt_street"
     t.string   "alt_city"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

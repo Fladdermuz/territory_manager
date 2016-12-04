@@ -49,7 +49,7 @@
     <% if  Client.find(session[:client_id]).is_coordinate_only == true  %>
     <tr>
         <td><%=t :coordinate%></td>
-        <td><%= f.text_field :coordinate %></td>
+        <td><%= f.text_field :center_coordinate %></td>
     </tr>
     <%end%>
 

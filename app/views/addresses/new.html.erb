@@ -76,7 +76,7 @@
 
                     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <%= f.text_field :coordinate, id: 'coordinate' %>
+                        <%= f.text_field :center_coordinate, id: 'coordinate' %>
                     </div>
 
                     <% if Client.find(session[:client_id]).is_coordinate_only == true  %>

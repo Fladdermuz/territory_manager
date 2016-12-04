@@ -51,14 +51,15 @@
             </td>
             <td><%= @user.isadmin %></td>
         </tr>
-        <%end%>
-
+        <%else%>
         <tr>
             <td>
-                <b><%=t :isadmin%></b>
+                <b><%=t :can_manage_hh%></b>
             </td>
-            <td><%= @user.isadmin %></td>
+            <td><%= @user.can_manage_hh %></td>
         </tr>
+        <%end%>
+
         <tr>
             <td>
                 <b><%=t :mappref%></b>

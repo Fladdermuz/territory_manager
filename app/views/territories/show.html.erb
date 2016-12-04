@@ -55,7 +55,7 @@
             <tr>
 
                 <td>
-                    <%= link_to image_tag("home.png", :title=>"#{t :addresses}"),:action=>"view_ter_householders",:id =>@territory.id %>
+                    <%= link_to image_tag("home.png",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id => @territory.id %>
                 </td>
                 <td>
                     <div style='float:right;'>
@@ -105,8 +105,8 @@
                     <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territory_id => @territory.id}, class: 'btn btn-primary', data: { no_turbolink: true } %>
 
                     <%if @territory.coordinates.count < 2%>
-                     <%= image_tag('arrow.png', class: 'arrow' )%>
-                     <%= t :create_coords_help %>
+                    <%= image_tag('arrow.png', class: 'arrow' )%>
+                    <%= t :create_coords_help %>
                     <%end%>
 
                 </td>
