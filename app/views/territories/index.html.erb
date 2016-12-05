@@ -33,7 +33,10 @@
             <tr>
                 <td><%= territory.territory_no  %></td>
                 <td>
-                   <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'quick_view', action: "render_pdf",:id =>territory.id %>
+                   <%if !territory.is_checked_in? && !territory.user_id.nil? %>
+                    <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'quick_view', action: "render_pdf",:id =>territory.id %>
+                   <%end%>
+                   
                    <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id =>territory.id %>
                    <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_pins",:id =>territory.id %>
                  </td>

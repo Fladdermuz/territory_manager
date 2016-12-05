@@ -1,4 +1,5 @@
  es:
+  assigned_to: "Asignado a "
   terr_message1: "Le han asignado un nuevo Territorio. Haga clic aquí para verlo."
   is_admin_help: "¡Esto significa que el Usuario Tiene todos los privilegios en el Sistema! ¡Use con la Precaución!"
   can_manage_hh_help: "Esto significa que el Usuario no es un administrador y sólo puede añadir amos de casa a los territorios asignados a el. No se pueden registrar o comprobar territorios."

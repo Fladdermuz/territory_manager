@@ -96,7 +96,7 @@ class TerritoriesController < ApplicationController
     end
   end
 
- 
+
 
     def view_ter_householders_coords
     #a printout of this is what is given to publishers to take out in service.
@@ -253,7 +253,7 @@ class TerritoriesController < ApplicationController
 
       @territory.is_checked_in = true
       @territory.last_worked = Date.today
-      @territory.user_id = "Last Worked BY:" + @territory.user_id.to_s
+      @territory.user_id = nil
       @territory.save!
 
       @History = TerritoryHistory.where(territory_id: @territory.id, client_id: session[:client_id])

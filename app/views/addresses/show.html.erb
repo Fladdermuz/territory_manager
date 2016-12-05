@@ -79,11 +79,10 @@
             <%if !hh.blank? %>
             <tr>
                 <td>
-                    <%= link_to "#{hh.fullname}",:controller => "householders", action: 'show',id: hh.id %>
+                  <%= link_to  image_tag("householder.png",:class=>"button", style: 'float:left;'), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
                 </td>
                 <td>
                     <%= link_to image_tag("trash.png",:size =>"30x30",:class=>"trash", style: 'margin-left:9px;float:right'), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
-                    <%= link_to  image_tag("edit.png",:class=>"button",:size=>"30x30", style: 'float:right;'), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
                 </td>
 
             </tr>

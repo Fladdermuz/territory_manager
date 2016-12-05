@@ -1,4 +1,5 @@
 en:
+  assigned_to: "Assigned To "
   terr_message1: "You have been assigned a new Territory. Click here to view it."
   is_admin_help: "This means the User Has all priveledges on the System! Use with Caution!"
   can_manage_hh_help: "This means the User in NOT an admin and can only add householders to the territories they have been assigned. They can not check in or check out territories."

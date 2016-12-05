@@ -1,27 +1,31 @@
-<div class="card">
-    <div class="card-header card-header-top">
-        <table class="table table-noborder table-nopadding">
-            <tr>
-                <td class="card-title no-border">
-                    <h2>
-                        <%= t :address_list %>
-                    </h2>
-                    <%=t :territory%>
-                    -
-                    <%=@territory.territory_no%>
+<table class="table" style='border:1px solid grey;width:100%;'>
+    <tr>
+        <td style='width:70%;'>
+            <h3>
+                <%= t :address_list %>:<%=t :territory%>-<%=@territory.territory_no%>
+            </h3>
 
-                </td>
-                <td class="buttons">
-                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), addresses_path, class: 'btn btn-primary btn-top' %>
-                </td>
-            </tr>
+        </td>
+        <td>
+            <h3>
+                <%=t :assigned_to%>
+                <%=@territory.user.username %>
+            </h3>
+        </td>
+    </tr>
+
+    <%if !@territory.check_back_in.blank?%>
+    <tr>
+        <td colspan="2">
+            <%=@territory.check_back_in%>
+        <td>
+    </tr>
+    <%end%>
         </table>
-    </div>
-    <div class="card-block">
 
         <% @addresses.each do |address| %>
 
-        <table class="table table-striped">
+        <table class="table" style='text-align:left;width:100%;'>
             <tr>
                 <th><%=t :house_number %></th>
                 <th><%=t :street %></th>
@@ -33,12 +37,11 @@
                 <th></th>
                 <th></th>
                 <th></th>
-
             </tr>
 
             <tr>
                 <td>
-                    <% if !address.coordinate.nil? && Client.find(session[:client_id]).is_coordinate_only == true%>
+                    <% if !address.center_coordinate.nil? && Client.find(session[:client_id]).is_coordinate_only == true%>
                     <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
                     <%else%>
                     <%=h address.house_no %>
@@ -50,15 +53,13 @@
                 <td><%=h address.apt_no %></td>
                 <td><%=h address.city %></td>
                 <td><%=h address.call_date %></td>
-                <td><%=h address.territory.territory_no %>
-                    <%= link_to("#{t :view}",:controller => 'territories',:action => 'show' ,id:  address.territory_id) %>
-                </td>
+                <td><%=h address.territory.territory_no %></td>
 
             </tr>
 
             <tr>
                 <td colspan="10">
-                  <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%=get_best_coord(address)%>&zoom=13&size=600x300&maptype=roadmap&markers=color:blue&markers=color:green%7Clabel:G%<%=get_best_coord(address)%>&key=<%=ENV['static_map_key']%>"> </img>
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%=get_best_coord(address)%>&zoom=17&size=600x300&maptype=roadmap&markers=color:green%7Clabel:X%7C<%=get_best_coord(address)%>&key=<%=ENV['static_map_key']%>"></img>
                 </td>
             </tr>
             <tr>
@@ -73,24 +74,37 @@
             </tr>
             <%  address.householders.each do |hh| %>
             <tr>
-                <td colspan="8">
-                    <%= link_to image_tag("householder.png",:class=>"button"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
-                    <%= link_to "#{hh.fname}", '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
-                </td>
-                <td></td>
-
-                <td>
-                    <%= link_to image_tag("trash.png",:size =>"40x40",:class=>"trash"), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
+                <td colspan="10">
+                    <%= "#{hh.fname}" %>
+                    <%= "#{hh.fname}" %>
                 </td>
             </tr>
+            <%if !hh.phone.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.phone%>
+                </td>
+            </tr>
+            <%end%>
+            <%if !hh.notes.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.notes%>
+                </td>
+            </tr>
+            <%end%>
 
-            <% end %>
-        </table>
+            <%if !hh.call_date.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.call_date%>
+                </td>
+            </tr>
+            <%end%>
 
-        <%address.householders.each do |hh| %>
-        <%=render 'householders/modal', householder: hh, hsource: 'index_terr', address_id: hh.address_id %>
-        <%end%>
+        </tr>
+
         <% end %>
+    </table>
 
-    </div>
-</div>
+    <% end %>
