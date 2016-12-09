@@ -65,11 +65,7 @@ class AddressesController < ApplicationController
   @street = params[:street]
   @city = params[:city].to_s
   @state = params[:state]
-
-  @house_no = '259'
-  @street = 'Laurel Lane'
-  @city = 'Carrollton'
-  @state = 'Ga'
+ 
 
   @cord = Geocoder.coordinates("#{@house_no}, #{@street}, #{@city},#{@state}")
   @coords = @cord[0].to_s + ',' + @cord[1].to_s

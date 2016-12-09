@@ -5,7 +5,7 @@ class QuickViewController < ApplicationController
 
     @territory = Territory.find_by(view_key: params[:key])
 
-    if @territory.nil?
+    if @territory.nil? || @territory.view_key.nil?
       redirect_to :root
       session[:user] = nil
     else
@@ -17,17 +17,23 @@ class QuickViewController < ApplicationController
 
 
   def render_pdf
-    login_required
 
-    @territory = Territory.find_by(id: params[:id])
-    @addresses = @territory.addresses
+    @territory = Territory.find_by(view_key: params[:key])
 
-    respond_to do |format|
+    if @territory.nil? || @territory.view_key.nil?
+      redirect_to :root
+      session[:user] = nil
+    else
+      @addresses = @territory.addresses
 
-    format.html do
-      render pdf: "terr_#{@territory.territory_no}"   # Excluding ".pdf" extension.
+      respond_to do |format|
+        format.html do
+         render pdf: "terr_#{@territory.territory_no}"   # Excluding ".pdf" extension.
+        end
+      end
+      
     end
-  end
+
 
   end
 

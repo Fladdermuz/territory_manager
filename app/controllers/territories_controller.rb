@@ -254,6 +254,7 @@ class TerritoriesController < ApplicationController
       @territory.is_checked_in = true
       @territory.last_worked = Date.today
       @territory.user_id = nil
+      @territory.view_key = nil
       @territory.save!
 
       @History = TerritoryHistory.where(territory_id: @territory.id, client_id: session[:client_id])
