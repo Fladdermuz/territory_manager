@@ -10,9 +10,17 @@ class User < ActiveRecord::Base
    validates_presence_of :client_id
    validates_presence_of :username
    before_create :before_create_items
+   before_update :change_pass
 
 
+  def change_pass
 
+      if self.must_change_pass? && self.password != self.password_was
+         self.must_change_pass = FALSE
+      end
+
+
+  end
 
   def before_create_items
 
@@ -46,14 +54,10 @@ class User < ActiveRecord::Base
     @u = User.find_by(username: username)
       if @u.nil?
        Rails.logger.info "No Matching username was found"
-      else
-        @time = Time.now
-        @u.lastlogin = @time
-        @u.save
       end
-       return nil if @u.nil?
-       return @u if User.encrypt(pass) == @u.password
 
+       return nil if @u.nil?
+       return @u if User.encrypt(pass) == @u.password || User.encrypt(@u.username) == User.encrypt(@u.password)
        @isGood = User.encrypt(pass) == @u.password
        nil
    end

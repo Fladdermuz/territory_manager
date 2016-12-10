@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
 
-     before_action :login_required,:isadminuser
+   before_action :login_required
+   before_action :set_user, only: [:show, :update, :destroy, :edit]
 
-  # GET /users
-  # GET /users.xml
+
   def index
 
+    isadminuser
 
     if session[:role] == "admin"
     @users = User.includes(:client).order(:username)
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
 
   def show
 
+
     if session[:role] == "admin"
     @user = User.find(params[:id])
 
@@ -36,28 +38,30 @@ class UsersController < ApplicationController
     end
 
 
-
-
   end
 
 
   def new
-    @user = User.new
 
+    if is_admin || is_client_admin
+    @user = User.new
     respond_to do |format|
       format.html # new.html.erb
      end
+    end
+
   end
 
 
   def edit
-    @user = User.find(params[:id])
     @map = @user.mappref
   end
 
 
 
   def create
+
+  if is_admin || is_client_admin
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -67,46 +71,62 @@ class UsersController < ApplicationController
         UserMailer.send_user(@user,@password).deliver_later
       else
         format.html { render :action => "new" }
-       end
+      end
     end
   end
+  end
 
-  # PUT /users/1
-  # PUT /users/1.xml
+
   def update
-    @user = User.find(params[:id])
 
     respond_to do |format|
       if @user.update(user_params)
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to(@user) }
-       else
+      else
         format.html { render :action => "edit" }
-       end
+      end
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.xml
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
 
+  def destroy
+
+    if is_admin || is_client_admin
+
+    @user.destroy
     respond_to do |format|
       format.html { redirect_to(users_url) }
      end
+
+    end
+
+
   end
 
 
   private
  # Use callbacks to share common setup or constraints between actions.
   def set_user
+
+    if is_admin
     @user = User.find_by(id: params[:id])
+    else
+
+      if is_client_admin
+         @user = User.find_by(id: params[:id], client_id: current_user.client_id)
+      else
+         @user = User.find_by(id: current_user.id)
+      end
+
+    end
+
+
   end
 
  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:username, :can_manage_hh, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
+    params.require(:user).permit( :must_change_pass, :username, :can_manage_hh, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
   end
 
 

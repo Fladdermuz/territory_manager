@@ -97,49 +97,6 @@ class TerritoriesController < ApplicationController
   end
 
 
-
-    def view_ter_householders_coords
-    #a printout of this is what is given to publishers to take out in service.
-    @territory_id = params[:territory_id]
-    @territory = Territory.find(@territory_id)
-
-    @addresses = Address.where(territory_id: @territory_id,client_id: session[:client_id]).order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-    @addresses2 = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-    @street = Address.where(territory_id: @territory_id, client_id: session[:client_id]).where.not("coordinate is not null").order("street,LENGTH(house_no+0),house_no,LENGTH(apt_no),apt_no")
-    @map = User.find_by(username: session[:username]).mappref
-    @zoom = 17
-    @colors = Array.new
-    @colors << 'grey'
-    @colors << 'blue'
-    @colors << 'green'
-    @colors << 'yellow'
-    @colors << 'red'
-    @colors << 'black'
-    @colors << 'purple'
-    @colors << 'orange'
-    @colors << 'grey'
-    @colors << 'blue'
-    @colors << 'green'
-    @colors << 'yellow'
-    @colors << 'red'
-    @colors << 'black'
-    @colors << 'purple'
-    @colors << 'orange'
-    @colors << 'white'
-    @colors << 'blue'
-    @colors << 'green'
-    @colors << 'yellow'
-    @colors << 'red'
-    @colors << 'black'
-    @colors << 'purple'
-    @colors << 'orange'
-
-    if @map == "satellite"
-    @zoom = 18
-    end
-    end
-
-
   def view_all_ter_pins
     #a printout of this is what is given to publishers to take out in service.
     @addresses = Address.where(territory_id: @territory.id, client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,house_no")
@@ -168,11 +125,11 @@ class TerritoriesController < ApplicationController
       @user.fname = params[:fname]
       @user.lname = params[:lname]
       @user.email = params[:email]
+      @user.must_change_pass = TRUE
       @user.can_manage_hh = params[:can_manage_hh]
       @user.isadmin = params[:is_admin]
       @user.client_id = current_user.client_id
-      @encryptedPass = Digest::MD5.hexdigest(params[:username]+'1914');
-      @user.password = @encryptedPass
+      @user.password = params[:username]
 
 
       respond_to do |format|
@@ -185,9 +142,15 @@ class TerritoriesController < ApplicationController
           @territory.check_back_in = params[:checkin_date2]
 
           if @territory.save
+
             if !@territory.user.isadmin && !@territory.user.can_manage_hh
-            UserMailer.send_terr(@user,@territory).deliver_now
+             UserMailer.send_terr(@user,@territory).deliver_now
             end
+
+            if @territory.user.isadmin || @territory.user.can_manage_hh
+             UserMailer.send_user(@user,@user.username).deliver_now
+            end
+
           end
 
           @History = TerritoryHistory.new

@@ -39,9 +39,7 @@ class LoginController < ApplicationController
 
       else
          Rails.logger.info "The User was not Authenticated"
-
-
-        render "login/unauthorized"
+         redirect_to :root
       end
     end
 

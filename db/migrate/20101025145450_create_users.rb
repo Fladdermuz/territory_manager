@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :fname
       t.string :lname
       t.boolean :isadmin
+      t.boolean :must_change_pass, default: FALSE
       t.boolean :can_manage_hh
       t.string :mappref
       t.date :lastlogin

@@ -16,21 +16,26 @@ class ApplicationController < ActionController::Base
 
   def setup
 
-    if current_user.nil?
-      redirect_to controller: 'login', action: "logout"
+    if current_user.nil? || !current_user.isadmin? && !current_user.can_manage_hh?
+      redirect_to  :logout
     else
      @u = current_user
 
+     if @u.must_change_pass?
+       flash[:notice] = 'Your Must Change your password!'
+       redirect_to controller: 'users', action: 'edit', id: current_user.id
+     else
+
       if @u.client.center_coordinate == "38.802859, -96.208728" && session[:role].to_s != 'admin'
        redirect_to controller: "clients", action: "edit", id: @u.client_id
-     else
+      else
 
          if session[:role].to_s == 'admin' && current_user.email == 'blank'
           redirect_to controller: "users", action: "edit", id: current_user.id
          end
 
       end
-
+     end
 
 
     end

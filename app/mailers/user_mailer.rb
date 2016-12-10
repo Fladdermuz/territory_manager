@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     @locale = user.sitelang
     @loc = I18n
     @loc.locale =  @locale
-    @pw =pw
+    @pw = pw
     @save = @loc.translate :please_save
     @username = @loc.translate :username
     @password = @loc.translate :password
