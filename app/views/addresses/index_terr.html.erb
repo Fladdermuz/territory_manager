@@ -21,7 +21,7 @@
     <div class="card-block">
 
         <% @addresses.each do |address| %>
-        <%=render 'householders/modal', householder: Householder.new, hsource: 'index_terr', address_id: address.id %>
+        <%=render 'householders/modal', householder: Householder.new, hsource: 'index_terr', address_id: address.id, edit: 1 %>
 
         <table class="table table-striped">
             <tr>
@@ -96,7 +96,7 @@
         </table>
 
         <%address.householders.each do |hh| %>
-        <%=render 'householders/modal', householder: hh, hsource: 'index_terr', address_id: hh.address_id %>
+        <%=render 'householders/modal', householder: hh, hsource: 'index_terr', address_id: hh.address_id, edit: 1 %>
         <%end%>
         <% end %>
 

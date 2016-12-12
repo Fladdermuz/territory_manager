@@ -104,17 +104,14 @@ class TerritoriesController < ApplicationController
 
 
 
-  def view_all_ter_pins_with_phones
-    #a printout of this is what is given to publishers to take out in service.
-    @territory_id = params[:territory_id]
-    @addresses = Address.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("street,LENGTH(house_no),house_no")
-  end
-
-
-
    def check_out
     @user = User.new
-    session[:referrer] = request.referrer
+
+    if flash['co_notice']
+    else
+     session[:referrer] = request.referrer
+    end
+
    end
 
 
@@ -139,7 +136,11 @@ class TerritoriesController < ApplicationController
           @territory.is_checked_in = false
           @D = Date.today
           @territory.checkout_date = @D
-          @territory.check_back_in = params[:checkin_date2]
+
+          if !params[:check_back_in2].blank?
+           @t = Chronic.parse(params[:check_back_in2].to_s, :guess => true)
+           @territory.check_back_in = @t.to_date
+          end
 
           if @territory.save
 
@@ -174,7 +175,7 @@ class TerritoriesController < ApplicationController
     def check_out_post
       require 'chronic'
 
-      if params[:cob]
+      if !params[:cob].blank?
       flash[:tnotice] = "#{t :checked_out_success}"
       @user_id = params[:cob]
       @user = User.find_by(id: @user_id)
@@ -182,9 +183,11 @@ class TerritoriesController < ApplicationController
       @territory.is_checked_in = false
       @D = Date.today
       @territory.checkout_date = @D
-      @t = Chronic.parse(params[:checkin_date].to_s, :guess => true)
 
-      @territory.checkin_date = @t.to_date
+      if !params[:check_back_in].blank?
+       @t = Chronic.parse(params[:check_back_in].to_s, :guess => true)
+       @territory.check_back_in = @t.to_date
+      end
 
       if @territory.save
 
@@ -200,12 +203,15 @@ class TerritoriesController < ApplicationController
       @History.client_id = session[:client_id]
       @History.user_id = @user_id
       @History.save
-      redirect_to  session[:referrer]
+      redirect_to session[:referrer]
 
-      else
-       @t =  params[:id]
+    else
+
+      flash['co_notice'] = "#{t :must_select_user}"
+      redirect_to action: 'check_out', id: @territory.id
 
       end
+
 
     end
 
@@ -214,17 +220,7 @@ class TerritoriesController < ApplicationController
 
       flash[:tnotice] = "#{t :checked_in_success}"
 
-      @territory.is_checked_in = true
-      @territory.last_worked = Date.today
-      @territory.user_id = nil
-      @territory.view_key = nil
-      @territory.save!
-
-      @History = TerritoryHistory.where(territory_id: @territory.id, client_id: session[:client_id])
-      if !@History[0].nil? && !@History[0].check_in_date.blank?
-         @History[0].check_in_date = Date.today
-         @History[0].save
-      end
+      check_in_terr(@territory)
 
       redirect_to :controller =>"territories", action: 'show', id: @territory.id
 

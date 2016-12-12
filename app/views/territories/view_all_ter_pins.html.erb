@@ -76,8 +76,8 @@
                 iconSize: [60, 60]
             });
 
-            <%if current_user.client.is_coordinate_only? || !a.coordinate.blank? %>
-             var marker<%=a.id%> = L.marker(new L.LatLng(<%=a.coordinate%>), {icon: cssIcon<%=a.id%>});
+            <%if current_user.client.is_coordinate_only? || !a.center_coordinate.blank? %>
+             var marker<%=a.id%> = L.marker(new L.LatLng(<%=a.center_coordinate%>), {icon: cssIcon<%=a.id%>});
             <%else%>
              <%@coord = a.latitude.to_s + ',' + a.longitude.to_s %>
              var marker<%=a.id%> = L.marker(new L.LatLng(<%=@coord%>), {icon: cssIcon<%=a.id%>});

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'quick_view/home'
   get 'quick_view/view_terr'
   get 'quick_view/render_pdf'
+  get 'quick_view/render_pdf_user'
+  get 'quick_view/auto_checkin'
   post 'warning_messages/hide_message'
   get 'main/change_lang' => 'main#change_lang', :as=> 'main/change_lang'
   get 'map_layers/set_layer' => 'map_layers#set_layer', :as=>  'map_layers/set_layer'

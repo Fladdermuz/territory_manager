@@ -1,0 +1,110 @@
+<table class="table" style='border:1px solid grey;width:100%;'>
+    <tr>
+        <td style='width:70%;'>
+            <h3>
+                <%= t :address_list %>:<%=t :territory%>-<%=@territory.territory_no%>
+            </h3>
+
+        </td>
+        <td>
+            <h3>
+                <%=t :assigned_to%>
+                <%=@territory.user.username %>
+            </h3>
+        </td>
+    </tr>
+
+    <%if !@territory.check_back_in.blank?%>
+    <tr>
+        <td colspan="2">
+            <%=@territory.check_back_in %>
+        <td>
+    </tr>
+    <%end%>
+        </table>
+
+        <% @addresses.each do |address| %>
+
+        <table class="table" style='text-align:left;width:100%;'>
+            <tr>
+                <th><%=t :house_number %></th>
+                <th><%=t :street %></th>
+                <th><%=t :apartment_number %></th>
+                <th><%=t :city %></th>
+                <th><%=t :call_date %></th>
+                <th><%=t :territory_number %></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>
+                    <% if !address.center_coordinate.nil? && Client.find(session[:client_id]).is_coordinate_only == true%>
+                    <%= link_to address.house_no, {:controller => 'addresses',:action => 'show_all_cords',:street => address.street,:territory => address.territory_id}, {:style=>'color:red;', :class => "streetlink"} %>
+                    <%else%>
+                    <%=h address.house_no %>
+                    <%end%>
+                </td>
+                <td>
+                    <%= address.street %>
+                </td>
+                <td><%=h address.apt_no %></td>
+                <td><%=h address.city %></td>
+                <td><%=h address.call_date %></td>
+                <td><%=h address.territory.territory_no %></td>
+
+            </tr>
+
+            <tr>
+                <td colspan="10">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%=get_best_coord(address)%>&zoom=17&size=600x300&maptype=roadmap&markers=color:green%7Clabel:X%7C<%=get_best_coord(address)%>&key=<%=ENV['static_map_key']%>"></img>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <h4>
+                        <%=t :householders%>
+                        @
+                        <%=address.house_no%>,
+                        <%=address.street%>
+                    </h4>
+                </td>
+            </tr>
+            <%  address.householders.each do |hh| %>
+            <tr>
+                <td colspan="10">
+                    <%= "#{hh.fname}" %>
+                    <%= "#{hh.fname}" %>
+                </td>
+            </tr>
+            <%if !hh.phone.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.phone%>
+                </td>
+            </tr>
+            <%end%>
+            <%if !hh.notes.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.notes%>
+                </td>
+            </tr>
+            <%end%>
+
+            <%if !hh.call_date.blank?%>
+            <tr>
+                <td colspan='10'>
+                    <%=hh.call_date%>
+                </td>
+            </tr>
+            <%end%>
+
+        </tr>
+
+        <% end %>
+    </table>
+
+    <% end %>

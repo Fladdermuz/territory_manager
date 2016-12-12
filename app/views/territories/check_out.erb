@@ -15,6 +15,13 @@
     </div>
 
     <div class="card-block">
+
+  <%if flash['co_notice'] %>
+     <p class='notice'>
+       <%= flash['co_notice'] %>
+     </p>
+  <%end%>
+
         <br>
         <ul class="nav nav-tabs"  id='ch' role="tablist">
             <li class="nav-item">
@@ -44,7 +51,7 @@
                             <%=t :check_back_in %>
                         </td>
                         <td>
-                            <%=  text_field_tag 'checkin_date', nil, {class: 'datepicker text-field-wide'} %></td>
+                            <%=  text_field_tag 'check_back_in', nil, {class: 'datepicker text-field-wide'} %></td>
                     </td>
                 </tr>
                 <%= hidden_field_tag "id", @territory.id %>
@@ -134,7 +141,7 @@
                         <%=t :check_back_in %>
                     </td>
                     <td>
-                        <%=  text_field_tag 'checkin_date2',nil, {class: 'datepicker text-field-wide'} %></td>
+                        <%=  text_field_tag 'check_back_in2',nil, {class: 'datepicker text-field-wide'} %></td>
                 </td>
             </tr>
             <%= hidden_field_tag "id", @territory.id %>

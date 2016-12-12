@@ -1,4 +1,7 @@
  es:
+  user_admin: "Usuario Tiene Todos Los Privilegios"
+  user_manager: "El usuario Puede Manejar Sus Territorios Asignados"
+  user_basic: "El usuario Sólo Puede Ver Sus Territorios Asignados"
   assigned_to: "Asignado a "
   terr_message1: "Le han asignado un nuevo Territorio. Haga clic aquí para verlo."
   is_admin_help: "¡Esto significa que el Usuario Tiene todos los privilegios en el Sistema! ¡Use con la Precaución!"
@@ -28,6 +31,7 @@
   new_user_subject: "Nuevo Usuario"
   cord_only_help: "Esto obliga al usuario a arrastrar manualmente el icono del mapa para crear direcciones en el sistema. Esto es bueno para los lugares fuera de los Estados Unidos y Europa donde el mapa de la calle no puede encontrar direcciones"
   select_user: "Seleccione Usuario"
+  must_select_user: "Tiene que escojer un usuario!"
   create_coords_help: "¡Haga clic aquí para crear las fronteras!"
   record_created: "Creado con Exito"
   auto_submit: "Auto Subir"
@@ -43,6 +47,7 @@
   create_account: "Crear Cuenta Nueva"
   new_client: "Cuenta Nueva"
   map_type: "Tipo de Mapa"
+  map: "Map"
   new: "Nuevo"
   home: "Inicio"
   notes: "Notas"

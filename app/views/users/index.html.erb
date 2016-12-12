@@ -24,9 +24,10 @@
                     </th>
                     <th><%=t :client%></th>
                     <th><%=t :email%></th>
+                    <th><%=t :role%></th>
                     <th></th>
                     <th></th>
-                    <th></th>
+                    <th> </th>
                 </tr>
 
                 <% @users.flat_map do |user| %>
@@ -38,6 +39,21 @@
                     </td>
                     <td><%= user.client.name %></td>
                     <td><%= user.email %></td>
+                    <td>
+                      <%if user.isadmin?%>
+                        <%=image_tag('user-admin.png', size: '43x43', title: "#{t :user_admin}") %>
+                      <%end%>
+
+                      <%if !user.isadmin? && user.can_manage_hh? %>
+                        <%=image_tag('Usericon.png', size: '43x43', title: "#{t :user_manager}") %>
+                      <%end%>
+
+                      <%if !user.isadmin? && !user.can_manage_hh? %>
+                        <%=image_tag('user-basic.png', size: '43x43', title: "#{t :user_basic}") %>
+                      <%end%>
+
+
+                    </td>
 
                     <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), user %></td>
                     <td><%= link_to image_tag("edit.png",:class=>"button",:size=>"36x36",:title=>"#{t :edit}"), edit_user_path(user) %></td>

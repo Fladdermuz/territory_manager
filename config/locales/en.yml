@@ -1,4 +1,7 @@
 en:
+  user_admin: "User Has All Privileges"
+  user_manager: "User Can Manage Assigned Territories"
+  user_basic: "User Can Only View His Assigned Territories"
   assigned_to: "Assigned To "
   terr_message1: "You have been assigned a new Territory. Click here to view it."
   is_admin_help: "This means the User Has all priveledges on the System! Use with Caution!"
@@ -28,6 +31,7 @@ en:
   new_user_subject: "New User Information"
   cord_only_help: "This forces the user to manualy drag the map icon to create addresses in the system. This is good for places outside the United States and Europe where the Street Map can not find addresses"
   select_user: "Select User"
+  must_select_user: "You must select a user!"
   create_coords_help: "Click here to create the borders!"
   record_created: "Record Created"
   auto_submit: "Auto Submit"
@@ -147,6 +151,7 @@ en:
   fill_color: "Fill Color"
   border_color: "Border Color"
   maptype: "Map Type"
+  map: "Map"
   no_map_available: "No Map Available"
   notes: "Notes"
   never_used: "Never Checked Out"

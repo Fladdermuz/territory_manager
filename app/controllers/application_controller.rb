@@ -11,6 +11,29 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin
   helper_method :is_client_admin
   helper_method :setup
+  helper_method :check_in_terr
+
+
+
+
+  def check_in_terr(territory)
+
+    territory.is_checked_in = true
+    territory.last_worked = Date.today
+    territory.user_id = nil
+    territory.view_key = nil
+    territory.check_back_in = nil
+    territory.save!
+
+    @History = TerritoryHistory.where(territory_id: territory.id, client_id: session[:client_id])
+    if !@History[0].nil? && !@History[0].check_in_date.blank?
+       @History[0].check_in_date = Date.today
+       @History[0].save
+    end
+
+
+
+  end
 
 
 

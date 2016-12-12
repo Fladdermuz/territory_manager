@@ -11,7 +11,9 @@ class Territory < ActiveRecord::Base
   before_destroy :ensure_no_children
   validates_presence_of :zone_id
   validates_presence_of :center_coordinate
+  validates_presence_of :user_id, if: Proc.new { |r| !r.is_checked_in? }
 
+  
  def create_key
 
   @checked = self.is_checked_in_was
@@ -23,6 +25,11 @@ class Territory < ActiveRecord::Base
 
 
  end
+
+
+
+
+
 
 
  def self.encrypt(key)

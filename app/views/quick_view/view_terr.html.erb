@@ -1,3 +1,4 @@
+<div class='container'>
 <div class="card">
     <div class="card-header card-header-top">
         <table class="table table-noborder table-nopadding">
@@ -9,8 +10,8 @@
                     </h2>
                 </td>
 
-                <td class='button'>
-                    <%= link_to "", quick_views_home_path, class: 'btn btn-primary btn-top btn-home right' %>
+                <td class='buttons'>
+                    <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), quick_view_home_path, class: 'btn btn-primary btn-top right' %>
                 </td>
             </tr>
         </table>
@@ -18,9 +19,159 @@
 
     <div class="card-block">
 
-    
 
+              <table class="table table-inverse" style='text-align:left;'>
+                  <tr>
+                      <td>
+                          <%=t :territory_number %>
+                          <%if !@territory.territory_no.nil?%>
+                          <%= @territory.territory_no %>
+                          <%end%>
+                      </td>
+
+                      <td>
+                          <%=t :territory_status%>
+                          :
+
+                          <% if @territory.is_checked_in?%>
+                          <%=t :available%>
+                          <%else%>
+                          <%=t :unavailable%>
+                          <%=t :user_id %>:
+                          <%=h @territory.get_user_id %>
+                          <%end%>
+                      </td>
+                      <td></td>
+
+                  </tr>
+              </table>
+
+          </div>
+          <div class="card-block">
+
+              <table class="table table-striped">
+                  <tr>
+
+                      <td>
+                          <%= link_to image_tag("home.png",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id => @territory.id %>
+                      </td>
+                      <td>
+                          <div style='float:right;'>
+
+                              <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
+                              <div style='width:20px;display:inline-block;'></div>
+
+
+                          </div>
+                      </td>
+
+                  </tr>
+
+                  <tr>
+                      <td>
+                          <%=t :descriptiontion %></td>
+                      <td>
+                          <%= @territory.description %>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td><%=t :notes%>
+                      </td>
+                      <td><%= @territory.notes %></td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <%=t :zone%>
+                      </td>
+                      <td><%= @territory.zone.zone_no %></td>
+                  </tr>
+                  <tr>
+                      <td><%=t :address_count%>:</td>
+                      <td>
+                          <%= @territory.addresses.count %>
+                      </td>
+                  </tr>
+
+
+                  <tr>
+                      <td colspan="2">
+                          <%= render 'territories/map', territory: @territory, edit: 0, zone: @territory.zone  %>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <%=t :last_worked%></td>
+                      <td><%= @territory.last_worked %></td>
+                  </tr>
+
+              </table>
+
+              <% @territory.addresses.each do |address| %>
+
+              <table class="table table-striped">
+                  <tr>
+                      <th><%=t :house_number %></th>
+                      <th><%=t :street %></th>
+                      <th><%=t :apartment_number %></th>
+                      <th><%=t :city %></th>
+                      <th><%=t :call_date %></th>
+                      <th><%=t :territory_number %></th>
+                      <th></th>
+                      <th></th>
+
+
+                  </tr>
+
+                  <tr>
+                      <td>
+                          <%=h address.house_no %>
+                      </td>
+                      <td>
+                          <%= address.street %>
+                      </td>
+                      <td><%=h address.apt_no %></td>
+                      <td><%=h address.city %></td>
+                      <td><%=h address.call_date %></td>
+                      <td><%=h address.territory.territory_no %> </td>
+                      <td><%= link_to image_tag("view.png",:class=>"button",:size=>"36x36",:title=>"#{t :view}"), address %></td>
+                      <td></td>
+                  </tr>
+
+                  <tr>
+                      <td colspan="10">
+                          <%= render "addresses/map_small", territory: address.territory, address: address   %>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="10">
+                          <h4>
+                              <%=t :householders%>
+                              @
+                              <%=address.house_no%>,
+                              <%=address.street%>
+                          </h4>
+                      </td>
+                  </tr>
+                  <%  address.householders.each do |hh| %>
+                  <tr>
+                      <td colspan="10">
+                          <%= link_to image_tag("householder.png",:class=>"button"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                          <%= link_to "#{hh.fname}", '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                      </td>
+
+
+
+                  </tr>
+
+                  <% end %>
+              </table>
+
+              <%address.householders.each do |hh| %>
+              <%=render 'householders/modal', householder: hh, hsource: 'index_terr', address_id: hh.address_id, edit: 0 %>
+              <%end%>
+              <% end %>
 
 
     </div>
+</div>
 </div>

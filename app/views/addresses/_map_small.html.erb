@@ -1,6 +1,6 @@
 <style>
     body { margin:0; padding:0; }
-    #map_c<%=address.id%> { margin-bottom:30px;position:relative;top:10px; height:300px; bottom:0; width:100%; }
+    #map_a<%=address.id%> { margin-bottom:30px;position:relative;top:10px; height:300px; bottom:0; width:100%; }
 </style>
 
 
@@ -21,7 +21,7 @@
 
 
 
-<div id='map_c<%=address.id%>'></div>
+<div id='map_a<%=address.id%>'></div>
 
 
 
@@ -31,7 +31,7 @@
     var position = document.getElementById('coordinate');
 
     L.mapbox.accessToken = 'pk.eyJ1IjoibWNyb3dkZXIiLCJhIjoiY2lqcTcyd2YwMDFrb3Rya285MjMxdXQydSJ9.hIHusY9FJsXj9RBUNWC4pA';
-    var map_c<%=address.id%> = L.mapbox.map('map_c<%=address.id%>', 'mapbox.streets', {
+    var map_a<%=address.id%> = L.mapbox.map('map_a<%=address.id%>', 'mapbox.streets', {
         zoomControl: true}).setView([<%=@coord%>],17);
 
 
@@ -47,7 +47,7 @@
     });
 
 
-     marker.addTo(map_c<%=address.id%>);
+     marker.addTo(map_a<%=address.id%>);
 
 
 

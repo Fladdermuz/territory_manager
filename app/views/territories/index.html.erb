@@ -23,7 +23,9 @@
                 <th></th>
                 <th><%=t :territory_status %></th>
                 <th><%=t :description %></th>
+                <%if territory.is_checked_in? %>
                 <th><%= t :last_worked  %></th>
+                <%end%>
                 <th><%= t :zone  %></th>
                 <th><%=t :show%></th>
                 <th><%=t :edit%></th>
@@ -33,26 +35,26 @@
             <tr>
                 <td><%= territory.territory_no  %></td>
                 <td>
-                   <%if !territory.is_checked_in? && !territory.user_id.nil? %>
-                    <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'quick_view', action: "render_pdf",:id =>territory.id %>
-                   <%end%>
-                   
-                   <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id =>territory.id %>
-                   <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_pins",:id =>territory.id %>
-                 </td>
-
-                <td>
-                    <%if territory.is_checked_in == true     %>
-                    <%= link_to image_tag("ok.png",:size=>"25x25",:class=>"button",:title => "#{t :check_out}"),:action=>"check_out",:id =>territory.id %>
+                    <%if !territory.is_checked_in? && !territory.user_id.nil? %>
+                    <%= link_to image_tag("pdf.jpeg",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'quick_view', action: "render_pdf_user",:id =>territory.id %>
                     <%end%>
 
-                    <%if territory.is_checked_in == false     %>
-                    <%= link_to image_tag("cancel.png",:size=>"25x25",:class=>"button",:title => "#{t :check_in}"),:action=>"check_in",:id =>territory.id %>
+                    <%= link_to image_tag("print.png",:size=>"25x25",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id =>territory.id %>
+                    <%= link_to image_tag("map.png",:size=>"25x25",:class=>"button"),:action=>"view_all_ter_pins",:id =>territory.id %>
+                </td>
+
+                <td>
+                    <%if territory.is_checked_in? %>
+                    <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id =>territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+                    <%else%>
+                    <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_in",:id =>territory.id}, class: 'btn btn-primary'%>
                     <%end%>
                 </td>
                 <td><%=h territory.description %></td>
-                <td><%=h territory.last_worked %></td>
 
+                <%if territory.is_checked_in? %>
+                <td><%=h territory.last_worked %></td>
+                <%end%>
                 <td>
 
                     <%=link_to("#{territory.zone.zone_no}",:controller=>"zones",:action=> 'show',id: territory.zone.id)%>

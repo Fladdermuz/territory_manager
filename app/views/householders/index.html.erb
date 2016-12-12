@@ -22,7 +22,7 @@
                 <th><%=t :last_name%></th>
                 <th><%=t :notes%></th>
                 <th ><%=t :phone%></th>
-                <th><%=t :call_date%></th>             
+                <th><%=t :call_date%></th>
                 <th></th>
             </tr>
 
@@ -39,7 +39,7 @@
         </table>
 
         <%@householders.each do |hh| %>
-        <%=render 'householders/modal', householder: hh, hsource: 'addy', address_id: hh.address_id %>
+        <%=render 'householders/modal', householder: hh, hsource: 'addy', address_id: hh.address_id, edit: 1 %>
         <%end%>
         <div class="digg_pagination">
             <%=  will_paginate @householders,:next_label=>"#{t :next}",:previous_label=>"#{t :previous}"  %>

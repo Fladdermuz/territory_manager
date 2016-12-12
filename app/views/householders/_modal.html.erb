@@ -17,7 +17,11 @@
         </h4>
       </div>
       <div class="modal-body">
+        <%if edit == 1 %>
         <%=render 'householders/form', householder: householder, hsource: hsource, address_id: address_id %>
+        <%else%>
+        <%=render 'householders/show', householder: householder  %>
+        <%end%>
       </div>
 
     </div><!-- /.modal-content -->
