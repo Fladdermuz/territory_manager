@@ -61,9 +61,9 @@
                 <%end%>
             </td>
             <td>
-              <%if current_user.isadmin?%>
-               <%= link_to "#{t :check_in}",{controller: 'territories' ,:action=>"check_in",:id => ter.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
-              <%end%>
+                <%if current_user.isadmin?%>
+                <%= link_to "#{t :check_in}",{controller: 'territories' ,:action=>"check_in",:id => ter.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+                <%end%>
             </td>
             <td>
                 <%=link_to image_tag('view.png', size: '40x40'), {controller: 'territories', action: 'show', id: ter.id  } %>
@@ -74,6 +74,7 @@
 
     </table>
 
+    <%if is_admin || is_client_admin %>
     <table class="table table-striped" style="margin-left: 5%!important;">
         <tr>
             <th colspan="4" style="background-color: white;color:black;">
@@ -94,7 +95,7 @@
                 <%end%>
             </td>
             <td>
-              <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id => ter.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+                <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id => ter.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
             </td>
             <td>
                 <%=link_to image_tag('view.png', size: '40x40'), {controller: 'territories', action: 'show', id: ter.id  } %>
@@ -104,5 +105,5 @@
         <%end%>
 
     </table>
-
+    <%end%>
 </div>

@@ -1,5 +1,5 @@
 <% @householders = Householder.where(client_id: current_user.client_id) %>
-<%= select_tag "hh", options_from_collection_for_select(@householders, "id", "fullname"), include_blank: true, class: 'search', prompt: "#{t :search}" %>
+<%= select_tag "hh", options_from_collection_for_select(@householders, "address_id", "fullname"), include_blank: true, class: 'search', prompt: "#{t :search}" %>
 
 
 <script>
@@ -10,7 +10,7 @@
             if (url) {
 
 
-                window.location = "/householders/" + url; // redirect
+                window.location = "/addresses/" + url; // redirect
 
             }
             return false;

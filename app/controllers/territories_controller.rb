@@ -1,10 +1,12 @@
 class TerritoriesController < ApplicationController
-   before_filter :login_required, :isadminuser
+   before_filter :login_required
    before_filter :set_territory, only: [:check_in,:check_out_new_user, :check_out, :check_out_post,:clear_last_coordinate, :clear_coordinates, :show, :edit, :update, :destroy,:view_all_ter_pins,:view_ter_householders]
+   before_filter :is_any_admin_redirect, only: [:check_in,:check_out_new_user, :check_out, :check_out_post,:clear_last_coordinate, :clear_coordinates, :edit, :update, :destroy]
    before_action :setup
 
 
   def index
+    is_any_admin_redirect
     @territories= Territory.where(client_id: session[:client_id]).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +15,7 @@ class TerritoriesController < ApplicationController
 
 
     def index_zone
-
+      is_any_admin_redirect
       @zone_id = params[:zoneid]
       @territories= Territory.where(client_id: session[:client_id], zone_id: @zone_id).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
 
@@ -27,7 +29,16 @@ class TerritoriesController < ApplicationController
 
 
   def show
+
+     is_same_client_redirect(@territory)
+
+     if current_user.can_manage_hh? && !current_user.isadmin? && @territory.user_id.to_s != current_user.id.to_s
+      redirect_to controller: 'main', action: 'no_perms'
+     end
+
      @bordercount = 0
+
+
   end
 
 

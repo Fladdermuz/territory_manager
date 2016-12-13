@@ -80,7 +80,10 @@
             <tr>
                 <td>
                   <%= link_to  image_tag("householder.png",:class=>"button", style: 'float:left;'), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                  <%= link_to  hh.fullname, '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+
                 </td>
+
                 <td>
                     <%= link_to image_tag("trash.png",:size =>"30x30",:class=>"trash", style: 'margin-left:9px;float:right'), hh, :confirm => "#{t :delete_householder_confirm}", :method => :delete %>
                 </td>

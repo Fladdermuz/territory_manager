@@ -62,9 +62,10 @@
             <% for hh in address.householders %>
             <tr>
                 <td colspan="8">
-                    <%= link_to image_tag("householder2.png",:size =>"38x38",:class => "img", :onmouseover => "this.src='/images/householder3.png'", :onmouseout => "this.src='/images/householder2.png'"),:controller =>'householders',:action => 'show', id: hh.id %>
-                    <%=link_to hh.fname + " " + hh.lname,:controller =>'householders',:action => 'show',id: hh.id %>
-                </td>
+                  <%= link_to  image_tag("householder.png",:class=>"button", style: 'float:left;'), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+                  <%= link_to  hh.fullname, '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
+
+                 </td>
                 <td>
                     <%= link_to  image_tag("edit.png",:class=>"button",:size=>"30x30"), '#', "data-toggle" => "modal", 'data-target' => "#hh_#{hh.id}" %>
                 </td>

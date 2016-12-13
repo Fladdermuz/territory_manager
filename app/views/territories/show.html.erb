@@ -9,7 +9,9 @@
                 </td>
                 <td class="buttons">
                     <%= link_to raw("<icon class='fa fa-5x fa-home'></icon>"), territories_path, class: 'btn btn-primary btn-home btn-top2' %>
+                    <%if is_admin || is_client_admin %>
                     <%= link_to raw("<icon class='fa fa-5x fa-edit'></icon>"), {:controller=>"territories", action: 'edit',id: @territory.id}, class: 'btn btn-primary btn-edit btn-top2' %>
+                    <%end%>
                 </td>
             </tr>
         </table>
@@ -55,7 +57,7 @@
             <tr>
 
                 <td>
-                    <%= link_to image_tag("home.png",:class=>"button",:title=>"#{t :print_addresses}"),controller: 'addresses', action: "index_terr",:territory_id => @territory.id %>
+                    <%= link_to "#{t :search_all_houses_button}", {controller: 'addresses', action: "index_terr",:territory_id => @territory.id}, class: 'btn btn-primary' %>
                 </td>
                 <td>
                     <div style='float:right;'>
@@ -63,11 +65,14 @@
                         <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
                         <div style='width:20px;display:inline-block;'></div>
 
-                        <%if @territory.is_checked_in?    %>
+                        <%if is_admin || is_client_admin %>
+                        <%if @territory.is_checked_in? %>
                         <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id =>@territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
                         <%else%>
                         <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_in",:id =>@territory.id}, class: 'btn btn-primary'%>
                         <%end%>
+                        <%end%>
+
 
                     </div>
                 </td>

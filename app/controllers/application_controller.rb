@@ -12,8 +12,30 @@ class ApplicationController < ActionController::Base
   helper_method :is_client_admin
   helper_method :setup
   helper_method :check_in_terr
+  helper_method :is_any_admin_redirect
+  helper_method :can_manage_addresses
 
 
+
+
+  def can_manage_addresses_redirect
+
+     if is_admin || is_client_admin || current_user.can_manage_hh?
+     else
+       respond_to controller: 'main'
+     end
+
+  end
+
+  def is_any_admin_redirect
+
+   if is_admin || is_client_admin
+   else
+     redirect_to controller: 'main'
+   end
+
+
+  end
 
 
   def check_in_terr(territory)
