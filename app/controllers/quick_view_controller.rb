@@ -5,8 +5,7 @@ class QuickViewController < ApplicationController
   def auto_checkin
 
    if params[:site_key].to_s == ENV['site_key'].to_s
-       Rails.logger.info '!!!!!!!!!!!!!!!!!!!!!!333333'
-      @territories = Territory.where(is_checked_in: FALSE)
+       @territories = Territory.where(is_checked_in: FALSE)
 
        @territories.each do |t|
 

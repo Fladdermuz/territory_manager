@@ -1,11 +1,11 @@
-<%if @user.email == 'blank'%>
+<%if !user.new_record? && user.email == 'blank'%>
  <p class='notice'>
    Please Fix your Email!
  </p>
 <%end%>
 
 
-<%= form_for(@user) do |f| %>
+<%= form_for(user) do |f| %>
 <br />
 
 <table class='table table-striped'>

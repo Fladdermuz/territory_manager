@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
    @salt = "1914"
    belongs_to :client
    has_many :warning_messages
+   has_many :territories
    validates_uniqueness_of :username
    validates_presence_of :username
    validates_presence_of :email

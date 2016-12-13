@@ -1,4 +1,5 @@
  es:
+  my_territories: "Mis Territorios"
   user_admin: "Usuario Tiene Todos Los Privilegios"
   user_manager: "El usuario Puede Manejar Sus Territorios Asignados"
   user_basic: "El usuario Sólo Puede Ver Sus Territorios Asignados"

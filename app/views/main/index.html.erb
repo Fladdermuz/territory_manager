@@ -44,6 +44,39 @@
     <table class="table table-striped" style="margin-left: 5%!important;">
         <tr>
             <th colspan="4" style="background-color: white;color:black;">
+                <%=t  :my_territories %>
+            </th>
+        </tr>
+
+        <%current_user.territories.where(is_checked_in: FALSE).each do |ter| %>
+        <tr>
+            <td style='width:20%;'>
+                <%=ter.territory_no %>
+            </td>
+            <td style='width:40%;'>
+                <%if ter.checkout_date.blank? %>
+                <%= t :never_used %>
+                <%else%>
+                <%=ter.checkout_date %>
+                <%end%>
+            </td>
+            <td>
+              <%if current_user.isadmin?%>
+               <%= link_to "#{t :check_in}",{controller: 'territories' ,:action=>"check_in",:id => ter.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
+              <%end%>
+            </td>
+            <td>
+                <%=link_to image_tag('view.png', size: '40x40'), {controller: 'territories', action: 'show', id: ter.id  } %>
+
+            </td>
+        </tr>
+        <%end%>
+
+    </table>
+
+    <table class="table table-striped" style="margin-left: 5%!important;">
+        <tr>
+            <th colspan="4" style="background-color: white;color:black;">
                 <%=t  :terr_needing_work %>
             </th>
         </tr>

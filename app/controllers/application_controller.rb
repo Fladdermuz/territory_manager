@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   @is_client_admin = FALSE
 
    if session[:role].to_s == "client_admin"
-     @is_client_admin = FALSE
+     @is_client_admin = TRUE
    end
 
    return @is_client_admin
@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
   @is_admin = FALSE
 
    if session[:role].to_s == "admin"
-    @is_admin = FALSE
+    @is_admin = TRUE
    end
 
    return @is_admin
