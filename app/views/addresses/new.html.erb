@@ -16,6 +16,14 @@
 
     <div class="card-block">
 
+      <% if @address.errors.any? %>
+      <% @address.errors.full_messages.each do |message| %>
+      <div class="alert alert-danger" role="alert">
+          <%= message %>
+      </div>
+      <% end %>
+      <% end %>
+
         <%= form_for(@address) do |f| %>
         <%= f.hidden_field(:client_id,:value => session[:client_id]) %>
         <table class="table table-striped">

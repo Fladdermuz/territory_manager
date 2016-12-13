@@ -6,23 +6,20 @@
 <div class="toptitle">
 <h1><%=t :newaddress %></h1>
 </div>
-<%= error_messages_for :address %>
-
-
-
+ 
 
 <% form_for(@address) do |f| %>
 
-  
+
 
 <br>
 
 <div class="quickname">
     <b><%=t :neighborhood%></b><br/>
-  
+
     <%= f.text_field :neighborhood, :value => @neighborhood %>
 
-  
+
 </div>
 
 
@@ -70,7 +67,7 @@
 <div class="quickname">
     <b><%=t :first_name_only%></b><br />
 
-  
+
 
 
 
@@ -78,7 +75,7 @@
     <%= ff.hidden_field(:client_id,:value => session[:client_id]) %>
     <%= ff.text_field :fname %>
 
-    
+
 
   <% end %>
 </div>

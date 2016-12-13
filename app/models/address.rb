@@ -6,6 +6,9 @@ belongs_to :client
 accepts_nested_attributes_for :householders, reject_if: proc { |attributes| attributes['fname'].blank? }
 
 validates_uniqueness_of :house_no, :scope => [:street,:city,:apt_no,:territory_id,:client_id]
+validates_presence_of :house_no
+validates_presence_of :street
+
 geocoded_by :full_street_address
 after_validation :geocode
 

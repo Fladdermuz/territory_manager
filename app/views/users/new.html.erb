@@ -16,9 +16,17 @@
     </table>
 </div>
 
-<div class="card-block"
+<div class="card-block">
 
-            <%= render 'form', user: @user %>
 
-    </div>
+        <% if @user.errors.any? %>
+        <% @user.errors.full_messages.each do |message| %>
+        <div class="alert alert-danger" role="alert">
+            <%= message %>
+        </div>
+        <% end %>
+        <% end %>
+
+    <%= render 'users/form', user: @user %>
+</div>
 </div>

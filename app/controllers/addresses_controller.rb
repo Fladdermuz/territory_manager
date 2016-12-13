@@ -65,7 +65,7 @@ class AddressesController < ApplicationController
   @street = params[:street]
   @city = params[:city].to_s
   @state = params[:state]
- 
+
 
   @cord = Geocoder.coordinates("#{@house_no}, #{@street}, #{@city},#{@state}")
   @coords = @cord[0].to_s + ',' + @cord[1].to_s
@@ -189,6 +189,7 @@ end
          format.html { redirect_to controller: 'addresses', action: 'show',id: @address.id }
 
       else
+         @address.householders.build
          format.html { render :action => "new" }
 
       end

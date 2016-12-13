@@ -1,11 +1,11 @@
-<%if !user.new_record? && user.email == 'blank'%>
+<%if !@user.new_record? && @user.email == 'blank'%>
  <p class='notice'>
    Please Fix your Email!
  </p>
 <%end%>
 
 
-<%= form_for(user) do |f| %>
+<%= form_for(@user) do |f| %>
 <br />
 
 <table class='table table-striped'>
@@ -60,13 +60,24 @@
         </td>
     </tr>
 
-    <% if session[:role] == "admin" %>
+    <% if is_admin %>
     <tr>
         <td>
             <%=t :isadmin %>
         </td>
         <td>
             <%= f.check_box :isadmin %>
+        </td>
+    </tr>
+    <%end%>
+
+    <% if is_client_admin || is_admin %>
+    <tr>
+        <td>
+            <%=t :can_manage_hh %>
+        </td>
+        <td>
+            <%= f.check_box :can_manage_hh %>
         </td>
     </tr>
     <%end%>
