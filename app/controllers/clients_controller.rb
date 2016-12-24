@@ -63,6 +63,7 @@ class ClientsController < ApplicationController
 
 
   def new
+
     @client = Client.new
     @client.users.build
 
@@ -98,7 +99,7 @@ class ClientsController < ApplicationController
            session[:user] = @user
            session[:uid] = @user.id
            session[:username] = @username
-           session[:role] = "admin"
+           session[:role] = "client_admin"
            session[:client_id] =  @client.id
            session[:locale] = @user.sitelang
           end
@@ -146,7 +147,7 @@ class ClientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
      def client_params
-       params.require(:client).permit(:zip, :is_coordinate_only, :latitude, :longitude, :center_coordinate , :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :sitelang, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
+       params.require(:client).permit(:zip, :is_language_based, :is_coordinate_only, :latitude, :longitude, :center_coordinate , :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :sitelang, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
      end
 
 end

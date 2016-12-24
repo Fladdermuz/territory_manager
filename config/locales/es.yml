@@ -1,4 +1,6 @@
  es:
+  client_name_placeholder: "El Nombre de Su Cong/Groupo Aqui!"
+  is_language_based_help: "Los grupos y congregaciones del idioma extranjero tienen que guardar direcciones individuales, congregaciones normales no"
   my_territories: "Mis Territorios"
   user_admin: "Usuario Tiene Todos Los Privilegios"
   user_manager: "El usuario Puede Manejar Sus Territorios Asignados"
@@ -39,7 +41,7 @@
   finish: "Terminar"
   coordinates: "Coordinadas"
   search: "Buscar"
-  client_create: "Crear Su Institución"
+  client_create: "Crear Su Congregación"
   user_create: "Crear Su Usuario"
   must_have_coord: "Debe mover el marcador del mapa a su área!"
   english: "Inglés"
@@ -241,6 +243,7 @@
         state: "Estado"
         city: "Ciudad"
         country_id: "País"
+        is_language_based: "¿Es una congregación o grupo basado en una un idioma extranjero?"
         coordinate: "Coordinada"
         is_coordinate_only: "Solo utiliza coordenadas"
         require_address_coordinates: "Requiera que direcciones tengan coordenadas"

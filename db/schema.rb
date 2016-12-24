@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20161113210312) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
+    t.boolean  "is_language_based",             default: true
     t.integer  "country_id"
     t.float    "latitude",           limit: 24
     t.float    "longitude",          limit: 24

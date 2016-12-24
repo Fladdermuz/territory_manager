@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
    validates_presence_of :username
    validates_presence_of :email
    validates_presence_of :fname
-   validates_presence_of :client_id
    validates_presence_of :username
    before_create :before_create_items
    before_update :change_pass

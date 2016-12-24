@@ -9,9 +9,15 @@ class Zone < ActiveRecord::Base
   validates_presence_of :center_coordinate
   validates_presence_of :client_id
   validates_presence_of :zone_no
-  validates_presence_of :map_layer_id
+  before_create :check_map_layer
 
 
+
+  def check_map_layer
+    if self.map_layer_id.blank?
+       self.map_layer_id = 1
+    end
+  end
 
   def self.no_cords(client_id)
 

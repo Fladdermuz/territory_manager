@@ -24,8 +24,7 @@
     <td>
         <b>
             <%=f.label :zone_no%>#
-        </b>
-    </td>
+        </b>city
     <td><%= f.text_field :zone_no ,class: 'text-field-wide' %>
     </td>
 </tr>
@@ -46,14 +45,14 @@
         </b>
     </td>
     <td>
-        <%= f.text_field :city,value:  @city,class: 'text-field-wide' %></td>
+        <%= f.text_field :city, value: current_user.client.city,class: 'text-field-wide' %></td>
 </tr>
 <tr>
     <td>
         <b><%=f.label :state %>
         </b>
     </td>
-    <td><%= f.text_field :state, class: 'text-field-wide' %></td>
+    <td><%= f.text_field :state, value: current_user.client.state, class: 'text-field-wide' %></td>
 </tr>
 
 <tr>

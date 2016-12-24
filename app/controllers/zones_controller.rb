@@ -61,6 +61,7 @@ class ZonesController < ApplicationController
   def create
     @zone = Zone.new(zone_params)
 
+    
     respond_to do |format|
       if @zone.save
         @msg = "#{t :zone}" + "#{t :record_created}"

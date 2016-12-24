@@ -6,6 +6,7 @@ class CreateClients < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :zip
+      t.boolean :is_language_based, default: TRUE
       t.integer :country_id
       t.float :latitude
       t.float :longitude

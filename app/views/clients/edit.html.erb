@@ -15,9 +15,7 @@
     </div>
 
     <div class="card-block">
-        <%if @client.center_coordinate == "38.802859, -96.208728" || @client.center_coordinate.blank? %>
-        <div class="alert alert-danger" role="alert"><%=t :must_have_coord %></div>
-        <%end%>
+
 
         <%=render 'form', client: @client %>
 

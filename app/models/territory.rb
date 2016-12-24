@@ -12,8 +12,16 @@ class Territory < ActiveRecord::Base
   validates_presence_of :zone_id
   validates_presence_of :center_coordinate
   validates_presence_of :user_id, if: Proc.new { |r| !r.is_checked_in? }
+  before_create :check_map_layer
 
-  
+
+  def check_map_layer
+    if self.map_layer_id.blank?
+       self.map_layer_id = 1
+    end
+  end
+
+
  def create_key
 
   @checked = self.is_checked_in_was

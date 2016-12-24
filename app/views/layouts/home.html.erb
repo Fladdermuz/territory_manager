@@ -11,41 +11,31 @@
         <header>
 
             <%= form_for User.new, url: "login/login" do |f| %>
-            <table class="table table-bordered-bottom">
-                <tr>
-                    <td style='width:70%;'>
 
-                        <%= render 'main/change_lang' %>
+            <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 top-div'>
+                <%= render 'main/change_lang' %>
+            </div>
 
-                    </td>
-                    <td>
+            <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 top-div' style='text-align:right;'>
+                <table style='float:right;'>
+                    <tr>
+                        <td>
+                            <%= f.text_field :username, class: 'text-field-wide' %>
+                        </td>
+                        <td>
+                            <%= f.password_field :password, class: 'text-field-wide'  %>
+                        </td>
+                        <td>
+                            <%= f.submit "Login", class: 'btn btn-warning' %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-                        <%= f.text_field :username, class: 'text-field-wide' %>
-                    </td>
-
-                    <td>
-                        <%= f.password_field :password, class: 'text-field-wide'  %>
-                    </td>
-
-                    <td>
-                        <%= f.submit "Login", class: 'btn btn-warning' %>
-                    </td>
-                </tr>
-            </table>
             <% end %>
-         <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }, class: 'btn btn-primary new_acct'%>
+            <%=link_to "#{t :create_account}",{ controller: "clients", action: "new" }, class: 'btn btn-primary new_acct'%>
         </header>
         <%= yield %>
 
     </body>
 </html>
-
-<script>
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 1) {
-            $('header').addClass("sticky");
-        } else {
-            $('header').removeClass("sticky");
-        }
-    });
-</script>

@@ -1,4 +1,4 @@
-<%= select_tag "lang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "lang",style: 'margin-left:18px;float:left;margin-top:3px;max-width:200px;', :class=>'text-field-wide',prompt: "#{t :lang}" } %>
+<%= select_tag "lang", options_for_select([["#{t :spanish}","es"],["#{t :english}", "en"]],session[:locale]),  {id: "lang", :class=>'text-field-wide',prompt: "#{t :lang}" } %>
 
 <script>
     $(function(){

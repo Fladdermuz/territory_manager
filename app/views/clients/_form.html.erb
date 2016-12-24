@@ -95,7 +95,7 @@
             <%= f.label :name %>
         </td>
         <td>
-            <%= f.text_field :name , class:  'text-field-wide'%>
+            <%= f.text_field :name , class:  'text-field-wide', placeholder: "#{t :client_name_placeholder}" %>
         </td>
     </tr>
     <tr>
@@ -155,6 +155,16 @@
         <td>
             <%= f.check_box :is_coordinate_only  %>
             <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :cord_only_help %>'>
+            </icon>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <%= f.label :is_language_based %></td>
+        <td>
+            <%= f.check_box :is_language_based %>
+            <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :is_language_based_help %>'>
             </icon>
         </td>
     </tr>

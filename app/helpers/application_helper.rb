@@ -75,7 +75,18 @@ module ApplicationHelper
 
     end
 
+    def get_map_layer_id
 
+
+      @map_layer = MapLayer.find_by(id: session[:map_layer_id])
+
+      if @map_layer.nil?
+        @map_layer = MapLayer.first
+      end
+
+      return @map_layer.id
+
+    end
 
     def new_or_update(object)
 

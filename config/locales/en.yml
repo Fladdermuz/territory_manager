@@ -1,4 +1,6 @@
 en:
+  client_name_placeholder: "Your Cong/Group Name here"
+  is_language_based_help: "Foreign Language groups and congregations need to keep track of individual addresses, normal congregations do not track anything other than 'do not calls' "
   my_territories: "My Territories"
   user_admin: "User Has All Privileges"
   user_manager: "User Can Manage Assigned Territories"
@@ -39,7 +41,7 @@ en:
   finish: "Finish"
   coordinates: "Coordinates"
   search: "Search"
-  client_create: "Create Your Organization"
+  client_create: "Create Your Congregation"
   user_create: "Create Your User"
   must_have_coord: "You must move the map marker to your area!"
   english: "English"
@@ -265,6 +267,7 @@ en:
       client:
         name: "Name of Institution"
         address: 'Address'
+        is_language_based: "Is this a Foregin Language Congregation or Group?"
         state: "Default State or Province"
         city: "Default City"
         country_id: "Country"

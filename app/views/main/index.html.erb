@@ -1,13 +1,14 @@
 <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 left">
     <br>
     <br>
-
+    <%if current_user.client.is_language_based?%>
     <%=link_to "#{t :addresses}", {:controller => 'addresses', :action => 'home'}, class: 'btn btn-primary' %>
     <br>
+
     <%= link_to "#{t :householder_button}",{ controller: 'householders', action: 'home'}, class: 'btn btn-primary' %>
     <br>
-
-    <% if  session[:role] == "admin"  or  session[:role] == "admin" %>
+    <%end%>
+    <% if  session[:role] == "admin"  or  session[:role] == "client_admin" %>
     <%= link_to "#{t :territory_button}",{controller: 'territories', action: 'home'}, class: 'btn btn-primary'%>
     <br>
     <%= link_to "#{t :zone_button}",{controller: 'zones', action: 'index'}, class: 'btn btn-primary'%>
@@ -18,7 +19,7 @@
 
     <br>
 
-    <% if  session[:role] == "admin" %>
+    <% if session[:role].to_s == "admin" %>
 
     <%= link_to "#{t :client_button}",{controller: 'clients', action: 'index'}, class: 'btn btn-primary'%>
 
