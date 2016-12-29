@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :setup
   helper_method :check_in_terr
   helper_method :is_any_admin_redirect
+  helper_method :is_any_admin
   helper_method :can_manage_addresses
 
 
@@ -34,6 +35,17 @@ class ApplicationController < ActionController::Base
      redirect_to controller: 'main'
    end
 
+
+  end
+
+  def is_any_admin
+   @is_any_admin = FALSE
+
+   if is_admin || is_client_admin
+       @is_any_admin = TRUE
+   end
+
+   return  @is_any_admin
 
   end
 
@@ -61,7 +73,7 @@ class ApplicationController < ActionController::Base
 
   def setup
 
-    if current_user.nil? || !current_user.isadmin? && !current_user.can_manage_hh?
+    if current_user.nil? || !current_user.isadmin? && !current_user.is_client_admin? && !current_user.can_manage_hh?
       redirect_to  :logout
     else
      @u = current_user

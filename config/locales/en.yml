@@ -1,4 +1,7 @@
 en:
+  expires: "Expires On "
+  do_not_calls: "Do not calls"
+  zone_help: "What is a zone? A zone is a large area that holds many territories. An example use of a zone would be dividing up your city into east and west zones to make managing it easier. You can do as many or as few zones as you like, but you must have at least one!"
   client_name_placeholder: "Your Cong/Group Name here"
   is_language_based_help: "Foreign Language groups and congregations need to keep track of individual addresses, normal congregations do not track anything other than 'do not calls' "
   my_territories: "My Territories"
@@ -7,7 +10,7 @@ en:
   user_basic: "User Can Only View His Assigned Territories"
   assigned_to: "Assigned To "
   terr_message1: "You have been assigned a new Territory. Click here to view it."
-  is_admin_help: "This means the User Has all priveledges on the System! Use with Caution!"
+  is_client_admin_help: "This means the User Has all priveledges on the System! Use with Caution!"
   can_manage_hh_help: "This means the User in NOT an admin and can only add householders to the territories they have been assigned. They can not check in or check out territories."
   can_manage_hh: "Can Manage Householders"
   check_back_in: "Check Back in Automatically On"
@@ -19,7 +22,7 @@ en:
   step3_done: "Great, you have at least 1 Territory"
   step4_not: "Create Borders for your Territory!"
   step4_done: "Your Territory has borders!"
-  please_choose_one: "Please Choose One ..."
+  please_choose_one: "Please Choose Territory ..."
   create_bordered_territories: "Create Bordered Territories!"
   add_hh: "Add and Manage Householders"
   assign_terrs: "Manage Users and Territories"
@@ -92,6 +95,7 @@ en:
   # end main index
   client_button: "Clients"
 
+  congregation: "Congregation"
 
   #territory Histories
   territory_histories: "Territory Histories"
@@ -163,7 +167,6 @@ en:
   addresses: "Addresses"
   address: "Address"
   address_created: "The address was successfully created"
-  address_list: "Addresses"
   add_new_to_to_territory: "Add New Addy to Territory"
   newaddress_button: "New Address"
   neighborhood: "Neighborhood"
@@ -265,7 +268,7 @@ en:
         alt_city: "Alternate City"
         hide_map: "Hide Map"
       client:
-        name: "Name of Institution"
+        name: "Name of Congregation"
         address: 'Address'
         is_language_based: "Is this a Foregin Language Congregation or Group?"
         state: "Default State or Province"

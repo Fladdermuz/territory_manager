@@ -57,12 +57,13 @@
             <tr>
 
                 <td>
-                    <%= link_to "#{t :search_all_houses_button}", {controller: 'addresses', action: "index_terr",:territory_id => @territory.id}, class: 'btn btn-primary' %>
+                    <%= link_to "#{get_address_text}", {controller: 'addresses', action: "index_terr",:territory_id => @territory.id}, class: 'btn btn-primary' %>
                 </td>
                 <td>
                     <div style='float:right;'>
-
-                        <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
+                        <% if current_user.client.is_language_based? %>
+                         <%= link_to image_tag("map.png",:size=>"35x35",:class=>"button",:title=>"#{t :map}"),controller: 'territories' ,:action=>"view_all_ter_pins", :id =>@territory.id %>
+                        <%end%>
                         <div style='width:20px;display:inline-block;'></div>
 
                         <%if is_admin || is_client_admin %>
@@ -104,7 +105,7 @@
                 </td>
             </tr>
 
-            <% if !@territory.center_coordinate.nil? && current_user.isadmin? %>
+            <% if !@territory.center_coordinate.nil? && is_any_admin %>
             <tr>
                 <td colspan="2" data-no-turbolink='true'>
                     <%= link_to "#{t :new_coordinate}", {:controller => "coordinates", :action => "new", :territory_id => @territory.id}, class: 'btn btn-primary', data: { no_turbolink: true } %>

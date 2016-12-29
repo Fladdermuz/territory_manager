@@ -98,7 +98,11 @@
         <td colspan="2">
             <%= f.hidden_field(:is_dynamic,value:  true) %>
             <%= f.hidden_field(:client_id,value:  current_user.client_id) %>
+            <%if territory.new_record?%>
             <%= f.submit "#{t :next}", class: 'btn btn-primary' %>
+            <%else%>
+            <%= f.submit "#{t :update}", class: 'btn btn-primary' %>
+            <%end%>
         </td>
     </tr>
 </table>

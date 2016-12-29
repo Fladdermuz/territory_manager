@@ -33,7 +33,7 @@
 
       var position = document.getElementById('coordinate');
       position.value = '<%=center%>';
-      var map_drag = L.map('map_drag').setView([<%= center %>],'<%=territory.zoom%>');
+      var map_drag = L.map('map_drag').setView([<%= center %>],'16');
       L.tileLayer('<%=@map_layer.layer_url%>', {
           attribution: 'OSM',
           maxZoom: '<%=@map_layer.max_zoom%>'

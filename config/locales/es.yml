@@ -1,4 +1,7 @@
- es:
+es:
+  expires: "Fecha de Vencimiento "
+  do_not_calls: "Lista de no visitas"
+  zone_help: "¿Qué es una zona? Una zona es un área grande que sostiene muchos territorios. Un ejemplo dividiría su ciudad en zonas del este y de Oeste para hacer la dirección de ello más fácil. Debe crear al menos una zona."
   client_name_placeholder: "El Nombre de Su Cong/Groupo Aqui!"
   is_language_based_help: "Los grupos y congregaciones del idioma extranjero tienen que guardar direcciones individuales, congregaciones normales no"
   my_territories: "Mis Territorios"
@@ -7,7 +10,7 @@
   user_basic: "El usuario Sólo Puede Ver Sus Territorios Asignados"
   assigned_to: "Asignado a "
   terr_message1: "Le han asignado un nuevo Territorio. Haga clic aquí para verlo."
-  is_admin_help: "¡Esto significa que el Usuario Tiene todos los privilegios en el Sistema! ¡Use con la Precaución!"
+  is_client_admin_help: "¡Esto significa que el Usuario Tiene todos los privilegios en el Sistema! ¡Use con la Precaución!"
   can_manage_hh_help: "Esto significa que el Usuario no es un administrador y sólo puede añadir amos de casa a los territorios asignados a el. No se pueden registrar o comprobar territorios."
   can_manage_hh: "Puede Editar Amos de Casa"
   check_back_in: "Vuelva automáticamente en"
@@ -19,7 +22,7 @@
   step3_done: "Genial, tienes al menos 1 territorio!"
   step4_not: "Crear las fronteras de su territorio!"
   step4_done: "El territorio tiene fronteras!"
-  please_choose_one: "Escoje uno porfis ..."
+  please_choose_one: "Escoje un Territorio porfis ..."
   create_bordered_territories: "Crear territorios con fronteras!"
   add_hh: "Agregar y administrar amos de casa"
   assign_terrs: "Administrar usuarios y territorios"
@@ -83,6 +86,7 @@
   householder_button: "Amos de Casa"
   territory_button:  "Territorios"
   zone_button: "Zonas"
+  congregation: "Congregación"
   # end main index
   # For Territories page
   territory_new_in_zone: "Crear Nuevo en Zona"
@@ -149,7 +153,6 @@
   addresses: "Direcciones"
   address: "Direccion"
   address_created: "La dirección se ha creado correctamente."
-  address_list: "Direcciones"
   add_new_to_to_territory: "Añadir Nueva Dirección a Territorio"
   newaddress_button: "Nueva Dirección"
   neighborhood: "Barrio o Sub Division"
@@ -238,7 +241,7 @@
   activerecord:
     attributes:
       client:
-        name: "Nombre de Institucion"
+        name: "Nombre de Congregación"
         address: 'Direccion'
         state: "Estado"
         city: "Ciudad"

@@ -143,8 +143,7 @@ class AddressesController < ApplicationController
 def show_all_cords
 
   @street = params[:street]
-  @address = params[:address]
-  @map = User.find_by(username: session[:username]).mappref
+  @address = params[:address]  
   @addresses = Address.where(client_id: session[:client_id], address_id: @address, street: @street).where.not(center_coordinate: '')
        respond_to do |format|
       format.html # new.html.erb

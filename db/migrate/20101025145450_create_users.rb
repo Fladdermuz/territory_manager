@@ -7,10 +7,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :fname
       t.string :lname
-      t.boolean :isadmin
+      t.boolean :isadmin , default: FALSE
       t.boolean :must_change_pass, default: FALSE
-      t.boolean :can_manage_hh
-      t.string :mappref
+      t.boolean :can_manage_hh, default: FALSE
+      t.boolean :is_client_admin
       t.date :lastlogin
       t.string :sitelang
       t.timestamps null: false

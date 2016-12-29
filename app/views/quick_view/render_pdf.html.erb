@@ -2,7 +2,7 @@
     <tr>
         <td style='width:70%;'>
             <h3>
-                <%= t :address_list %>:<%=t :territory%>-<%=@territory.territory_no%>
+                <%= t :addresses %>:<%=t :territory%>-<%=@territory.territory_no%>
             </h3>
 
         </td>
@@ -17,7 +17,7 @@
     <%if !@territory.check_back_in.blank?%>
     <tr>
         <td colspan="2">
-            <%=@territory.check_back_in %>
+          <%=t :expires%>- <%=@territory.check_back_in %>
         <td>
     </tr>
     <%end%>

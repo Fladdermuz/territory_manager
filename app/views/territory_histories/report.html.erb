@@ -1,49 +1,48 @@
 <div class="card">
-  <div class="card-header-top">
-    <h2><%=t :report_for%> <%=@territories[0].client.name%></h2>
-  </div>
+    <div class="card-header card-header-top">
+        <h2><%=t :report_for%>
+            <%=@territories[0].client.name%></h2>
+    </div>
 
-  <div class="card-block">
+    <div class="card-block">
 
-<table class="table table-striped">
+        <table class="table table-striped">
 
-  <% for territory in @territories do%>
+            <% for territory in @territories do%>
 
-  <tr>
-    <td><%=t :territory %></td>
-  </tr>
+            <tr>
+                <th><%=t :territory %></th>
+                <th><%=t :user %>
+                </th>
+                <th><%=t :check_out_date %>
+                </th>
+                <th><%=t :check_in_date%>
+                </th>
+            </tr>
+            <tr>
 
-  <tr>
-     <td><%= territory.territory_no %></td>
-  </tr>
+                <td><%= territory.territory_no %></td>
 
+                <% territory.territory_histories.each do |t|%>
 
-   <% territory.territory_histories.each do |t|%>
+                <td>
+                    <%= t.user.username %></td>
 
-  <tr>
-    <td> <%= t.user_id %></td>
-  </tr>
+                <td>
+                    <%= t.check_out_date %></td>
 
+                <td class="out"><%= t.check_in_date %></td>
+            </tr>
+            <%end%>
 
-  <tr>
-    <td> <%= t.check_out_date %></td>
-  </tr>
-  <tr>
-    <td class="out"><%= t.check_in_date %></td>
-  </tr>
-   <%end%>
-   
+            <% end %>
 
-
-<% end %>
-
- 
-</table>
+        </table>
+    </div>
 </div>
-  </div>
 
 <div class="digg_pagination">
-<%=will_paginate @territories %>
+    <%=will_paginate @territories %>
 </div>
 
 </div>

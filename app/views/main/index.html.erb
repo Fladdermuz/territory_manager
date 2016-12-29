@@ -14,18 +14,22 @@
     <%= link_to "#{t :zone_button}",{controller: 'zones', action: 'index'}, class: 'btn btn-primary'%>
     <br>
     <%= link_to "#{t :user_button}",{controller: 'users', action: 'index'}, class: 'btn btn-primary'%>
+    <%= link_to "#{t :territory_histories}",{controller: 'territory_histories', action: 'index'}, class: 'btn btn-primary'%>
 
     <%end%>
 
     <br>
 
     <% if session[:role].to_s == "admin" %>
-
     <%= link_to "#{t :client_button}",{controller: 'clients', action: 'index'}, class: 'btn btn-primary'%>
-
     <%end%>
 
-    <%=link_to "#{t :logoff}","login/logout", class: 'btn btn-primary'%>
+    <% if session[:role].to_s == "client_admin" %>
+    <%= link_to "#{t :congregation}",current_user.client, class: 'btn btn-primary'%>
+    <%end%>
+
+
+    <%=link_to "#{t :logoff}", :logout, class: 'btn btn-primary'%>
 
     <%if @territories.count < 1 && @zones.count < 1 %>
     <%@help_class = 'help' %>

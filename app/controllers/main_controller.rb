@@ -6,7 +6,6 @@ class MainController < ApplicationController
   def index
     @territories = Territory.where(client_id: current_user.client_id).order('checkout_date ASC').limit(8)
     @zones = Zone.where(client_id: current_user.client_id)
-
   end
 
   def help

@@ -36,31 +36,36 @@ class ClientsController < ApplicationController
   def show
 
 
+    if @client.id.to_s == current_user.client_id.to_s || is_admin
 
     @country =  @client.country
 
 
-   if @client.latitude.blank? && @client.longitude.blank?
-      @coordinates = @country.latitude.to_s + "," + @country.longitude.to_s
-    else
-
      if @client.latitude.blank? && @client.longitude.blank?
-      @coordinates = @client.center_coordinate
+      @coordinates = @country.latitude.to_s + "," + @country.longitude.to_s
      else
-      @coordinates = @client.latitude.to_s + ',' + @client.longitude.to_s
+
+       if @client.latitude.blank? && @client.longitude.blank?
+        @coordinates = @client.center_coordinate
+       else
+        @coordinates = @client.latitude.to_s + ',' + @client.longitude.to_s
+       end
+
+
+
      end
-
-
-
-   end
 
 
     respond_to do |format|
       format.html # show.html.erb
      end
+
+    else
+     redirect_to controller: 'main'
+    end
+
+
   end
-
-
 
   def new
 
@@ -74,7 +79,13 @@ class ClientsController < ApplicationController
 
 
   def edit
-    @client = Client.find(params[:id])
+
+    if @client.id.to_s == current_user.client_id.to_s || is_admin
+     @client = Client.find(params[:id])
+    else
+      redirect_to controller: "main"
+    end
+
   end
 
 
@@ -147,7 +158,7 @@ class ClientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
      def client_params
-       params.require(:client).permit(:zip, :is_language_based, :is_coordinate_only, :latitude, :longitude, :center_coordinate , :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :sitelang, :isadmin, :username, :fname, :lname, :password, :client_id, :email])
+       params.require(:client).permit(:zip, :is_language_based, :is_coordinate_only, :latitude, :longitude, :center_coordinate , :name, :address, :city, :state, :country_id, :language, users_attributes: [:id, :sitelang, :is_client_admin, :username, :fname, :lname, :password, :client_id, :email])
      end
 
 end

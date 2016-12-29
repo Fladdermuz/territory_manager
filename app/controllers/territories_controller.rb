@@ -135,7 +135,7 @@ class TerritoriesController < ApplicationController
       @user.email = params[:email]
       @user.must_change_pass = TRUE
       @user.can_manage_hh = params[:can_manage_hh]
-      @user.isadmin = params[:is_admin]
+      @user.is_client_admin = FALSE
       @user.client_id = current_user.client_id
       @user.password = params[:username]
 

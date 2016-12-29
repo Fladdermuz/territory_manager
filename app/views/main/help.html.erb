@@ -26,6 +26,8 @@
                     <%=link_to "#{t :step1_not}", {controller: "zones", action: "new"}, class: 'btn btn-warning help-btn' %>
                     <%end%>
 
+                    <icon class='fa fa-2x fa-question-circle' style='margin-left:-6px;padding-right:8px;float:left' title='<%=t :zone_help%>''></icon>
+
                 </td>
                 <td style='width:10%;'>
                     <%if @zones.count > 0 %>

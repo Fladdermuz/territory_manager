@@ -52,10 +52,7 @@ class User < ActiveRecord::Base
    def self.authenticate(username, pass)
 
     @u = User.find_by(username: username)
-      if @u.nil?
-       Rails.logger.info "No Matching username was found"
-      end
-
+  
        return nil if @u.nil?
        return @u if User.encrypt(pass) == @u.password || User.encrypt(@u.username) == User.encrypt(@u.password)
        @isGood = User.encrypt(pass) == @u.password

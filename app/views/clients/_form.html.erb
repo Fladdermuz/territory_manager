@@ -45,7 +45,7 @@
         </td>
         <td>
             <%= ff.text_field :email, class:  'text-field-wide' %>
-            <%=ff.hidden_field :isadmin, value: TRUE %>
+            <%= ff.hidden_field :is_client_admin, value: TRUE %>
         </td>
     </tr>
     <tr>
@@ -129,7 +129,17 @@
         </td>
     </tr>
 
-    <tr>
+       <tr>
+           <td>
+               <%= f.label :is_language_based %></td>
+           <td>
+               <%= f.check_box :is_language_based, onclick: "$('#fl').toggle();" %>
+               <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :is_language_based_help %>'>
+               </icon>
+           </td>
+       </tr>
+
+    <tr id='fl'>
         <td>
             <%= f.label :lang %></td>
         <td>
@@ -158,17 +168,6 @@
             </icon>
         </td>
     </tr>
-
-    <tr>
-        <td>
-            <%= f.label :is_language_based %></td>
-        <td>
-            <%= f.check_box :is_language_based %>
-            <icon class='fa fa-3x fa-question-circle' style='float:right' title='<%=t :is_language_based_help %>'>
-            </icon>
-        </td>
-    </tr>
-
 
     <tr>
         <td colspan="2">

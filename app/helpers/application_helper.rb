@@ -8,7 +8,18 @@ module ApplicationHelper
 
   end
 
+  def get_address_text
 
+   if current_user.client.is_language_based?
+     @address_txt = "#{t :addresses}"
+   else
+     @address_txt = "#{t :do_not_calls}"
+   end
+
+
+    return @address_txt
+
+  end
 
  def get_best_coord(obj)
 

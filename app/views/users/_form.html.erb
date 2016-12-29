@@ -75,23 +75,26 @@
     <%end%>
 
     <% if is_client_admin || is_admin %>
+
+    <tr>
+        <td>
+            <%=t :is_client_admin  %>
+        </td>
+        <td>
+            <%= f.check_box :is_client_admin, onclick: "$('#user_can_manage_hh').attr('checked', false);" %>
+        </td>
+    </tr>
+
     <tr>
         <td>
             <%=t :can_manage_hh %>
         </td>
         <td>
-            <%= f.check_box :can_manage_hh %>
+            <%= f.check_box :can_manage_hh, onclick: "$('#user_is_client_admin').attr('checked', false);" %>
         </td>
     </tr>
-    <%end%>
 
-    <tr>
-        <td>
-            <%=t :mappref %></td>
-        <td>
-            <%= f.select(:mappref,[['satellite'], ['roadmap'],['hybrid'],['terrain']],{}, {class: 'text-field-wide'})%>
-        </td>
-    </tr>
+    <%end%>
 
     <tr>
         <td>

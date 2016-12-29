@@ -1,6 +1,6 @@
 class TerritoryHistoriesController < ApplicationController
     before_action :login_required
-    before_action :isadminuser
+    before_action :is_any_admin_redirect
     before_action :set_territory_history, only: [:show, :edit, :update, :destroy]
 
   def index

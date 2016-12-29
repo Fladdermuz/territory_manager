@@ -6,13 +6,13 @@ class UsersController < ApplicationController
 
   def index
 
-    isadminuser
+    is_any_admin_redirect
 
     if session[:role] == "admin"
     @users = User.includes(:client).order(:username)
     end
 
-    if session[:role] == "admin"
+    if session[:role] == "client_admin"
        @users = User.where(client_id: session[:client_id])
     end
 
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
 
   def edit
-    @map = @user.mappref
+  
   end
 
 
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
 
  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit( :must_change_pass, :username, :can_manage_hh, :password, :fname, :lname, :email, :client_id, :isadmin, :mappref, :lastlogin, :sitelang)
+    params.require(:user).permit( :is_client_admin, :must_change_pass, :username, :can_manage_hh, :password, :fname, :lname, :email, :client_id, :isadmin, :lastlogin, :sitelang)
   end
 
 

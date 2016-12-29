@@ -26,6 +26,10 @@ class LoginController < ApplicationController
         if @user.isadmin
           session[:role] = "admin"
         end
+
+        if @user.is_client_admin
+          session[:role] = "client_admin"
+        end
         if @user.can_manage_hh
           session[:role] = "hh_admin"
         end
