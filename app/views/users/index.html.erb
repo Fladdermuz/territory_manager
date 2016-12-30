@@ -40,15 +40,20 @@
                     <td><%= user.client.name %></td>
                     <td><%= user.email %></td>
                     <td>
-                      <%if user.isadmin?%>
+                      <%if user.isadmin?  %>
+                        <%=image_tag('super-admin-bat.png', size: '43x43', title: "#{t :user_admin}") %>
+                      <%end%>
+
+                      <%if  user.is_client_admin?%>
                         <%=image_tag('user-admin.png', size: '43x43', title: "#{t :user_admin}") %>
                       <%end%>
 
-                      <%if !user.isadmin? && user.can_manage_hh? %>
+
+                      <%if !user.is_client_admin? && user.can_manage_hh? %>
                         <%=image_tag('Usericon.png', size: '43x43', title: "#{t :user_manager}") %>
                       <%end%>
 
-                      <%if !user.isadmin? && !user.can_manage_hh? %>
+                      <%if !user.isadmin? && !user.is_client_admin? && !user.can_manage_hh? %>
                         <%=image_tag('user-basic.png', size: '43x43', title: "#{t :user_basic}") %>
                       <%end%>
 

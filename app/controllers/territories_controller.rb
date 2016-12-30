@@ -16,7 +16,7 @@ class TerritoriesController < ApplicationController
 
     def index_zone
       is_any_admin_redirect
-      @zone_id = params[:zoneid]
+      @zone_id = params[:zone_id]
       @territories= Territory.where(client_id: session[:client_id], zone_id: @zone_id).paginate(:page => params[:page], :per_page => 30).order("territory_no+0") # Return only Requested street
 
       respond_to do |format|
@@ -253,29 +253,6 @@ class TerritoriesController < ApplicationController
       @territories = Territory.where(client_id: session[:client_id]).order("territory_no+0")
 
     end
-
-
-    def report_status
-      @territories = Territory.where(:all,:conditions => "client_id = '#{session[:client_id]}'", :order => "is_checked_in")
-
-    end
-
-    def report_cob
-      @territories = Territory.where("user_id != '' and is_checked_in = false AND client_id = '#{session[:client_id]}'").order("user_id")
-
-    end
-
-
-     def report_co_date
-      @territories = Territory.where("checkout_date != '' AND client_id = '#{session[:client_id]}' ").order("checkout_date")
-
-    end
-
-
-    def report_last_worked
-      @territories = Territory.where("last_worked != '' AND client_id = '#{session[:client_id]}'").order("last_worked ASC")
-    end
-
 
 
 

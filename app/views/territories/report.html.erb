@@ -21,11 +21,11 @@
   <table class="table table">
     <tr>
     <th>#</th>
-    <th><%=link_to("#{t :territory_status}","report_status") %></th>
-    <th><%=link_to("#{t :user_id}","report_cob") %></th>
+    <th><%="#{t :territory_status}"%></th>
+    <th><%= "#{t :user_id}"  %></th>
     <th><%=t :descriptiontion %> </th>
-    <th><%=link_to("#{t :checked_out}","report_co_date") %></th>
-    <th><%=link_to("#{t :last_worked}","report_last_worked") %></th>
+    <th><%= "#{t :checked_out}"  %></th>
+    <th><%= "#{t :last_worked}" %></th>
     <th><%= t :zone  %> </th>
     <th><%= t :address_count  %> </th>
     </tr>
@@ -56,7 +56,7 @@
     <td>
 
      <%if territory.is_checked_in == false %>
-       <%=territory.user_id%>
+       <%=territory.user.username%>
      <%end%>
 
     </td>

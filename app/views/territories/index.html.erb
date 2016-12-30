@@ -51,7 +51,7 @@
                     <%if territory.is_checked_in? %>
                     <%= link_to "#{t :check_out}",{controller: 'territories' ,:action=>"check_out",:id =>territory.id}, class: 'btn btn-primary', :confirm => "#{t :check_in_sure}"%>
                     <%else%>
-                    <%= link_to "#{t :check_in}", {controller: 'territories' ,:action=>"check_in",:id =>territory.id}, class: 'btn btn-primary'%>
+                    <%= link_to "#{t :check_in}- #{territory.user.username}", {controller: 'territories' ,:action=>"check_in",:id =>territory.id}, class: 'btn btn-primary'%>
                     <%end%>
                 </td>
                 <td><%=h territory.description %></td>

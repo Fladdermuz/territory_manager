@@ -35,12 +35,12 @@
 
                 <td>
                     <%=t :territory_status%>
-                    :
+                    <br>
 
                     <% if @territory.is_checked_in?%>
                     <%=t :available%>
                     <%else%>
-                    <%=t :unavailable%>
+                   
                     <%=t :user_id %>:
                     <%=h @territory.get_user_id %>
                     <%end%>

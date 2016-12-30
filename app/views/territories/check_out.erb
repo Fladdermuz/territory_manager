@@ -124,7 +124,13 @@
                       </icon>
                     </td>
                 </tr>
-
+                 <script>
+                 $('#is_client_admin').click(function(){
+                     if (this.checked) {
+                         $('#can_manage_hh').prop('checked', false).uniform();
+                     }
+                 })
+                 </script>
                 <tr>
                     <td>
                         <%=t :can_manage_hh %>
@@ -135,7 +141,13 @@
                       </icon>
                     </td>
                 </tr>
-
+                <script>
+                $('#can_manage_hh').click(function(){
+                    if (this.checked) {
+                        $('#is_client_admin').prop('checked', false).uniform();
+                    }
+                })
+                </script>
                 <tr>
                     <td>
                         <%=t :check_back_in %>

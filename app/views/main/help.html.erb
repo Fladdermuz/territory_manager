@@ -17,6 +17,12 @@
 
         <table class='table table-striped'>
             <tr>
+                <td style='max-width:40px;'>
+                    <icon class='fa fa-2x fa-question-circle' style='margin-left:-3px;margin-top:-9px;' title='<%=t :zone_help%>'></icon>
+
+                <br>
+                <%=t :step_1 %>
+              </td>
                 <td>
                     <%if @zones.count > 0 %>
                     <h5 class='tag'>
@@ -25,8 +31,6 @@
                     <%else%>
                     <%=link_to "#{t :step1_not}", {controller: "zones", action: "new"}, class: 'btn btn-warning help-btn' %>
                     <%end%>
-
-                    <icon class='fa fa-2x fa-question-circle' style='margin-left:-6px;padding-right:8px;float:left' title='<%=t :zone_help%>''></icon>
 
                 </td>
                 <td style='width:10%;'>
@@ -39,6 +43,9 @@
             </tr>
             <%if @zones.count > 0 %>
             <tr>
+                <td>
+                    <%=t :step_2 %>
+                </td>
                 <td>
                     <%if @zones_no_cords.count < 1 %>
                     <h5 class='tag'>
@@ -63,6 +70,9 @@
             <%if @zones.count > 0  %>
             <tr>
                 <td>
+                    <%=t :step_3 %>
+                </td>
+                <td>
                     <%if @territories.count > 0 %>
                     <h5 class='tag'>
                         <%= t :step3_done  %>
@@ -84,6 +94,9 @@
             <%if @territories.count > 0 %>
             <tr>
                 <td>
+                    <%=t :step_4 %>
+                </td>
+                <td>
                     <%if @territories_no_cords.count < 1 %>
                     <h5 class='tag'>
                         <%= t :step4_done  %>
@@ -92,7 +105,6 @@
                     <%else%>
 
                     <%=render 'main/terr_cord', territories: @territories_no_cords %>
-
 
                     <%end%>
 

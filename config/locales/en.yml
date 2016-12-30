@@ -1,4 +1,7 @@
 en:
+  no_longer_avail: "Sorry, this Territory has been checked back in and is no longer available!"
+  center_point_of_terrs: "Center Point Of Territories"
+  center_point_help: "This is where new maps will start out, so just choose something more or less near the center of your entire teritory. It does not have to be specific as it just serves as a default that will always be moved."
   expires: "Expires On "
   do_not_calls: "Do not calls"
   zone_help: "What is a zone? A zone is a large area that holds many territories. An example use of a zone would be dividing up your city into east and west zones to make managing it easier. You can do as many or as few zones as you like, but you must have at least one!"
@@ -14,6 +17,10 @@ en:
   can_manage_hh_help: "This means the User in NOT an admin and can only add householders to the territories they have been assigned. They can not check in or check out territories."
   can_manage_hh: "Can Manage Householders"
   check_back_in: "Check Back in Automatically On"
+  step_1: "Step 1"
+  step_2: "Step 2"
+  step_3: "Step 3"
+  step_4: "Step 4"
   step1_not: "Set Up a Zone!"
   step1_done: "Great, you have at least 1 Zone"
   step2_not: "Create Borders for your Zone!"

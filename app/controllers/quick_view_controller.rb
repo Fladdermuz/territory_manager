@@ -26,7 +26,7 @@ class QuickViewController < ApplicationController
     @territory = Territory.find_by(view_key: params[:key])
 
     if @territory.nil? || @territory.view_key.nil?
-      redirect_to :root
+      redirect_to controller: 'quick_view', action:'no_longer_avail'
       session[:user] = nil
     else
       session[:user] = @territory.user
@@ -43,7 +43,7 @@ class QuickViewController < ApplicationController
 
 
     if @territory.nil? || @territory.view_key.nil?
-      redirect_to :root
+      redirect_to controller: 'quick_view', action:'no_longer_avail'
       session[:user] = nil
     else
       @addresses = @territory.addresses
@@ -68,7 +68,7 @@ class QuickViewController < ApplicationController
 
 
     if current_user.can_manage_hh? && @territory.user_id != current_user.id
-      redirect_to :root
+      redirect_to controller: 'quick_view', action:'no_longer_avail'
     else
 
       @addresses = @territory.addresses

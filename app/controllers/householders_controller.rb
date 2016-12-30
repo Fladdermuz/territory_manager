@@ -12,7 +12,7 @@ class HouseholdersController < ApplicationController
      end
   end
 
- 
+
 
   def create
 
@@ -26,6 +26,8 @@ class HouseholdersController < ApplicationController
         flash[:notice] = t :creation_success
 
         case @hsource
+        when 'index_st'
+         format.html { redirect_to controller: 'addresses', action: 'index_street', street: @householder.address.street }
         when 'index_terr'
          format.html { redirect_to controller: 'addresses', action: 'index_terr', territory_id: @householder.address.territory_id }
        when 'addy'
@@ -51,6 +53,8 @@ class HouseholdersController < ApplicationController
         @hsource = params[:hsource]
 
         case @hsource
+        when 'index_st'
+         format.html { redirect_to controller: 'addresses', action: 'index_street', street: @householder.address.street }
         when 'index_terr'
          format.html { redirect_to controller: 'addresses', action: 'index_terr', territory_id: @householder.address.territory_id }
         when 'addy'

@@ -1,4 +1,7 @@
 es:
+  no_longer_avail: "Lo sentimos, este territorio ya no está disponible!"
+  center_point_of_terrs: "Punto Central de Territorios"
+  center_point_help: "Aquí es donde los nuevos mapas se inician, sólo tiene que elegir algo más o menos cerca del centro de todo su territorio. No tiene que ser específica, ya que sólo sirve como un valor predeterminado que siempre se moverán."
   expires: "Fecha de Vencimiento "
   do_not_calls: "Lista de no visitas"
   zone_help: "¿Qué es una zona? Una zona es un área grande que sostiene muchos territorios. Un ejemplo dividiría su ciudad en zonas del este y de Oeste para hacer la dirección de ello más fácil. Debe crear al menos una zona."
@@ -14,6 +17,10 @@ es:
   can_manage_hh_help: "Esto significa que el Usuario no es un administrador y sólo puede añadir amos de casa a los territorios asignados a el. No se pueden registrar o comprobar territorios."
   can_manage_hh: "Puede Editar Amos de Casa"
   check_back_in: "Vuelva automáticamente en"
+  step_1: "Paso 1"
+  step_2: "Paso 2"
+  step_3: "Paso 3"
+  step_4: "Paso 4"
   step1_not: "Establecer una zona!"
   step1_done: "Genial, tienes al menos 1 zona!"
   step2_not: "Crear las fronteras para su zona!"

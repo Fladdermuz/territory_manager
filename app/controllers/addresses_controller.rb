@@ -121,18 +121,17 @@ class AddressesController < ApplicationController
 
 
   def new_from_street
-    @house_no = params[:house_no]
+
     @street = params[:street]
     @city = params[:city]
-    @address = params[:address]
     @neighborhood = params[:neighborhood]
     @zip = params[:zip]
     @state = params[:state]
-
+    @territory_id = params[:territory_id]
     @householder = Householder.new
     #See create below.. if the user puts in a name it create the hh object.
     @address = Address.new
-
+    @address.householders.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -143,7 +142,7 @@ class AddressesController < ApplicationController
 def show_all_cords
 
   @street = params[:street]
-  @address = params[:address]  
+  @address = params[:address]
   @addresses = Address.where(client_id: session[:client_id], address_id: @address, street: @street).where.not(center_coordinate: '')
        respond_to do |format|
       format.html # new.html.erb

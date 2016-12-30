@@ -30,7 +30,7 @@
                 <td ><%= link_to "#{t :show_all}",{:controller=>"territories"},class: 'btn btn-center btn-primary'  %>
                 </td>
             </tr>
-             
+
 
             <tr>
                 <td><%= link_to "#{t :report}", {:controller => "territories", action: 'report' },class: 'btn btn-center btn-primary'  %>
@@ -50,10 +50,12 @@
                     <%end%>
                 </td>
             </tr>
+                <% if current_user.client.is_language_based? %>
             <tr>
                 <td>
                     <%= link_to "#{t :getbackup}", {:controller => "addresses", action: 'export'},class: 'btn btn-center btn-primary'  %></td>
             </tr>
+            <%end%>
             <tr>
                 <td></td>
             </tr>
